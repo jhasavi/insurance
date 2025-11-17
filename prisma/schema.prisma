@@ -1,0 +1,378 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  hashedPw  String?
+  role      Role     @default(CLIENT)
+  profile   Profile?
+  leads     Lead[]
+  policies  Policy[]
+  notes     Note[]
+  vehicles  Vehicle[]
+  properties Property[]
+  quotes    Quote[]
+  comparisonQuotes ComparisonQuote[]
+  policyAnalyses PolicyAnalysis[]
+  referrals Referral[]
+  bundleRecommendations BundleRecommendation[]
+  advisorySessions AdvisorySession[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Profile {
+  id        String @id @default(cuid())
+  userId    String @unique
+  firstName String?
+  lastName  String?
+  phone     String?
+  address   String?
+  city      String?
+  state     String?
+  zipCode   String?
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Vehicle {
+  id                String   @id @default(cuid())
+  userId           String
+  make             String
+  model            String
+  year             Int
+  vin              String?
+  mileage          Int?
+  parkingLocation  String?
+  primaryUse       String?
+  safetyFeatures   String[] 
+  user             User     @relation(fields: [userId], references: [id])
+  quotes           Quote[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("vehicles")
+}
+
+model Property {
+  id              String   @id @default(cuid())
+  userId          String
+  type            String   // Single family, condo, etc.
+  address         String
+  city            String
+  state           String
+  zipCode         String
+  yearBuilt       Int
+  squareFootage   Int
+  constructionType String
+  securityFeatures String[]
+  user            User     @relation(fields: [userId], references: [id])
+  quotes          Quote[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("properties")
+}
+
+model Quote {
+  id              String   @id @default(cuid())
+  userId          String
+  type            String   // AUTO or HOME
+  status          String   // DRAFT, SUBMITTED, APPROVED, etc.
+  premium         Float
+  coverage        Json     // Detailed coverage options
+  vehicleId       String?
+  propertyId      String?
+  vehicle         Vehicle? @relation(fields: [vehicleId], references: [id])
+  property        Property? @relation(fields: [propertyId], references: [id])
+  user            User     @relation(fields: [userId], references: [id])
+  aiSuggestions   Json?    // AI-generated coverage suggestions
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("quotes")
+}
+
+model Lead {
+  id           String     @id @default(cuid())
+  status       LeadStatus @default(NEW)
+  source       String?
+  contactEmail String
+  contactPhone String?
+  assignedTo   String?    // agent userId
+  user         User?      @relation(fields: [userId], references: [id])
+  userId       String?
+  intake       QuoteIntake?
+  notes        Note[]
+  attachments  Attachment[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("leads")
+}
+
+model QuoteIntake {
+  id        String        @id @default(cuid())
+  leadId    String        @unique
+  lead      Lead          @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  line      LineOfBusiness
+  json      Json          // store step answers (vehicles, drivers, property)
+  completed Boolean       @default(false)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@map("quote_intakes")
+}
+
+model Policy {
+  id        String        @id @default(cuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lob       LineOfBusiness
+  carrier   String?
+  number    String?
+  effective DateTime?
+  renewal   DateTime?
+  docsUrl   String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@map("policies")
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  body      String
+  createdAt DateTime @default(now())
+
+  @@map("notes")
+}
+
+model Attachment {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  filename  String
+  url       String
+  size      Int
+  mimeType  String
+  uploadedBy String
+  createdAt DateTime @default(now())
+
+  @@map("attachments")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String
+  resourceId String?
+  details   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+enum Role { 
+  ADMIN 
+  AGENT 
+  CLIENT 
+}
+
+enum LeadStatus { 
+  NEW 
+  WORKING 
+  QUOTED 
+  BOUND 
+  LOST 
+}
+
+enum LineOfBusiness { 
+  AUTO 
+  HOME 
+}
+
+// ============================================
+// MARKETPLACE FEATURES - Phase 1
+// ============================================
+
+// Insurance Carriers (Progressive, Lemonade, GEICO, etc.)
+model InsuranceCarrier {
+  id              String   @id @default(cuid())
+  name            String   @unique // "Progressive", "Lemonade", "GEICO"
+  slug            String   @unique // "progressive", "lemonade", "geico"
+  logo            String?
+  website         String?
+  apiEnabled      Boolean  @default(false)
+  apiEndpoint     String?
+  apiKey          String?  // Encrypted
+  linesOfBusiness String[] // ["AUTO", "HOME", "RENTERS"]
+  statesCovered   String[] // ["MA", "NH", "RI"]
+  rating          Float?   // AM Best rating or similar
+  financialStrength String? // A++, A+, etc.
+  comparisonQuotes ComparisonQuote[]
+  referrals       Referral[]
+  bundleRecommendationsAuto BundleRecommendation[] @relation("AutoCarrier")
+  bundleRecommendationsHome BundleRecommendation[] @relation("HomeCarrier")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("insurance_carriers")
+}
+
+// Multi-Carrier Quote Comparison
+model ComparisonQuote {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  carrierId       String
+  carrier         InsuranceCarrier @relation(fields: [carrierId], references: [id])
+  quoteType       String   // "AUTO", "HOME", "BUNDLE"
+  premium         Float    // Annual premium
+  monthlyPremium  Float
+  coverage        Json     // Detailed coverage breakdown
+  deductibles     Json     // Deductible options
+  discounts       Json     // Applied discounts
+  termLength      Int      @default(12) // 6 or 12 months
+  effectiveDate   DateTime?
+  expiresAt       DateTime
+  affiliateLink   String?  // Affiliate purchase link
+  referralFee     Float?   // Transparent commission amount
+  carrierRating   Float?   // AM Best or user rating
+  pros            String[] // Carrier strengths
+  cons            String[] // Carrier weaknesses
+  status          String   @default("ACTIVE") // ACTIVE, PURCHASED, EXPIRED
+  isManual        Boolean  @default(false) // Manual entry vs API
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("comparison_quotes")
+}
+
+// Policy Analysis (AI-Powered Scanner)
+model PolicyAnalysis {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  uploadedFileUrl   String   // Original policy document
+  fileName          String
+  fileSize          Int
+  extractedData     Json     // OCR + LLM parsed data
+  currentCarrier    String?
+  policyType        String   // "AUTO", "HOME", "LIFE", "UMBRELLA"
+  policyNumber      String?
+  currentPremium    Float?
+  coverage          Json     // Current coverage limits
+  deductibles       Json
+  aiInsights        Json     // Gap analysis, overpayment detection
+  benchmarkData     Json     // Market comparison
+  savingsOpportunity Float?  // Potential annual savings
+  recommendations   String[] // AI-generated suggestions
+  riskAreas         String[] // Identified coverage gaps
+  overinsuredAreas  String[] // Areas of potential overpayment
+  status            String   @default("ANALYZING") // ANALYZING, COMPLETE, FAILED
+  errorMessage      String?
+  processingTimeMs  Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("policy_analyses")
+}
+
+// Referral Tracking (Ethical & Transparent)
+model Referral {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  carrierId         String?
+  carrier           InsuranceCarrier? @relation(fields: [carrierId], references: [id])
+  referralType      String   // "QUOTE", "POLICY_PURCHASE", "ADVISORY"
+  referralSource    String?  // "REAL_ESTATE", "MORTGAGE", "DIRECT", "ORGANIC"
+  partnerName       String?  // e.g., "Namaste Boston Homes"
+  userConsented     Boolean  @default(false) // Explicit user consent
+  consentTimestamp  DateTime?
+  commissionAmount  Float?
+  commissionRate    Float?   // Percentage
+  commissionPaid    Boolean  @default(false)
+  paymentDate       DateTime?
+  purchaseConfirmed Boolean  @default(false)
+  policyNumber      String?
+  carrierPolicyId   String?
+  notes             String?
+  metadata          Json?    // Additional tracking data
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("referrals")
+}
+
+// Bundle Recommendations (Cross-Carrier Optimization)
+model BundleRecommendation {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  autoCarrierId     String?
+  autoCarrier       InsuranceCarrier? @relation("AutoCarrier", fields: [autoCarrierId], references: [id])
+  homeCarrierId     String?
+  homeCarrier       InsuranceCarrier? @relation("HomeCarrier", fields: [homeCarrierId], references: [id])
+  autoPremium       Float
+  homePremium       Float
+  totalPremium      Float
+  estimatedSavings  Float
+  savingsPercentage Float
+  bundleType        String   // "SAME_CARRIER", "CROSS_CARRIER", "OPTIMAL"
+  details           Json     // Breakdown of coverage + pricing
+  reasoning         String?  // AI explanation of recommendation
+  alternativeOptions Json?   // Other bundle combinations considered
+  expiresAt         DateTime
+  userViewed        Boolean  @default(false)
+  userAccepted      Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("bundle_recommendations")
+}
+
+// AI Chat/Advisory Sessions
+model AdvisorySession {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionType       String   @default("FREE_CHAT") // "FREE_CHAT", "PAID_REVIEW"
+  sessionTitle      String?
+  messages          Json[]   // Chat history with AI
+  policyFiles       String[] // Uploaded documents
+  reviewCompleted   Boolean  @default(false)
+  feePaid           Float    @default(0) // $0 for free, $20 for full review
+  paymentIntentId   String?  // Stripe payment intent
+  paymentStatus     String   @default("PENDING") // PENDING, PAID, REFUNDED
+  aiRecommendations Json?
+  agentAssigned     String?  // Optional human review
+  agentNotes        String?
+  satisfactionRating Int?    // 1-5 stars
+  userFeedback      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("advisory_sessions")
+}
