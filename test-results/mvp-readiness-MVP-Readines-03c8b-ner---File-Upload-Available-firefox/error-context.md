@@ -1,0 +1,153 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Safora" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img [ref=e5] [cursor=pointer]
+        - generic [ref=e7] [cursor=pointer]: Safora
+      - navigation [ref=e8]:
+        - link "Compare Quotes" [ref=e9] [cursor=pointer]:
+          - /url: /compare
+        - link "Scan Policy" [ref=e10] [cursor=pointer]:
+          - /url: /scan
+        - link "How It Works" [ref=e11] [cursor=pointer]:
+          - /url: /how-it-works
+        - link "Learn" [ref=e12] [cursor=pointer]:
+          - /url: /learn
+      - generic [ref=e13]:
+        - link "Sign In" [ref=e14] [cursor=pointer]:
+          - /url: /auth/signin
+        - link "Get Started" [ref=e15] [cursor=pointer]:
+          - /url: /auth/signin
+  - generic [ref=e16]:
+    - banner [ref=e17]:
+      - generic [ref=e19]:
+        - img [ref=e20]
+        - generic [ref=e22]: AI Policy Scanner
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - heading "Scan Your Current Policy" [level=1] [ref=e25]
+        - paragraph [ref=e26]: Upload your existing insurance policy and our AI will analyze it, identify gaps, and show you where you could save money.
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]:
+            - img [ref=e30]
+            - text: Upload Your Policy Document
+          - generic [ref=e34]: "Supported formats: PDF, PNG, JPG (Max 10MB)"
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - img [ref=e37]
+            - paragraph [ref=e43]: Drag and drop your policy document here, or click to browse
+            - generic [ref=e45]: Choose File
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - generic [ref=e50]:
+              - paragraph [ref=e51]: Your Privacy is Protected
+              - paragraph [ref=e52]: We don't sell your data. No spam calls. View quotes anonymously.
+      - generic [ref=e53]:
+        - generic [ref=e55]:
+          - img [ref=e57]
+          - heading "AI-Powered Analysis" [level=3] [ref=e63]
+          - paragraph [ref=e64]: Our AI scans your policy and extracts all coverage details automatically.
+        - generic [ref=e66]:
+          - img [ref=e68]
+          - heading "Find Savings" [level=3] [ref=e71]
+          - paragraph [ref=e72]: Discover where you're overpaying and see potential savings opportunities.
+        - generic [ref=e74]:
+          - img [ref=e76]
+          - heading "Identify Gaps" [level=3] [ref=e78]
+          - paragraph [ref=e79]: Get expert insights on coverage gaps and risk areas you should address.
+  - contentinfo [ref=e80]:
+    - generic [ref=e81]:
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - generic [ref=e84]:
+            - img [ref=e85]
+            - generic [ref=e87]: Namaste Insurance
+          - paragraph [ref=e88]: The transparent insurance marketplace. Compare quotes from 15+ carriers. Save an average of $847/year.
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - img [ref=e91]
+              - generic [ref=e94]: Boston, MA
+            - generic [ref=e95]:
+              - img [ref=e96]
+              - link "hello@namasteinsurance.com" [ref=e99] [cursor=pointer]:
+                - /url: mailto:hello@namasteinsurance.com
+            - generic [ref=e100]:
+              - img [ref=e101]
+              - link "(617) 555-0100" [ref=e103] [cursor=pointer]:
+                - /url: tel:+16175550100
+        - generic [ref=e104]:
+          - heading "Products" [level=3] [ref=e105]
+          - list [ref=e106]:
+            - listitem [ref=e107]:
+              - link "Auto Insurance" [ref=e108] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=e109]:
+              - link "Home Insurance" [ref=e110] [cursor=pointer]:
+                - /url: /compare
+            - listitem [ref=e111]:
+              - link "AI Policy Scanner" [ref=e112] [cursor=pointer]:
+                - /url: /scan
+            - listitem [ref=e113]:
+              - link "Bundle & Save" [ref=e114] [cursor=pointer]:
+                - /url: /compare
+        - generic [ref=e115]:
+          - heading "Company" [level=3] [ref=e116]
+          - list [ref=e117]:
+            - listitem [ref=e118]:
+              - link "About Us" [ref=e119] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e120]:
+              - link "How It Works" [ref=e121] [cursor=pointer]:
+                - /url: /how-it-works
+            - listitem [ref=e122]:
+              - link "Our Carriers" [ref=e123] [cursor=pointer]:
+                - /url: /carriers
+            - listitem [ref=e124]:
+              - link "Blog" [ref=e125] [cursor=pointer]:
+                - /url: /blog
+        - generic [ref=e126]:
+          - heading "Legal" [level=3] [ref=e127]
+          - list [ref=e128]:
+            - listitem [ref=e129]:
+              - link "Privacy Policy" [ref=e130] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e131]:
+              - link "Terms of Service" [ref=e132] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e133]:
+              - link "Licenses & Disclaimers" [ref=e134] [cursor=pointer]:
+                - /url: /licenses
+            - listitem [ref=e135]:
+              - link "Accessibility" [ref=e136] [cursor=pointer]:
+                - /url: /accessibility
+      - generic [ref=e137]:
+        - paragraph [ref=e139]:
+          - strong [ref=e140]: "Important Disclaimer:"
+          - text: Namaste Insurance is not an insurance company. We are a technology platform and marketplace that connects consumers with licensed insurance carriers. We do not underwrite, sell, or service insurance policies. All insurance products are offered by licensed carriers who are solely responsible for policy terms, pricing, and coverage decisions.
+        - paragraph [ref=e142]:
+          - strong [ref=e143]: "Commission Disclosure:"
+          - text: We earn referral commissions when you purchase insurance through our platform. Commission rates vary by carrier (typically 5-15% of annual premium) and are disclosed for each quote. These commissions help us provide free comparison tools and do not increase your premium. Our recommendations are based on coverage quality and price competitiveness, not commission amounts.
+        - paragraph [ref=e144]:
+          - strong [ref=e145]: "Licensing:"
+          - text: "Licensed in Massachusetts, New Hampshire, and Rhode Island. License numbers: MA #123456, NH #789012, RI #345678. Not all carriers are available in all states. Quotes are estimates based on information provided and are subject to carrier underwriting and approval. Your actual premium may differ."
+        - paragraph [ref=e146]:
+          - strong [ref=e147]: "AI Analysis Disclaimer:"
+          - text: Our AI-powered policy scanner uses machine learning to analyze insurance documents. While we strive for accuracy (typically 95%+), AI analysis is for informational purposes only and should not be relied upon as the sole basis for insurance decisions. Always verify information with your insurance carrier and consult a licensed agent for advice specific to your situation.
+        - paragraph [ref=e148]:
+          - strong [ref=e149]: "Data Privacy:"
+          - text: We are committed to protecting your privacy. Uploaded policy documents are encrypted, processed securely, and automatically deleted after 90 days. We do not sell your personal information. See our
+          - link "Privacy Policy" [ref=e150] [cursor=pointer]:
+            - /url: /privacy
+          - text: for details.
+      - generic [ref=e151]:
+        - paragraph [ref=e152]: © 2025 Namaste Insurance. All rights reserved.
+        - paragraph [ref=e153]: Made with ❤️ in Boston | Committed to transparency and trust
+  - button "Open Next.js Dev Tools" [ref=e159] [cursor=pointer]:
+    - img [ref=e160] [cursor=pointer]
+  - alert [ref=e164]
+```

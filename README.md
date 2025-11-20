@@ -194,8 +194,19 @@ Proprietary - All rights reserved
 
 ## 📞 Contact
 
-- Email: support@namasteinsurance.com
-- Website: [Coming Soon]
+- Location: Newton, MA
+- Email: insurance@namastebostonhomes.com
+- Phone: (617) 789-0100
+- Website: [https://namasteinsurance.com](https://namasteinsurance.com)
+## 📚 Educational & Support Pages
+
+- `/learn` — Insurance education, guides, glossary, and FAQs
+- `/glossary` — Common insurance terms explained
+- `/faq` — Frequently asked questions
+- `/contact` — Contact info and support
+- Custom 404 page for unknown routes
+
+All navigation links are tested for existence and content using Playwright E2E tests.
 
 ---
 

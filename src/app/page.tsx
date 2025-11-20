@@ -2,7 +2,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Shield, Brain, DollarSign, CheckCircle, TrendingDown, Star, Upload, BarChart3, Award, Zap } from "lucide-react"
+import { Shield, Brain, CheckCircle, TrendingDown, Upload, BarChart3 } from "lucide-react"
+import { Header } from "@/components/header"
 
 export default function HomePage() {
   return (

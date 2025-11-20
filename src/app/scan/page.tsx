@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Shield, Upload, FileText, CheckCircle, AlertCircle, TrendingDown, TrendingUp } from "lucide-react"
+import { Shield, Upload, FileText, CheckCircle, AlertCircle, TrendingDown } from "lucide-react"
 
 export default function PolicyScannerPage() {
   const [uploading, setUploading] = useState(false)
