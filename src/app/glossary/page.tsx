@@ -1,4 +1,4 @@
-import Link from "next/link";
+// ...existing code...
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export default function GlossaryPage() {
