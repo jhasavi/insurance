@@ -1,16 +1,42 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
+import type { Adapter } from "@auth/core/adapters"
 import EmailProvider from "next-auth/providers/email"
-import { prisma } from "@/lib/prisma"
 import { Resend } from "resend"
+import { env } from "./env"
+import { prisma } from "./prisma"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Local copy of DefaultSession shape for module augmentation, since this
+// version of next-auth does not export DefaultSession as a named type.
+type DefaultSession = {
+  user?: {
+    name?: string | null
+    email?: string | null
+    image?: string | null
+  } | null
+  expires: string
+}
+
+const resend = new Resend(env.RESEND_API_KEY)
+
+declare module "@auth/core/adapters" {
+  interface AdapterUser {
+    role: string
+  }
+}
 
 export const authOptions = {
-  adapter: PrismaAdapter(prisma) as any,
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     EmailProvider({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM || "noreply@safora.namastebostonhomes.com",
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: parseInt(process.env.EMAIL_SERVER_PORT || '587'),
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: env.EMAIL_FROM,
       async sendVerificationRequest({ identifier: email, url }) {
         try {
           await resend.emails.send({
@@ -105,7 +131,9 @@ export const authOptions = {
     },
   },
   session: {
+    strategy: "jwt" as const,
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   debug: process.env.NODE_ENV === "development",
+  secret: env.NEXTAUTH_SECRET,
 }
