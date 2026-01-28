@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: './tests',
   /* The base URL for your Next.js app. */
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3001',
     trace: 'on-first-retry',
   },
   projects: [
