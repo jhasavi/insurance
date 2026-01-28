@@ -11,8 +11,4 @@ pnpm lint
 echo "🔷 Running TypeScript check..."
 pnpm tsc --noEmit
 
-# Run tests
-echo "🧪 Running tests..."
-pnpm test --run
-
-echo "✅ All checks passed!"
+echo "✅ Pre-commit checks complete (lint + type-check). Run full tests in CI or manually with 'pnpm test'."

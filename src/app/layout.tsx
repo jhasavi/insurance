@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     default: "Namaste Insurance - Compare Auto & Home Insurance Quotes",
     template: "%s | Namaste Insurance"
   },
-  description: "Compare real insurance quotes from 15+ carriers including GEICO, Progressive, and State Farm. AI-powered policy analysis. Save an average of $847/year. No spam, just savings.",
   description: "Compare real insurance quotes from 15+ carriers. AI-powered policy analysis by Sanjeev Jha and Namaste Boston Homes. Save an average of $847/year.",
   keywords: ["auto insurance", "home insurance", "insurance comparison", "cheap insurance", "insurance quotes", "Sanjeev Jha", "Namaste Boston Homes"],
   authors: [{ name: "Sanjeev Jha" }, { name: "Namaste Boston Homes" }],
