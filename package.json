@@ -11,6 +11,7 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
+    "generate:pdfs": "node ./scripts/generate_pdfs.mjs",
     "type-check": "tsc --noEmit",
     "postinstall": "prisma generate && husky install"
   },

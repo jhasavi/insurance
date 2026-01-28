@@ -10,9 +10,16 @@ export function LifeInsuranceTool() {
   const [mortgage, setMortgage] = useState<number | "">("")
   const [children, setChildren] = useState<number | "">("")
   const [goal, setGoal] = useState<string>("Income Replacement")
+  const [replacementYears, setReplacementYears] = useState<number>(10)
+  const [inflationRate, setInflationRate] = useState<number>(3)
+  const [tobaccoUse, setTobaccoUse] = useState<boolean>(false)
+  const [healthRating, setHealthRating] = useState<string>('Standard')
+  const [email, setEmail] = useState<string>('')
+  const [unlocked, setUnlocked] = useState<boolean>(false)
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const liveRegionRef = useRef<HTMLDivElement | null>(null)
+  const [productMapping, setProductMapping] = useState<any>(null)
 
   const toNumber = (v: number | string | "") => {
     if (v === "") return 0
@@ -24,12 +31,19 @@ export function LifeInsuranceTool() {
     const m = toNumber(mortgage)
     const inc = toNumber(income)
     const c = toNumber(children)
-    return d + m + inc * 10 + c * 100000
+    // Apply replacement years and inflation multiplier to preserve purchasing power over 20 years
+    const years = replacementYears || 10
+    const infl = (1 + (Number(inflationRate) || 0) / 100)
+    const inflationMultiplier = Math.pow(infl, 20)
+    const incomeReplacement = inc * years * inflationMultiplier
+    return d + m + incomeReplacement + c * 100000
   }
 
   const recommendType = () => {
     const a = toNumber(age)
     if (goal === "Budget-Friendly") return { type: "Level Term", perm: false }
+    // New logic: Wealth Accumulation for younger clients -> IUL
+    if (goal === 'Wealth Accumulation' && a < 50) return { type: 'Indexed Universal Life (IUL)', perm: true, features: ['Cash Value Growth', 'Tax-Free Loans'] }
     if (a > 50 && goal === "Wealth Transfer") return { type: "Whole Life", perm: true }
     return { type: "Level Term", perm: false }
   }
@@ -53,8 +67,22 @@ export function LifeInsuranceTool() {
         if (obj.mortgage !== undefined) setMortgage(obj.mortgage)
         if (obj.children !== undefined) setChildren(obj.children)
         if (obj.goal !== undefined) setGoal(obj.goal)
+        if (obj.replacementYears !== undefined) setReplacementYears(obj.replacementYears)
+        if (obj.inflationRate !== undefined) setInflationRate(obj.inflationRate)
+        if (obj.tobaccoUse !== undefined) setTobaccoUse(obj.tobaccoUse)
+        if (obj.healthRating !== undefined) setHealthRating(obj.healthRating)
+        if (obj.email !== undefined) setEmail(obj.email)
+        if (obj.unlocked !== undefined) setUnlocked(obj.unlocked)
       }
-    } catch (e) {}
+    } catch {}
+  }, [])
+
+  useEffect(() => {
+    // Load static product mapping from public folder
+    fetch('/product-mapping.json')
+      .then((r) => r.json())
+      .then((m) => setProductMapping(m))
+      .catch(() => setProductMapping(null))
   }, [])
 
   const handleSubmit = (e?: React.FormEvent) => {
@@ -70,9 +98,9 @@ export function LifeInsuranceTool() {
       return
     }
 
-    const payload = { age, income, debt, mortgage, children, goal }
-    try { localStorage.setItem("lifeInsuranceInput", JSON.stringify(payload)) } catch (e) {}
-    try { console.log("analytics:event", "life_insurance_submitted", payload) } catch (e) {}
+    const payload = { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email }
+    try { localStorage.setItem("lifeInsuranceInput", JSON.stringify(payload)) } catch {}
+    try { console.log("analytics:event", "life_insurance_submitted", payload) } catch {}
 
     setSubmitted(true)
     if (liveRegionRef.current) {
@@ -89,7 +117,7 @@ export function LifeInsuranceTool() {
     setGoal("Income Replacement")
     setSubmitted(false)
     setErrors({})
-    try { localStorage.removeItem("lifeInsuranceInput") } catch (e) {}
+    try { localStorage.removeItem("lifeInsuranceInput") } catch {}
   }
 
   const coverage = computeCoverage()
@@ -99,24 +127,35 @@ export function LifeInsuranceTool() {
   const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 })
 
   const carrierMatches = () => {
-    // Suggested carrier/product mapping (confirm product codes with carrier/WFG)
-    if (rec.type?.toLowerCase().includes("term")) {
+    // Use static mapping when available to show carrier-specific product names
+    const mapping = productMapping || {}
+    const trans = mapping.transamerica || {}
+    const wfg = mapping.wfg || {}
+
+    if (rec.type?.toLowerCase().includes('term')) {
       return [
-        { carrier: "Transamerica", product: "Level Term (10/15/20/30)", notes: "Good for budget-friendly income replacement; competitive underwriting" },
-        { carrier: "WFG-distributed Term", product: "Partner Term Options", notes: "Varies by carrier; suitable for term comparisons" },
+        { carrier: 'Transamerica', product: trans.term?.name || 'Level Term (10/15/20/30)', notes: trans.term?.notes || 'Good for budget-friendly income replacement; competitive underwriting' },
+        { carrier: 'WFG', product: wfg.term?.name || 'Partner Term Options', notes: wfg.term?.notes || 'Varies by carrier; suitable for term comparisons' }
       ]
     }
 
-    if (rec.type?.toLowerCase().includes("whole")) {
+    if (rec.type?.toLowerCase().includes('whole')) {
       return [
-        { carrier: "Transamerica", product: "Whole Life", notes: "Stable permanent coverage for wealth transfer; cash value accumulation" },
-        { carrier: "WFG", product: "Whole Life Partners", notes: "Agency-distributed whole life options to consider" },
+        { carrier: 'Transamerica', product: trans.whole?.name || 'Whole Life', notes: trans.whole?.notes || 'Stable permanent coverage for wealth transfer; cash value accumulation' },
+        { carrier: 'WFG', product: wfg.whole?.name || 'Whole Life Partners', notes: wfg.whole?.notes || 'Agency-distributed whole life options to consider' }
       ]
     }
 
-    // default suggestions
+    // IUL recommendations
+    if (rec.type?.toLowerCase().includes('iul') || rec.type?.toLowerCase().includes('indexed')) {
+      return [
+        { carrier: 'Transamerica', product: trans.products?.financialFoundationIUL?.name || 'Financial Foundation IUL', notes: trans.products?.financialFoundationIUL?.notes || 'IUL with upside tied to indices' },
+        { carrier: 'Transamerica', product: trans.products?.trendsetterIUL?.name || 'Trendsetter IUL', notes: trans.products?.trendsetterIUL?.notes || 'IUL alternative' }
+      ]
+    }
+
     return [
-      { carrier: "Transamerica", product: "Level Term / Whole Life", notes: "Contact carrier rep for best-fit product" },
+      { carrier: 'Transamerica', product: (trans.term?.name || 'Level Term') + ' / ' + (trans.whole?.name || 'Whole Life'), notes: 'Contact carrier rep for best-fit product' }
     ]
   }
 
@@ -186,6 +225,11 @@ export function LifeInsuranceTool() {
         </ul>
       </div>
 
+      <div class="card">
+        <strong>Raw Recommendation Payload</strong>
+        <pre style="white-space:pre-wrap; background:#f9fafb; padding:8px; border-radius:6px;">${JSON.stringify(payload, null, 2)}</pre>
+      </div>
+
       <div class="muted">Prepared by Safora — confirm carrier product names and offer details with underwriting/broker portal.</div>
     </body>
     </html>`
@@ -223,6 +267,21 @@ export function LifeInsuranceTool() {
               <input aria-invalid={!!errors.income} aria-describedby={errors.income ? "income-error" : undefined} type="number" min={0} value={income === "" ? "" : income} onChange={(e) => setIncome(e.target.value === "" ? "" : Number(e.target.value))} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required />
               {errors.income && <p id="income-error" className="mt-1 text-xs text-red-600">{errors.income}</p>}
             </label>
+            <div className="grid grid-cols-2 gap-4">
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">Replacement Years</span>
+                <select value={replacementYears} onChange={(e) => setReplacementYears(Number(e.target.value))} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                  <option value={5}>5 years</option>
+                  <option value={10}>10 years</option>
+                  <option value={15}>15 years</option>
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">Inflation Rate (annual %)</span>
+                <input type="number" min={0} step={0.1} value={inflationRate} onChange={(e) => setInflationRate(Number(e.target.value))} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+              </label>
+            </div>
           </div>
         )}
 
@@ -253,6 +312,26 @@ export function LifeInsuranceTool() {
                 <option>Income Replacement</option>
                 <option>Wealth Transfer</option>
                 <option>Budget-Friendly</option>
+                <option>Wealth Accumulation</option>
+              </select>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-medium text-gray-700">Tobacco Use</span>
+              <div className="mt-1">
+                <label className="inline-flex items-center">
+                  <input type="checkbox" checked={tobaccoUse} onChange={(e) => setTobaccoUse(e.target.checked)} className="mr-2" />
+                  <span className="text-sm">Tobacco / Nicotine use</span>
+                </label>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-medium text-gray-700">Basic Health Rating</span>
+              <select value={healthRating} onChange={(e) => setHealthRating(e.target.value)} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <option>Standard</option>
+                <option>Preferred</option>
+                <option>Super Preferred</option>
               </select>
             </label>
           </div>
@@ -300,17 +379,74 @@ export function LifeInsuranceTool() {
           </div>
 
           <div className="mt-4 text-sm text-gray-600">
-            <strong>Notes:</strong> Coverage calculated with the DIME formula: Debt + Mortgage + (Income × 10) + (Children × $100,000). Adjust with agent advice as needed.
+            <strong>Notes:</strong> Coverage calculated with the DIME formula: Debt + Mortgage + (Income × Replacement Years × inflation adjustment over 20 years) + (Children × $100,000). Adjust with agent advice as needed.
+          </div>
+
+          {/* Suggested Strategy */}
+          <div className="mt-4 bg-gray-50 p-4 rounded-md">
+            <div className="text-sm font-medium text-gray-700">Suggested Strategy</div>
+            <div className="mt-2 text-sm text-gray-600">
+              { (toNumber(mortgage) > 0 && toNumber(children) > 0 && toNumber(age) < 50) ? (
+                <div>
+                  We suggest splitting coverage into two term policies to optimize premium costs: one policy to cover the mortgage and a second policy to cover family replacement needs. Example split:
+                  <ul className="list-disc pl-5 mt-2">
+                    <li><strong>Mortgage:</strong> {fmt.format(Number(mortgage || 0))} — {termLength ? `${termLength} years` : 'term as appropriate'}</li>
+                    <li><strong>Family / Income Replacement:</strong> {fmt.format(Math.max(0, coverage - Number(mortgage || 0)))} — {termLength ? `${termLength} years` : 'term as appropriate'}</li>
+                  </ul>
+                </div>
+              ) : (
+                <div>Standard strategy: recommend the product that best fits the client's goal and budget. Consider laddering term lengths where appropriate.</div>
+              )}
+            </div>
+          </div>
+
+          {/* Gated details */}
+          <div className="mt-4">
+            <div className="text-sm font-medium text-gray-700">Details</div>
+            {!unlocked ? (
+              <div className="mt-2">
+                <div className="text-sm text-gray-600">Full DIME Breakdown and carrier-specific recommendations are available after you provide an email.</div>
+                <div className="mt-2 flex gap-2">
+                  <input placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="block w-full rounded-md border-gray-200 shadow-sm p-2" />
+                  <button onClick={() => {
+                    const re = /^\S+@\S+\.\S+$/
+                    if (!email || !re.test(email)) { alert('Please enter a valid email'); return }
+                    setUnlocked(true)
+                    try { localStorage.setItem('lifeInsuranceInput', JSON.stringify({ age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email, unlocked: true })) } catch {} 
+                  }} className="inline-flex items-center px-3 py-2 bg-indigo-600 text-white rounded-md">Unlock Details</button>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-2 space-y-3">
+                <div className="text-sm text-gray-700">Full DIME Breakdown:</div>
+                <div className="text-sm text-gray-600">
+                  Debt: {fmt.format(Number(debt || 0))}<br />
+                  Mortgage: {fmt.format(Number(mortgage || 0))}<br />
+                  Income replacement ({replacementYears}×, inflation_adj): {fmt.format(toNumber(income) * replacementYears * Math.pow(1 + (Number(inflationRate) || 0)/100, 20))}<br />
+                  Children: {fmt.format(toNumber(children) * 100000)}<br />
+                  <strong>Total:</strong> {fmt.format(coverage)}
+                </div>
+
+                <div>
+                  <div className="text-sm font-medium text-gray-700">Specific Carrier Recommendations</div>
+                  <ul className="mt-2 list-disc pl-5 text-sm text-gray-600">
+                    {carrierMatches().map((c, i) => (
+                      <li key={i}><strong>{c.carrier}:</strong> {c.product} — {c.notes}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="mt-4 flex items-center gap-3">
             <button type="button" onClick={() => {
-              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal } }
+              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
               try { navigator.clipboard.writeText(JSON.stringify(payload, null, 2)); alert('Recommendation copied to clipboard') } catch (e) { console.log(e) }
             }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Copy Result</button>
 
             <button type="button" onClick={() => {
-              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal } }
+              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
               const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
               const url = URL.createObjectURL(blob)
               const a = document.createElement('a')
@@ -321,6 +457,26 @@ export function LifeInsuranceTool() {
               a.remove()
               URL.revokeObjectURL(url)
             }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Download JSON</button>
+            <button type="button" onClick={async () => {
+              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
+              try {
+                const res = await fetch('/api/recommendation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+                const json = await res.json()
+                if (json?.ok) {
+                  alert('Saved recommendation to demo storage')
+                } else {
+                  alert('Save failed')
+                }
+              } catch (e) { console.error(e); alert('Save failed') }
+            }} className="inline-flex items-center px-3 py-2 border border-indigo-600 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Save to CRM</button>
+
+            <button type="button" onClick={() => printOnePager()} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Print</button>
+
+            <button type="button" onClick={() => {
+              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
+              const calendlyUrl = 'https://calendly.com/your-organization/consult?data=' + encodeURIComponent(JSON.stringify(payload))
+              window.open(calendlyUrl, '_blank')
+            }} className="inline-flex items-center px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700">Schedule Consultation</button>
           </div>
         </div>
       )}

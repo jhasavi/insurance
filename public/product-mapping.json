@@ -1,0 +1,40 @@
+{
+  "transamerica": {
+    "term": {
+      "name": "Transamerica Level Term",
+      "variants": ["10 year", "15 year", "20 year", "30 year"],
+      "notes": "Competitive term products; good for income replacement and laddering."
+    },
+    "whole": {
+      "name": "Transamerica Whole Life",
+      "notes": "Permanent coverage for wealth transfer and guaranteed cash value." 
+    },
+    "products": {
+      "trendsetterSuper": {
+        "name": "Trendsetter Super",
+        "type": "term",
+        "notes": "Highly rated term product with multiple term lengths"
+      },
+      "financialFoundationIUL": {
+        "name": "Financial Foundation IUL",
+        "type": "iul",
+        "notes": "Indexed Universal Life option with upside potential and tax-advantaged cash value"
+      },
+      "trendsetterIUL": {
+        "name": "Trendsetter IUL",
+        "type": "iul",
+        "notes": "IUL alternative for wealth accumulation and downside protection"
+      }
+    }
+  },
+  "wfg": {
+    "term": {
+      "name": "WFG Partner Term",
+      "notes": "Agency-distributed term options; carrier varies by state and appetite."
+    },
+    "whole": {
+      "name": "WFG Whole Life Partners",
+      "notes": "Whole life options available through WFG distribution channels." 
+    }
+  }
+}
