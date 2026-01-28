@@ -73,6 +73,22 @@ Example mapping (generic, ready to be replaced with carrier-specific names):
 4. Improve product logic (consider health, smoker status, occupation class) and add premium estimates.
 5. Add unit tests for the recommendation logic and integrate into CI.
 
+## Recent Feature Additions (implementation notes)
+
+- Inflation & Replacement Years: the DIME income replacement now supports a selectable replacement-years multiplier (5, 10, 15) and an annual inflation toggle (default 3%). The recommendation uses compound inflation over a 20-year horizon to keep benefit purchasing power aligned with long-term needs.
+
+- Wealth Accumulation (IUL) branch: when `Primary Goal` = `Wealth Accumulation` and client age < 50, the tool recommends `Indexed Universal Life (IUL)` and surfaces features such as `Cash Value Growth` and `Tax-Free Loans` for agents to discuss with prospects.
+
+- Suggested Strategy: if the client reports both a mortgage and young children, the tool recommends splitting the total coverage into two term policies (one sized to mortgage payoff, one sized to family/income replacement) to reduce current premium outlay while preserving coverage for critical needs.
+
+- Gated Details: the tool shows the recommended product type and headline coverage for free; to view the full DIME breakdown and carrier-specific recommendations the user provides an email (unlock). This supplies a small lead capture flow and allows delivery of the one-pager by email.
+
+- Underwriting Toggles: added `Tobacco Use` and a basic `Health Rating` (Standard, Preferred, Super Preferred) which update the `Underwriting Highlights` text in the results. These do not change the coverage math but provide agent-facing talking points.
+
+- Carrier Mapping Placeholder: Transamerica product placeholders (e.g., `Trendsetter Super`, `Financial Foundation IUL`, `Trendsetter IUL`) were added as a static mapping file (`public/product-mapping.json`). The recommendation engine pulls product names from this mapping as placeholders until you provide exact product SKUs or URLs.
+
+- Schedule CTA: a `Schedule Consultation` button packages the tool's JSON results into a `data` query parameter and opens a Calendly booking URL (replace with your booking link). This allows agents/prospects to schedule meetings pre-populated with the recommendation context.
+
 ---
 If you want, I can now map to exact Transamerica/WFG products — please paste the product names or carrier links you want used, or let me fetch again if you prefer I retry automated extraction (I can attempt more pages or use a manual selection mode).
 
