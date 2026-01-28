@@ -125,3 +125,25 @@ These are recommended business-level choices to present to leadership for how th
   3. Full launch with carrier mappings, premium ranges, and CRM plumbing.
 
 Update policy: any strategic change in product mapping, carrier prioritization, or sales plays will be reflected in this `SELECT.md` (business decisions only), not in technical docs.
+
+## Navigation, Engagement & SEO — Strategic Decisions
+
+- Menu placement: add `Life Insurance` under the primary navigation and a `Tools` submenu grouping (Compare, Scan, Life Insurance). This increases discoverability for agents and customers searching specifically for life insurance guidance.
+
+- Homepage prioritization: include a clear CTA to the `Life Insurance Tool` in the hero area to drive adoption from high-intent visitors.
+
+- Engagement metric: surface a lightweight `Engagement` badge in the header to encourage internal adoption tracking; use the badge score as a KPI in agent dashboards and sales huddles (do not expose algorithm details publicly).
+
+- SEO & authorship: surface `Sanjeev Jha` and `Namaste Boston Homes` in site metadata and content where authorship/credibility matters (home hero, about page, and one-pager email footers). This supports brand/author search and local SEO in Boston.
+
+- Sitemap & discovery: ensure `/life-insurance` is included in the sitemap and referenced from the footer and main nav; monitor indexing for `Sanjeev Jha` and `Namaste Boston Homes` related queries in Google Search Console.
+
+- CTAs & funnels: route `Life Insurance` leads to a short booking flow or agent handoff (Calendly or in-house scheduler) with the recommendation context prefilled to reduce friction and increase conversion.
+
+- Measurement: track `tools run`, `unlock email captures`, `schedule consults`, and `save-to-CRM` as primary KPIs for the life-insurance funnel. Use 90-day pilot to measure conversion lift and refine messaging.
+
+- Content strategy: create a short `Life Insurance 101` guide targeted to Boston homeowners (mentioning Namaste Boston Homes contextually) to capture search intent and support SEO landing pages.
+
+- UX priority: keep the Life tool entrypoint lightweight (3-step flow) and emphasize transparency (DIME breakdown) above the fold to increase trust and reduce churn.
+
+- Rollout approach: start with agent-only beta, then public pilot; use agent feedback to tune messaging and product mappings before wider launch.

@@ -56,6 +56,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/life-insurance" className="text-gray-600 hover:text-blue-600">
+                  Life Insurance Tool
+                </Link>
+              </li>
+              <li>
                 <Link href="/compare" className="text-gray-600 hover:text-blue-600">
                   Bundle & Save
                 </Link>

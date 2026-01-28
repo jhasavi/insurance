@@ -34,6 +34,12 @@ export default function HomePage() {
                 Scan Your Policy
               </Link>
             </Button>
+            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white" asChild>
+              <Link href="/life-insurance">
+                <CheckCircle className="mr-2 h-5 w-5" />
+                Life Insurance Tool
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

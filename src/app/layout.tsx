@@ -23,11 +23,12 @@ export const metadata: Metadata = {
     template: "%s | Namaste Insurance"
   },
   description: "Compare real insurance quotes from 15+ carriers including GEICO, Progressive, and State Farm. AI-powered policy analysis. Save an average of $847/year. No spam, just savings.",
-  keywords: ["auto insurance", "home insurance", "insurance comparison", "cheap insurance", "insurance quotes", "compare insurance", "best insurance rates"],
-  authors: [{ name: "Namaste Insurance" }],
+  description: "Compare real insurance quotes from 15+ carriers. AI-powered policy analysis by Sanjeev Jha and Namaste Boston Homes. Save an average of $847/year.",
+  keywords: ["auto insurance", "home insurance", "insurance comparison", "cheap insurance", "insurance quotes", "Sanjeev Jha", "Namaste Boston Homes"],
+  authors: [{ name: "Sanjeev Jha" }, { name: "Namaste Boston Homes" }],
   openGraph: {
     title: "Namaste Insurance - Transparent Insurance Marketplace",
-    description: "Compare real insurance quotes from 15+ carriers. AI-powered policy analysis. Save money without the spam.",
+    description: "Compare real insurance quotes from 15+ carriers. AI-powered policy analysis by Sanjeev Jha and Namaste Boston Homes.",
     type: "website",
     locale: "en_US",
     siteName: "Namaste Insurance",

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { UserNav } from "./user-nav"
+import { EngagementBadge } from "./EngagementBadge"
 import { Shield } from "lucide-react"
 
 export function Header() {
@@ -31,7 +32,10 @@ export function Header() {
           </Link>
         </nav>
 
-        <UserNav />
+        <div className="flex items-center gap-4">
+          <EngagementBadge />
+          <UserNav />
+        </div>
       </div>
     </header>
   )
