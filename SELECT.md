@@ -75,3 +75,37 @@ Example mapping (generic, ready to be replaced with carrier-specific names):
 
 ---
 If you want, I can now map to exact Transamerica/WFG products — please paste the product names or carrier links you want used, or let me fetch again if you prefer I retry automated extraction (I can attempt more pages or use a manual selection mode).
+
+## Strategic Business Decisions (agent-level — no technical details)
+
+These are recommended business-level choices to present to leadership for how the tool should operate, the products to offer, and the sales motions tied to each recommendation.
+
+- Product Offering Scope: limit initial public recommendations to two clear paths: Affordable Term (10/15/20/30) and Permanent (Whole Life / UL/IUL) for estate/transfer goals. This keeps the tool simple and reduces compliance complexity while covering the majority of client needs.
+
+- Carrier Prioritization: present Transamerica as the primary carrier (since you work with them) with WFG-distributed alternatives for clients who need different underwriting pathways. Display a clear "Why this carrier" note (pricing, underwriting strength, product fit) so agents can justify selection.
+
+- Recommendation Transparency: always show the DIME calculation line-by-line and the decision logic (goal + age bucket). Agents and clients should see why the recommendation was made — this improves trust and reduces follow-up questions.
+
+- Sales Playbook per Recommendation:
+  - Budget-Friendly / Level Term: Position as short-to-medium income protection; emphasize affordability, term laddering, and conversion options (if available). Prioritize fast-issue products and simplified underwriting to close quickly.
+  - Wealth Transfer / Whole Life: Position as long-term estate planning; highlight cash value, guaranteed death benefit, and tax-favored transfer. Recommend permanent products when legacy is the primary goal.
+  - Income Replacement default path: present as Level Term with suggested term length tied to youngest dependent or mortgage payoff horizon.
+
+- Cross-sell & Bundling: when a life recommendation is generated, surface relevant cross-sell opportunities (mortgage protection, disability income, critical illness) and a suggested script. Track conversions to measure lift.
+
+- Compliance & Disclosures: include standard, state-specific disclaimers on the one-pager and in the email template (agent must verify state availability). Keep a short, plain-language disclosure that the tool provides suggestions and is not a carrier quote.
+
+- Pricing & Premium Guidance: for the demo, use ballpark premium ranges only (low/typical/high) and clearly mark them as estimates. Do not display firm premiums unless integrated with carrier rate tables or broker APIs.
+
+- Underwriting Pathway Strategy: prefer products that support simplified issue or accelerated underwriting for the Budget-Friendly segment to increase placement rates and speed to issue. For higher face amounts or wealth-transfer cases, route to full underwriting with advanced sales support.
+
+- Lead Handling & Follow-up: when an agent clicks "Save to CRM" capture the scenario, recommended product, and a short agent note template. Trigger an automated follow-up task or email template to the prospect within 24 hours.
+
+- Pilot Metrics (90-day pilot): measure adoption (# tools run), conversion-to-lead, lead-to-app, time-to-quote, and agent feedback score. Use these to justify expanding to premium estimates and automated carrier mapping.
+
+- Go-To-Market Phases:
+  1. Internal pilot with agents — gather qualitative feedback and fix UX.
+  2. Soft launch to a subset of clients — measure conversions and issues.
+  3. Full launch with carrier mappings, premium ranges, and CRM plumbing.
+
+Update policy: any strategic change in product mapping, carrier prioritization, or sales plays will be reflected in this `SELECT.md` (business decisions only), not in technical docs.
