@@ -1,7 +1,7 @@
 # Page snapshot
 
 ```yaml
-- generic [ref=e1]:
+- generic [active] [ref=e1]:
   - banner [ref=e2]:
     - generic [ref=e3]:
       - link "Safora" [ref=e4] [cursor=pointer]:
@@ -38,122 +38,122 @@
         - generic [ref=e29]:
           - generic [ref=e30]:
             - generic [ref=e31]: Email address
-            - textbox "Email address" [active] [ref=e32]
-          - button "Sign in with email" [disabled]:
+            - textbox "Email address" [ref=e32]: test@example.com
+          - button "Sign in with email" [ref=e33]:
             - img
             - text: Sign in with email
-        - generic [ref=e34]:
-          - generic [ref=e35]: 🔒
-          - generic [ref=e36]:
-            - paragraph [ref=e37]: Privacy-first authentication
-            - list [ref=e38]:
-              - listitem [ref=e39]: ✓ No password to remember or reset
-              - listitem [ref=e40]: ✓ Secure magic links expire in 24 hours
-              - listitem [ref=e41]: ✓ We never share your email
-    - paragraph [ref=e42]:
+        - generic [ref=e35]:
+          - generic [ref=e36]: 🔒
+          - generic [ref=e37]:
+            - paragraph [ref=e38]: Privacy-first authentication
+            - list [ref=e39]:
+              - listitem [ref=e40]: ✓ No password to remember or reset
+              - listitem [ref=e41]: ✓ Secure magic links expire in 24 hours
+              - listitem [ref=e42]: ✓ We never share your email
+    - paragraph [ref=e43]:
       - text: By signing in, you agree to our
-      - link "Terms of Service" [ref=e43] [cursor=pointer]:
+      - link "Terms of Service" [ref=e44] [cursor=pointer]:
         - /url: /terms
       - text: and
-      - link "Privacy Policy" [ref=e44] [cursor=pointer]:
+      - link "Privacy Policy" [ref=e45] [cursor=pointer]:
         - /url: /privacy
-  - contentinfo [ref=e45]:
-    - generic [ref=e46]:
-      - generic [ref=e47]:
-        - generic [ref=e48]:
-          - generic [ref=e49]:
-            - img [ref=e50]
-            - generic [ref=e52]: Namaste Insurance
-          - paragraph [ref=e53]: The transparent insurance marketplace. Compare quotes from 15+ carriers. Save an average of $847/year.
-          - generic [ref=e54]:
-            - generic [ref=e55]:
-              - img [ref=e56]
-              - generic [ref=e59]: Boston, MA
-            - generic [ref=e60]:
-              - img [ref=e61]
-              - link "hello@namasteinsurance.com" [ref=e64] [cursor=pointer]:
+  - contentinfo [ref=e46]:
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - img [ref=e51]
+            - generic [ref=e53]: Namaste Insurance
+          - paragraph [ref=e54]: The transparent insurance marketplace. Compare quotes from 15+ carriers. Save an average of $847/year.
+          - generic [ref=e55]:
+            - generic [ref=e56]:
+              - img [ref=e57]
+              - generic [ref=e60]: Boston, MA
+            - generic [ref=e61]:
+              - img [ref=e62]
+              - link "hello@namasteinsurance.com" [ref=e65] [cursor=pointer]:
                 - /url: mailto:hello@namasteinsurance.com
-            - generic [ref=e65]:
-              - img [ref=e66]
-              - link "(617) 555-0100" [ref=e68] [cursor=pointer]:
+            - generic [ref=e66]:
+              - img [ref=e67]
+              - link "(617) 555-0100" [ref=e69] [cursor=pointer]:
                 - /url: tel:+16175550100
-        - generic [ref=e69]:
-          - heading "Products" [level=3] [ref=e70]
-          - list [ref=e71]:
-            - listitem [ref=e72]:
-              - link "Auto Insurance" [ref=e73] [cursor=pointer]:
+        - generic [ref=e70]:
+          - heading "Products" [level=3] [ref=e71]
+          - list [ref=e72]:
+            - listitem [ref=e73]:
+              - link "Auto Insurance" [ref=e74] [cursor=pointer]:
                 - /url: /compare
-            - listitem [ref=e74]:
-              - link "Home Insurance" [ref=e75] [cursor=pointer]:
+            - listitem [ref=e75]:
+              - link "Home Insurance" [ref=e76] [cursor=pointer]:
                 - /url: /compare
-            - listitem [ref=e76]:
-              - link "AI Policy Scanner" [ref=e77] [cursor=pointer]:
+            - listitem [ref=e77]:
+              - link "AI Policy Scanner" [ref=e78] [cursor=pointer]:
                 - /url: /scan
-            - listitem [ref=e78]:
-              - link "Bundle & Save" [ref=e79] [cursor=pointer]:
+            - listitem [ref=e79]:
+              - link "Bundle & Save" [ref=e80] [cursor=pointer]:
                 - /url: /compare
-        - generic [ref=e80]:
-          - heading "Company" [level=3] [ref=e81]
-          - list [ref=e82]:
-            - listitem [ref=e83]:
-              - link "About Us" [ref=e84] [cursor=pointer]:
+        - generic [ref=e81]:
+          - heading "Company" [level=3] [ref=e82]
+          - list [ref=e83]:
+            - listitem [ref=e84]:
+              - link "About Us" [ref=e85] [cursor=pointer]:
                 - /url: /about
-            - listitem [ref=e85]:
-              - link "How It Works" [ref=e86] [cursor=pointer]:
+            - listitem [ref=e86]:
+              - link "How It Works" [ref=e87] [cursor=pointer]:
                 - /url: /how-it-works
-            - listitem [ref=e87]:
-              - link "Our Carriers" [ref=e88] [cursor=pointer]:
+            - listitem [ref=e88]:
+              - link "Our Carriers" [ref=e89] [cursor=pointer]:
                 - /url: /carriers
-            - listitem [ref=e89]:
-              - link "Blog" [ref=e90] [cursor=pointer]:
+            - listitem [ref=e90]:
+              - link "Blog" [ref=e91] [cursor=pointer]:
                 - /url: /blog
-        - generic [ref=e91]:
-          - heading "Legal" [level=3] [ref=e92]
-          - list [ref=e93]:
-            - listitem [ref=e94]:
-              - link "Privacy Policy" [ref=e95] [cursor=pointer]:
+        - generic [ref=e92]:
+          - heading "Legal" [level=3] [ref=e93]
+          - list [ref=e94]:
+            - listitem [ref=e95]:
+              - link "Privacy Policy" [ref=e96] [cursor=pointer]:
                 - /url: /privacy
-            - listitem [ref=e96]:
-              - link "Terms of Service" [ref=e97] [cursor=pointer]:
+            - listitem [ref=e97]:
+              - link "Terms of Service" [ref=e98] [cursor=pointer]:
                 - /url: /terms
-            - listitem [ref=e98]:
-              - link "Licenses & Disclaimers" [ref=e99] [cursor=pointer]:
+            - listitem [ref=e99]:
+              - link "Licenses & Disclaimers" [ref=e100] [cursor=pointer]:
                 - /url: /licenses
-            - listitem [ref=e100]:
-              - link "Accessibility" [ref=e101] [cursor=pointer]:
+            - listitem [ref=e101]:
+              - link "Accessibility" [ref=e102] [cursor=pointer]:
                 - /url: /accessibility
-      - generic [ref=e102]:
-        - paragraph [ref=e104]:
-          - strong [ref=e105]: "Important Disclaimer:"
+      - generic [ref=e103]:
+        - paragraph [ref=e105]:
+          - strong [ref=e106]: "Important Disclaimer:"
           - text: Namaste Insurance is not an insurance company. We are a technology platform and marketplace that connects consumers with licensed insurance carriers. We do not underwrite, sell, or service insurance policies. All insurance products are offered by licensed carriers who are solely responsible for policy terms, pricing, and coverage decisions.
-        - paragraph [ref=e107]:
-          - strong [ref=e108]: "Commission Disclosure:"
+        - paragraph [ref=e108]:
+          - strong [ref=e109]: "Commission Disclosure:"
           - text: We earn referral commissions when you purchase insurance through our platform. Commission rates vary by carrier (typically 5-15% of annual premium) and are disclosed for each quote. These commissions help us provide free comparison tools and do not increase your premium. Our recommendations are based on coverage quality and price competitiveness, not commission amounts.
-        - paragraph [ref=e109]:
-          - strong [ref=e110]: "Licensing:"
+        - paragraph [ref=e110]:
+          - strong [ref=e111]: "Licensing:"
           - text: "Licensed in Massachusetts, New Hampshire, and Rhode Island. License numbers: MA #123456, NH #789012, RI #345678. Not all carriers are available in all states. Quotes are estimates based on information provided and are subject to carrier underwriting and approval. Your actual premium may differ."
-        - paragraph [ref=e111]:
-          - strong [ref=e112]: "AI Analysis Disclaimer:"
+        - paragraph [ref=e112]:
+          - strong [ref=e113]: "AI Analysis Disclaimer:"
           - text: Our AI-powered policy scanner uses machine learning to analyze insurance documents. While we strive for accuracy (typically 95%+), AI analysis is for informational purposes only and should not be relied upon as the sole basis for insurance decisions. Always verify information with your insurance carrier and consult a licensed agent for advice specific to your situation.
-        - paragraph [ref=e113]:
-          - strong [ref=e114]: "Data Privacy:"
+        - paragraph [ref=e114]:
+          - strong [ref=e115]: "Data Privacy:"
           - text: We are committed to protecting your privacy. Uploaded policy documents are encrypted, processed securely, and automatically deleted after 90 days. We do not sell your personal information. See our
-          - link "Privacy Policy" [ref=e115] [cursor=pointer]:
+          - link "Privacy Policy" [ref=e116] [cursor=pointer]:
             - /url: /privacy
           - text: for details.
-      - generic [ref=e116]:
-        - paragraph [ref=e117]: © 2025 Namaste Insurance. All rights reserved.
-        - paragraph [ref=e118]: Made with ❤️ in Boston | Committed to transparency and trust
-  - generic [ref=e123] [cursor=pointer]:
-    - button "Open Next.js Dev Tools" [ref=e124] [cursor=pointer]:
-      - img [ref=e125] [cursor=pointer]
-    - generic [ref=e128] [cursor=pointer]:
-      - button "Open issues overlay" [ref=e129] [cursor=pointer]:
-        - generic [ref=e130] [cursor=pointer]:
-          - generic [ref=e131] [cursor=pointer]: "0"
-          - generic [ref=e132] [cursor=pointer]: "1"
-        - generic [ref=e133] [cursor=pointer]: Issue
-      - button "Collapse issues badge" [ref=e134] [cursor=pointer]:
-        - img [ref=e135] [cursor=pointer]
-  - alert [ref=e137]
+      - generic [ref=e117]:
+        - paragraph [ref=e118]: © 2026 Namaste Insurance. All rights reserved.
+        - paragraph [ref=e119]: Made with ❤️ in Boston | Committed to transparency and trust
+  - generic [ref=e124] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e125] [cursor=pointer]:
+      - img [ref=e126] [cursor=pointer]
+    - generic [ref=e129] [cursor=pointer]:
+      - button "Open issues overlay" [ref=e130] [cursor=pointer]:
+        - generic [ref=e131] [cursor=pointer]:
+          - generic [ref=e132] [cursor=pointer]: "0"
+          - generic [ref=e133] [cursor=pointer]: "1"
+        - generic [ref=e134] [cursor=pointer]: Issue
+      - button "Collapse issues badge" [ref=e135] [cursor=pointer]:
+        - img [ref=e136] [cursor=pointer]
+  - alert [ref=e138]
 ```

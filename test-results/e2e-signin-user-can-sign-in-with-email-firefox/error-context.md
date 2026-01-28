@@ -38,7 +38,7 @@
         - generic [ref=e30]:
           - generic [ref=e31]:
             - generic [ref=e32]: Email address
-            - textbox "Email address" [ref=e33]: test@example.com
+            - textbox "Email address" [ref=e33]: testuser@example.com
           - button "Sign in with email" [ref=e34]:
             - img
             - text: Sign in with email

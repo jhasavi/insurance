@@ -8,22 +8,27 @@ import { quotesReadyEmail } from "@/lib/email-templates"
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions as any) as { user?: any }
+    const session = await getServerSession(authOptions as any) as { user?: { id: string; email: string } }
     
-    if (!session?.user) {
+    if (!session?.user?.id) {
       return NextResponse.json(
         { message: "Unauthorized" },
         { status: 401 }
       )
     }
 
-    // TODO: Check if user is admin
-    // if (session.user.role !== "ADMIN") {
-    //   return NextResponse.json(
-    //     { message: "Forbidden" },
-    //     { status: 403 }
-    //   )
-    // }
+    // Check if user is admin
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { role: true }
+    })
+
+    if (!user || user.role !== "ADMIN") {
+      return NextResponse.json(
+        { message: "Forbidden - Admin access required" },
+        { status: 403 }
+      )
+    }
 
     const body = await request.json()
     const {

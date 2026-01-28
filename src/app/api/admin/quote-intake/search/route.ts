@@ -5,22 +5,27 @@ import { prisma } from "@/lib/prisma"
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions as any) as { user?: any }
-    
-    if (!session?.user) {
+    // Check authentication and admin role
+    const session = await getServerSession(authOptions as any) as { user?: { id: string; email: string } }
+    if (!session?.user?.id) {
       return NextResponse.json(
-        { message: "Unauthorized" },
+        { error: "Unauthorized" },
         { status: 401 }
       )
     }
 
-    // TODO: Check if user is admin when role is available
-    // if (session.user.role !== "ADMIN") {
-    //   return NextResponse.json(
-    //     { message: "Forbidden" },
-    //     { status: 403 }
-    //   )
-    // }
+    // Check if user is admin
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { role: true }
+    })
+
+    if (!user || user.role !== "ADMIN") {
+      return NextResponse.json(
+        { error: "Forbidden - Admin access required" },
+        { status: 403 }
+      )
+    }
 
     const searchParams = request.nextUrl.searchParams
     const query = searchParams.get("q")

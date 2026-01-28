@@ -38,7 +38,7 @@
         - generic [ref=e29]:
           - generic [ref=e30]:
             - generic [ref=e31]: Email address
-            - textbox "Email address" [active] [ref=e32]
+            - textbox "Email address" [active] [ref=e32]: test@example.com
           - button "Sign in with email" [disabled]:
             - img
             - text: Sign in with email
@@ -142,18 +142,9 @@
             - /url: /privacy
           - text: for details.
       - generic [ref=e116]:
-        - paragraph [ref=e117]: © 2025 Namaste Insurance. All rights reserved.
+        - paragraph [ref=e117]: © 2026 Namaste Insurance. All rights reserved.
         - paragraph [ref=e118]: Made with ❤️ in Boston | Committed to transparency and trust
-  - generic [ref=e123] [cursor=pointer]:
-    - button "Open Next.js Dev Tools" [ref=e124] [cursor=pointer]:
-      - img [ref=e125] [cursor=pointer]
-    - generic [ref=e130] [cursor=pointer]:
-      - button "Open issues overlay" [ref=e131] [cursor=pointer]:
-        - generic [ref=e132] [cursor=pointer]:
-          - generic [ref=e133] [cursor=pointer]: "0"
-          - generic [ref=e134] [cursor=pointer]: "1"
-        - generic [ref=e135] [cursor=pointer]: Issue
-      - button "Collapse issues badge" [ref=e136] [cursor=pointer]:
-        - img [ref=e137] [cursor=pointer]
-  - alert [ref=e139]: Welcome back
+  - button "Open Next.js Dev Tools" [ref=e124] [cursor=pointer]:
+    - img [ref=e125] [cursor=pointer]
+  - alert [ref=e130]
 ```

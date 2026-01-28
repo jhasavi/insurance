@@ -53,8 +53,7 @@ export interface PolicyInsights {
 }
 
 export async function analyzePolicyWithVision(
-  imageUrl: string,
-  fileName: string
+  imageUrl: string
 ): Promise<{ data: PolicyData; insights: PolicyInsights }> {
   // Check if API key is configured
   if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'dummy-key-for-build') {

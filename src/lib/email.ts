@@ -6,6 +6,7 @@
 
 import { Resend } from "resend"
 import { logAuditEvent } from "./audit"
+import { prisma } from "./prisma"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -108,8 +109,12 @@ export async function canSendEmail(
   if (category === "transactional") return true
 
   // Marketing emails require consent - check user table
-  // TODO: Add marketingConsent field to User model or check separate consent table
-  return true // For now, allow all emails
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { marketingConsent: true }
+  })
+  
+  return user?.marketingConsent || false
 }
 
 /**

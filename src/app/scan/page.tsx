@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shield, Upload, FileText, CheckCircle, AlertCircle, TrendingDown } from "lucide-react"
+import { LoadingSpinner, LoadingState } from "@/components/loading"
 
 export default function PolicyScannerPage() {
   const [uploading, setUploading] = useState(false)
@@ -103,7 +104,19 @@ export default function PolicyScannerPage() {
                 <label htmlFor="file-upload">
                   <Button asChild disabled={uploading || analyzing}>
                     <span>
-                      {uploading ? 'Uploading...' : analyzing ? 'Analyzing...' : 'Choose File'}
+                      {uploading ? (
+                        <>
+                          <LoadingSpinner size="sm" className="mr-2" />
+                          Uploading...
+                        </>
+                      ) : analyzing ? (
+                        <>
+                          <LoadingSpinner size="sm" className="mr-2" />
+                          Analyzing...
+                        </>
+                      ) : (
+                        "Choose File"
+                      )}
                     </span>
                   </Button>
                 </label>

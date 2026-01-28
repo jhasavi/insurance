@@ -42,6 +42,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([email])
+  @@index([role])
+  @@index([createdAt])
   @@map("users")
 }
 
@@ -76,6 +79,9 @@ model Vehicle {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
+  @@index([userId])
+  @@index([make, model, year])
+  @@index([createdAt])
   @@map("vehicles")
 }
 
@@ -96,6 +102,10 @@ model Property {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
+  @@index([userId])
+  @@index([city, state])
+  @@index([zipCode])
+  @@index([createdAt])
   @@map("properties")
 }
 

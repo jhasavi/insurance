@@ -17,429 +17,423 @@
           - /url: /how-it-works
         - link "Learn" [ref=e12] [cursor=pointer]:
           - /url: /learn
-      - generic [ref=e13]:
-        - link "Sign In" [ref=e14] [cursor=pointer]:
-          - /url: /auth/signin
-        - link "Get Started" [ref=e15] [cursor=pointer]:
-          - /url: /auth/signin
-  - generic [ref=e16]:
-    - banner [ref=e17]:
-      - generic [ref=e19]:
-        - generic [ref=e20]:
-          - img [ref=e21]
-          - generic [ref=e23]: Compare Quotes
-        - link "← Back to Home" [ref=e24] [cursor=pointer]:
+  - generic [ref=e14]:
+    - banner [ref=e15]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - img [ref=e19]
+          - generic [ref=e21]: Compare Quotes
+        - link "← Back to Home" [ref=e22] [cursor=pointer]:
           - /url: /
-    - main [ref=e25]:
-      - generic [ref=e28]:
-        - generic [ref=e29]:
-          - paragraph [ref=e30]: Lowest Quote
-          - paragraph [ref=e31]: $1248
-          - paragraph [ref=e32]: per year
-        - generic [ref=e33]:
-          - paragraph [ref=e34]: Average Quote
-          - paragraph [ref=e35]: $1450
-          - paragraph [ref=e36]: per year
-        - generic [ref=e37]:
-          - paragraph [ref=e38]: Potential Savings
-          - paragraph [ref=e39]:
-            - img [ref=e40]
+    - main [ref=e23]:
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: Lowest Quote
+          - paragraph [ref=e29]: $1248
+          - paragraph [ref=e30]: per year
+        - generic [ref=e31]:
+          - paragraph [ref=e32]: Average Quote
+          - paragraph [ref=e33]: $1450
+          - paragraph [ref=e34]: per year
+        - generic [ref=e35]:
+          - paragraph [ref=e36]: Potential Savings
+          - paragraph [ref=e37]:
+            - img [ref=e38]
             - text: $375
-          - paragraph [ref=e43]: vs highest quote
-      - generic [ref=e44]:
-        - generic [ref=e45]:
-          - img [ref=e46]
-          - generic [ref=e48]: "Sort by:"
-          - button "Lowest Price" [ref=e49]
-          - button "Highest Rated" [ref=e50]
-        - button "Show Commissions" [ref=e51]
-      - generic [ref=e54]:
-        - img [ref=e55]
-        - generic [ref=e57]:
-          - paragraph [ref=e58]: No Spam Guarantee
-          - paragraph [ref=e59]: Browse quotes anonymously. We only contact you if you request it. We don't sell your information to third parties. All commissions are disclosed transparently.
-      - generic [ref=e60]:
-        - generic [ref=e61]:
-          - generic [ref=e63]: Best Value
-          - generic [ref=e64]:
-            - generic [ref=e65]:
-              - generic [ref=e66]: Clearcover
-              - generic [ref=e67]:
-                - img [ref=e68]
-                - generic [ref=e70]: "4.5"
-            - generic [ref=e71]:
-              - generic [ref=e72]: A
-              - generic [ref=e73]: Financial Strength
-          - generic [ref=e74]:
-            - generic [ref=e75]:
-              - paragraph [ref=e76]: $1248
-              - paragraph [ref=e77]: per year
-              - paragraph [ref=e78]: ($104/month)
-              - generic [ref=e79]: Lowest Price
-            - generic [ref=e80]:
-              - paragraph [ref=e81]: Coverage
-              - list [ref=e82]:
-                - listitem [ref=e83]:
-                  - img [ref=e84]
-                  - generic [ref=e87]: "bodily Injury: 100/300"
-                - listitem [ref=e88]:
-                  - img [ref=e89]
-                  - generic [ref=e92]: "property Damage: 100"
-                - listitem [ref=e93]:
-                  - img [ref=e94]
-                  - generic [ref=e97]: "collision: Included"
-            - generic [ref=e98]:
-              - paragraph [ref=e99]: Applied Discounts
-              - generic [ref=e100]:
-                - generic [ref=e101]: Good Driver
-                - generic [ref=e102]: Multi-Policy
-                - generic [ref=e103]: Paperless
-            - generic [ref=e104]:
-              - generic [ref=e105]:
-                - paragraph [ref=e106]: Pros
-                - list [ref=e107]:
-                  - listitem [ref=e108]: • Lowest price
-                  - listitem [ref=e109]: • Digital-first experience
-              - generic [ref=e110]:
-                - paragraph [ref=e111]: Cons
-                - list [ref=e112]:
-                  - listitem [ref=e113]: • Limited agent support
-                  - listitem [ref=e114]: • Newer company
-          - generic [ref=e115]:
-            - link "Get Quote" [ref=e116] [cursor=pointer]:
+          - paragraph [ref=e41]: vs highest quote
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - img [ref=e44]
+          - generic [ref=e46]: "Sort by:"
+          - button "Lowest Price" [ref=e47]
+          - button "Highest Rated" [ref=e48]
+        - button "Show Commissions" [ref=e49]
+      - generic [ref=e52]:
+        - img [ref=e53]
+        - generic [ref=e55]:
+          - paragraph [ref=e56]: No Spam Guarantee
+          - paragraph [ref=e57]: Browse quotes anonymously. We only contact you if you request it. We don't sell your information to third parties. All commissions are disclosed transparently.
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - generic [ref=e61]: Best Value
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: Clearcover
+              - generic [ref=e65]:
+                - img [ref=e66]
+                - generic [ref=e68]: "4.5"
+            - generic [ref=e69]:
+              - generic [ref=e70]: A
+              - generic [ref=e71]: Financial Strength
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - paragraph [ref=e74]: $1248
+              - paragraph [ref=e75]: per year
+              - paragraph [ref=e76]: ($104/month)
+              - generic [ref=e77]: Lowest Price
+            - generic [ref=e78]:
+              - paragraph [ref=e79]: Coverage
+              - list [ref=e80]:
+                - listitem [ref=e81]:
+                  - img [ref=e82]
+                  - generic [ref=e85]: "bodily Injury: 100/300"
+                - listitem [ref=e86]:
+                  - img [ref=e87]
+                  - generic [ref=e90]: "property Damage: 100"
+                - listitem [ref=e91]:
+                  - img [ref=e92]
+                  - generic [ref=e95]: "collision: Included"
+            - generic [ref=e96]:
+              - paragraph [ref=e97]: Applied Discounts
+              - generic [ref=e98]:
+                - generic [ref=e99]: Good Driver
+                - generic [ref=e100]: Multi-Policy
+                - generic [ref=e101]: Paperless
+            - generic [ref=e102]:
+              - generic [ref=e103]:
+                - paragraph [ref=e104]: Pros
+                - list [ref=e105]:
+                  - listitem [ref=e106]: • Lowest price
+                  - listitem [ref=e107]: • Digital-first experience
+              - generic [ref=e108]:
+                - paragraph [ref=e109]: Cons
+                - list [ref=e110]:
+                  - listitem [ref=e111]: • Limited agent support
+                  - listitem [ref=e112]: • Newer company
+          - generic [ref=e113]:
+            - link "Get Quote" [ref=e114] [cursor=pointer]:
               - /url: https://clearcover.com
               - text: Get Quote
               - img
-            - link "Details" [ref=e117] [cursor=pointer]:
+            - link "Details" [ref=e115] [cursor=pointer]:
               - /url: /compare/1
-        - generic [ref=e118]:
-          - generic [ref=e119]:
-            - generic [ref=e120]:
-              - generic [ref=e121]: GEICO
-              - generic [ref=e122]:
-                - img [ref=e123]
-                - generic [ref=e125]: "4.3"
-            - generic [ref=e126]:
-              - generic [ref=e127]: A++
-              - generic [ref=e128]: Financial Strength
-          - generic [ref=e129]:
-            - generic [ref=e130]:
-              - paragraph [ref=e131]: $1389
-              - paragraph [ref=e132]: per year
-              - paragraph [ref=e133]: ($116/month)
-            - generic [ref=e134]:
-              - paragraph [ref=e135]: Coverage
-              - list [ref=e136]:
-                - listitem [ref=e137]:
-                  - img [ref=e138]
-                  - generic [ref=e141]: "bodily Injury: 100/300"
-                - listitem [ref=e142]:
-                  - img [ref=e143]
-                  - generic [ref=e146]: "property Damage: 100"
-                - listitem [ref=e147]:
-                  - img [ref=e148]
-                  - generic [ref=e151]: "collision: Included"
-            - generic [ref=e152]:
-              - paragraph [ref=e153]: Applied Discounts
-              - generic [ref=e154]:
-                - generic [ref=e155]: Good Driver
-                - generic [ref=e156]: Multi-Policy
-                - generic [ref=e157]: Federal Employee
-            - generic [ref=e158]:
-              - generic [ref=e159]:
-                - paragraph [ref=e160]: Pros
-                - list [ref=e161]:
-                  - listitem [ref=e162]: • Strong financial rating
-                  - listitem [ref=e163]: • 24/7 support
-              - generic [ref=e164]:
-                - paragraph [ref=e165]: Cons
-                - list [ref=e166]:
-                  - listitem [ref=e167]: • Not the cheapest
-                  - listitem [ref=e168]: • Limited local agents
-          - generic [ref=e169]:
-            - link "Get Quote" [ref=e170] [cursor=pointer]:
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - generic [ref=e119]: GEICO
+              - generic [ref=e120]:
+                - img [ref=e121]
+                - generic [ref=e123]: "4.3"
+            - generic [ref=e124]:
+              - generic [ref=e125]: A++
+              - generic [ref=e126]: Financial Strength
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - paragraph [ref=e129]: $1389
+              - paragraph [ref=e130]: per year
+              - paragraph [ref=e131]: ($116/month)
+            - generic [ref=e132]:
+              - paragraph [ref=e133]: Coverage
+              - list [ref=e134]:
+                - listitem [ref=e135]:
+                  - img [ref=e136]
+                  - generic [ref=e139]: "bodily Injury: 100/300"
+                - listitem [ref=e140]:
+                  - img [ref=e141]
+                  - generic [ref=e144]: "property Damage: 100"
+                - listitem [ref=e145]:
+                  - img [ref=e146]
+                  - generic [ref=e149]: "collision: Included"
+            - generic [ref=e150]:
+              - paragraph [ref=e151]: Applied Discounts
+              - generic [ref=e152]:
+                - generic [ref=e153]: Good Driver
+                - generic [ref=e154]: Multi-Policy
+                - generic [ref=e155]: Federal Employee
+            - generic [ref=e156]:
+              - generic [ref=e157]:
+                - paragraph [ref=e158]: Pros
+                - list [ref=e159]:
+                  - listitem [ref=e160]: • Strong financial rating
+                  - listitem [ref=e161]: • 24/7 support
+              - generic [ref=e162]:
+                - paragraph [ref=e163]: Cons
+                - list [ref=e164]:
+                  - listitem [ref=e165]: • Not the cheapest
+                  - listitem [ref=e166]: • Limited local agents
+          - generic [ref=e167]:
+            - link "Get Quote" [ref=e168] [cursor=pointer]:
               - /url: https://geico.com
               - text: Get Quote
               - img
-            - link "Details" [ref=e171] [cursor=pointer]:
+            - link "Details" [ref=e169] [cursor=pointer]:
               - /url: /compare/2
-        - generic [ref=e172]:
-          - generic [ref=e173]:
-            - generic [ref=e174]:
-              - generic [ref=e175]: Progressive
-              - generic [ref=e176]:
-                - img [ref=e177]
-                - generic [ref=e179]: "4.2"
-            - generic [ref=e180]:
-              - generic [ref=e181]: A+
-              - generic [ref=e182]: Financial Strength
-          - generic [ref=e183]:
-            - generic [ref=e184]:
-              - paragraph [ref=e185]: $1425
-              - paragraph [ref=e186]: per year
-              - paragraph [ref=e187]: ($119/month)
-            - generic [ref=e188]:
-              - paragraph [ref=e189]: Coverage
-              - list [ref=e190]:
-                - listitem [ref=e191]:
-                  - img [ref=e192]
-                  - generic [ref=e195]: "bodily Injury: 100/300"
-                - listitem [ref=e196]:
-                  - img [ref=e197]
-                  - generic [ref=e200]: "property Damage: 100"
-                - listitem [ref=e201]:
-                  - img [ref=e202]
-                  - generic [ref=e205]: "collision: Included"
-            - generic [ref=e206]:
-              - paragraph [ref=e207]: Applied Discounts
-              - generic [ref=e208]:
-                - generic [ref=e209]: Good Driver
-                - generic [ref=e210]: Snapshot
-                - generic [ref=e211]: Multi-Policy
-            - generic [ref=e212]:
-              - generic [ref=e213]:
-                - paragraph [ref=e214]: Pros
-                - list [ref=e215]:
-                  - listitem [ref=e216]: • Name Your Price tool
-                  - listitem [ref=e217]: • Roadside assistance
-              - generic [ref=e218]:
-                - paragraph [ref=e219]: Cons
-                - list [ref=e220]:
-                  - listitem [ref=e221]: • Mid-range pricing
-          - generic [ref=e222]:
-            - link "Get Quote" [ref=e223] [cursor=pointer]:
+        - generic [ref=e170]:
+          - generic [ref=e171]:
+            - generic [ref=e172]:
+              - generic [ref=e173]: Progressive
+              - generic [ref=e174]:
+                - img [ref=e175]
+                - generic [ref=e177]: "4.2"
+            - generic [ref=e178]:
+              - generic [ref=e179]: A+
+              - generic [ref=e180]: Financial Strength
+          - generic [ref=e181]:
+            - generic [ref=e182]:
+              - paragraph [ref=e183]: $1425
+              - paragraph [ref=e184]: per year
+              - paragraph [ref=e185]: ($119/month)
+            - generic [ref=e186]:
+              - paragraph [ref=e187]: Coverage
+              - list [ref=e188]:
+                - listitem [ref=e189]:
+                  - img [ref=e190]
+                  - generic [ref=e193]: "bodily Injury: 100/300"
+                - listitem [ref=e194]:
+                  - img [ref=e195]
+                  - generic [ref=e198]: "property Damage: 100"
+                - listitem [ref=e199]:
+                  - img [ref=e200]
+                  - generic [ref=e203]: "collision: Included"
+            - generic [ref=e204]:
+              - paragraph [ref=e205]: Applied Discounts
+              - generic [ref=e206]:
+                - generic [ref=e207]: Good Driver
+                - generic [ref=e208]: Snapshot
+                - generic [ref=e209]: Multi-Policy
+            - generic [ref=e210]:
+              - generic [ref=e211]:
+                - paragraph [ref=e212]: Pros
+                - list [ref=e213]:
+                  - listitem [ref=e214]: • Name Your Price tool
+                  - listitem [ref=e215]: • Roadside assistance
+              - generic [ref=e216]:
+                - paragraph [ref=e217]: Cons
+                - list [ref=e218]:
+                  - listitem [ref=e219]: • Mid-range pricing
+          - generic [ref=e220]:
+            - link "Get Quote" [ref=e221] [cursor=pointer]:
               - /url: https://progressive.com
               - text: Get Quote
               - img
-            - link "Details" [ref=e224] [cursor=pointer]:
+            - link "Details" [ref=e222] [cursor=pointer]:
               - /url: /compare/3
-        - generic [ref=e225]:
-          - generic [ref=e226]:
-            - generic [ref=e227]:
-              - generic [ref=e228]: Liberty Mutual
-              - generic [ref=e229]:
-                - img [ref=e230]
-                - generic [ref=e232]: "4"
-            - generic [ref=e233]:
-              - generic [ref=e234]: A
-              - generic [ref=e235]: Financial Strength
-          - generic [ref=e236]:
-            - generic [ref=e237]:
-              - paragraph [ref=e238]: $1567
-              - paragraph [ref=e239]: per year
-              - paragraph [ref=e240]: ($131/month)
-            - generic [ref=e241]:
-              - paragraph [ref=e242]: Coverage
-              - list [ref=e243]:
-                - listitem [ref=e244]:
-                  - img [ref=e245]
-                  - generic [ref=e248]: "bodily Injury: 100/300"
-                - listitem [ref=e249]:
-                  - img [ref=e250]
-                  - generic [ref=e253]: "property Damage: 100"
-                - listitem [ref=e254]:
-                  - img [ref=e255]
-                  - generic [ref=e258]: "collision: Included"
-            - generic [ref=e259]:
-              - paragraph [ref=e260]: Applied Discounts
-              - generic [ref=e261]:
-                - generic [ref=e262]: Good Driver
-                - generic [ref=e263]: Multi-Policy
-                - generic [ref=e264]: Bundling
-            - generic [ref=e265]:
-              - generic [ref=e266]:
-                - paragraph [ref=e267]: Pros
-                - list [ref=e268]:
-                  - listitem [ref=e269]: • Local agent support
-                  - listitem [ref=e270]: • Comprehensive coverage
-              - generic [ref=e271]:
-                - paragraph [ref=e272]: Cons
-                - list [ref=e273]:
-                  - listitem [ref=e274]: • Higher price point
-                  - listitem [ref=e275]: • Complex discount structure
-          - generic [ref=e276]:
-            - link "Get Quote" [ref=e277] [cursor=pointer]:
+        - generic [ref=e223]:
+          - generic [ref=e224]:
+            - generic [ref=e225]:
+              - generic [ref=e226]: Liberty Mutual
+              - generic [ref=e227]:
+                - img [ref=e228]
+                - generic [ref=e230]: "4"
+            - generic [ref=e231]:
+              - generic [ref=e232]: A
+              - generic [ref=e233]: Financial Strength
+          - generic [ref=e234]:
+            - generic [ref=e235]:
+              - paragraph [ref=e236]: $1567
+              - paragraph [ref=e237]: per year
+              - paragraph [ref=e238]: ($131/month)
+            - generic [ref=e239]:
+              - paragraph [ref=e240]: Coverage
+              - list [ref=e241]:
+                - listitem [ref=e242]:
+                  - img [ref=e243]
+                  - generic [ref=e246]: "bodily Injury: 100/300"
+                - listitem [ref=e247]:
+                  - img [ref=e248]
+                  - generic [ref=e251]: "property Damage: 100"
+                - listitem [ref=e252]:
+                  - img [ref=e253]
+                  - generic [ref=e256]: "collision: Included"
+            - generic [ref=e257]:
+              - paragraph [ref=e258]: Applied Discounts
+              - generic [ref=e259]:
+                - generic [ref=e260]: Good Driver
+                - generic [ref=e261]: Multi-Policy
+                - generic [ref=e262]: Bundling
+            - generic [ref=e263]:
+              - generic [ref=e264]:
+                - paragraph [ref=e265]: Pros
+                - list [ref=e266]:
+                  - listitem [ref=e267]: • Local agent support
+                  - listitem [ref=e268]: • Comprehensive coverage
+              - generic [ref=e269]:
+                - paragraph [ref=e270]: Cons
+                - list [ref=e271]:
+                  - listitem [ref=e272]: • Higher price point
+                  - listitem [ref=e273]: • Complex discount structure
+          - generic [ref=e274]:
+            - link "Get Quote" [ref=e275] [cursor=pointer]:
               - /url: https://libertymutual.com
               - text: Get Quote
               - img
-            - link "Details" [ref=e278] [cursor=pointer]:
+            - link "Details" [ref=e276] [cursor=pointer]:
               - /url: /compare/4
-        - generic [ref=e279]:
-          - generic [ref=e280]:
-            - generic [ref=e281]:
-              - generic [ref=e282]: State Farm
-              - generic [ref=e283]:
-                - img [ref=e284]
-                - generic [ref=e286]: "4.1"
-            - generic [ref=e287]:
-              - generic [ref=e288]: A++
-              - generic [ref=e289]: Financial Strength
-          - generic [ref=e290]:
-            - generic [ref=e291]:
-              - paragraph [ref=e292]: $1623
-              - paragraph [ref=e293]: per year
-              - paragraph [ref=e294]: ($135/month)
-            - generic [ref=e295]:
-              - paragraph [ref=e296]: Coverage
-              - list [ref=e297]:
-                - listitem [ref=e298]:
-                  - img [ref=e299]
-                  - generic [ref=e302]: "bodily Injury: 100/300"
-                - listitem [ref=e303]:
-                  - img [ref=e304]
-                  - generic [ref=e307]: "property Damage: 100"
-                - listitem [ref=e308]:
-                  - img [ref=e309]
-                  - generic [ref=e312]: "collision: Included"
-            - generic [ref=e313]:
-              - paragraph [ref=e314]: Applied Discounts
-              - generic [ref=e315]:
-                - generic [ref=e316]: Good Driver
-                - generic [ref=e317]: Multi-Policy
-                - generic [ref=e318]: Drive Safe & Save
-            - generic [ref=e319]:
-              - generic [ref=e320]:
-                - paragraph [ref=e321]: Pros
-                - list [ref=e322]:
-                  - listitem [ref=e323]: • Largest agent network
-                  - listitem [ref=e324]: • Excellent customer service
-              - generic [ref=e325]:
-                - paragraph [ref=e326]: Cons
-                - list [ref=e327]:
-                  - listitem [ref=e328]: • Premium pricing
-                  - listitem [ref=e329]: • Agent fees may apply
-          - generic [ref=e330]:
-            - link "Get Quote" [ref=e331] [cursor=pointer]:
+        - generic [ref=e277]:
+          - generic [ref=e278]:
+            - generic [ref=e279]:
+              - generic [ref=e280]: State Farm
+              - generic [ref=e281]:
+                - img [ref=e282]
+                - generic [ref=e284]: "4.1"
+            - generic [ref=e285]:
+              - generic [ref=e286]: A++
+              - generic [ref=e287]: Financial Strength
+          - generic [ref=e288]:
+            - generic [ref=e289]:
+              - paragraph [ref=e290]: $1623
+              - paragraph [ref=e291]: per year
+              - paragraph [ref=e292]: ($135/month)
+            - generic [ref=e293]:
+              - paragraph [ref=e294]: Coverage
+              - list [ref=e295]:
+                - listitem [ref=e296]:
+                  - img [ref=e297]
+                  - generic [ref=e300]: "bodily Injury: 100/300"
+                - listitem [ref=e301]:
+                  - img [ref=e302]
+                  - generic [ref=e305]: "property Damage: 100"
+                - listitem [ref=e306]:
+                  - img [ref=e307]
+                  - generic [ref=e310]: "collision: Included"
+            - generic [ref=e311]:
+              - paragraph [ref=e312]: Applied Discounts
+              - generic [ref=e313]:
+                - generic [ref=e314]: Good Driver
+                - generic [ref=e315]: Multi-Policy
+                - generic [ref=e316]: Drive Safe & Save
+            - generic [ref=e317]:
+              - generic [ref=e318]:
+                - paragraph [ref=e319]: Pros
+                - list [ref=e320]:
+                  - listitem [ref=e321]: • Largest agent network
+                  - listitem [ref=e322]: • Excellent customer service
+              - generic [ref=e323]:
+                - paragraph [ref=e324]: Cons
+                - list [ref=e325]:
+                  - listitem [ref=e326]: • Premium pricing
+                  - listitem [ref=e327]: • Agent fees may apply
+          - generic [ref=e328]:
+            - link "Get Quote" [ref=e329] [cursor=pointer]:
               - /url: https://statefarm.com
               - text: Get Quote
               - img
-            - link "Details" [ref=e332] [cursor=pointer]:
+            - link "Details" [ref=e330] [cursor=pointer]:
               - /url: /compare/5
-      - generic [ref=e333]:
-        - generic [ref=e334]:
-          - generic [ref=e336]: How This Works
-          - generic [ref=e337]:
-            - paragraph [ref=e338]:
-              - strong [ref=e339]: "1. Compare:"
+      - generic [ref=e331]:
+        - generic [ref=e332]:
+          - generic [ref=e334]: How This Works
+          - generic [ref=e335]:
+            - paragraph [ref=e336]:
+              - strong [ref=e337]: "1. Compare:"
               - text: Review real quotes from multiple carriers side-by-side.
-            - paragraph [ref=e340]:
-              - strong [ref=e341]: "2. Choose:"
+            - paragraph [ref=e338]:
+              - strong [ref=e339]: "2. Choose:"
               - text: Select the carrier that offers the best value for your needs.
-            - paragraph [ref=e342]:
-              - strong [ref=e343]: "3. Purchase:"
+            - paragraph [ref=e340]:
+              - strong [ref=e341]: "3. Purchase:"
               - text: Click "Get Quote" to complete your purchase directly with the carrier.
-            - paragraph [ref=e344]: "* Quotes are estimates based on the information provided. Final rates may vary."
-        - generic [ref=e345]:
-          - generic [ref=e347]: Why Trust Us?
-          - generic [ref=e348]:
-            - generic [ref=e349]:
-              - img [ref=e350]
-              - paragraph [ref=e353]:
-                - strong [ref=e354]: "Transparent:"
+            - paragraph [ref=e342]: "* Quotes are estimates based on the information provided. Final rates may vary."
+        - generic [ref=e343]:
+          - generic [ref=e345]: Why Trust Us?
+          - generic [ref=e346]:
+            - generic [ref=e347]:
+              - img [ref=e348]
+              - paragraph [ref=e351]:
+                - strong [ref=e352]: "Transparent:"
                 - text: We disclose all commissions upfront.
-            - generic [ref=e355]:
-              - img [ref=e356]
-              - paragraph [ref=e359]:
-                - strong [ref=e360]: "Privacy-First:"
+            - generic [ref=e353]:
+              - img [ref=e354]
+              - paragraph [ref=e357]:
+                - strong [ref=e358]: "Privacy-First:"
                 - text: No spam calls or data selling.
-            - generic [ref=e361]:
-              - img [ref=e362]
-              - paragraph [ref=e365]:
-                - strong [ref=e366]: "Unbiased:"
+            - generic [ref=e359]:
+              - img [ref=e360]
+              - paragraph [ref=e363]:
+                - strong [ref=e364]: "Unbiased:"
                 - text: We show all carriers, not just high-commission ones.
-      - generic [ref=e368]:
-        - heading "Want Expert Advice?" [level=3] [ref=e369]
-        - paragraph [ref=e370]: Get a comprehensive policy review from our AI + human experts for just $20 (refunded if you purchase a recommended policy).
-        - link "Scan Your Current Policy" [ref=e371] [cursor=pointer]:
+      - generic [ref=e366]:
+        - heading "Want Expert Advice?" [level=3] [ref=e367]
+        - paragraph [ref=e368]: Get a comprehensive policy review from our AI + human experts for just $20 (refunded if you purchase a recommended policy).
+        - link "Scan Your Current Policy" [ref=e369] [cursor=pointer]:
           - /url: /scan
-  - contentinfo [ref=e372]:
-    - generic [ref=e373]:
-      - generic [ref=e374]:
-        - generic [ref=e375]:
-          - generic [ref=e376]:
-            - img [ref=e377]
-            - generic [ref=e379]: Namaste Insurance
-          - paragraph [ref=e380]: The transparent insurance marketplace. Compare quotes from 15+ carriers. Save an average of $847/year.
-          - generic [ref=e381]:
-            - generic [ref=e382]:
-              - img [ref=e383]
-              - generic [ref=e386]: Boston, MA
-            - generic [ref=e387]:
-              - img [ref=e388]
-              - link "hello@namasteinsurance.com" [ref=e391] [cursor=pointer]:
+  - contentinfo [ref=e370]:
+    - generic [ref=e371]:
+      - generic [ref=e372]:
+        - generic [ref=e373]:
+          - generic [ref=e374]:
+            - img [ref=e375]
+            - generic [ref=e377]: Namaste Insurance
+          - paragraph [ref=e378]: The transparent insurance marketplace. Compare quotes from 15+ carriers. Save an average of $847/year.
+          - generic [ref=e379]:
+            - generic [ref=e380]:
+              - img [ref=e381]
+              - generic [ref=e384]: Boston, MA
+            - generic [ref=e385]:
+              - img [ref=e386]
+              - link "hello@namasteinsurance.com" [ref=e389] [cursor=pointer]:
                 - /url: mailto:hello@namasteinsurance.com
-            - generic [ref=e392]:
-              - img [ref=e393]
-              - link "(617) 555-0100" [ref=e395] [cursor=pointer]:
+            - generic [ref=e390]:
+              - img [ref=e391]
+              - link "(617) 555-0100" [ref=e393] [cursor=pointer]:
                 - /url: tel:+16175550100
-        - generic [ref=e396]:
-          - heading "Products" [level=3] [ref=e397]
-          - list [ref=e398]:
+        - generic [ref=e394]:
+          - heading "Products" [level=3] [ref=e395]
+          - list [ref=e396]:
+            - listitem [ref=e397]:
+              - link "Auto Insurance" [ref=e398] [cursor=pointer]:
+                - /url: /compare
             - listitem [ref=e399]:
-              - link "Auto Insurance" [ref=e400] [cursor=pointer]:
+              - link "Home Insurance" [ref=e400] [cursor=pointer]:
                 - /url: /compare
             - listitem [ref=e401]:
-              - link "Home Insurance" [ref=e402] [cursor=pointer]:
-                - /url: /compare
-            - listitem [ref=e403]:
-              - link "AI Policy Scanner" [ref=e404] [cursor=pointer]:
+              - link "AI Policy Scanner" [ref=e402] [cursor=pointer]:
                 - /url: /scan
-            - listitem [ref=e405]:
-              - link "Bundle & Save" [ref=e406] [cursor=pointer]:
+            - listitem [ref=e403]:
+              - link "Bundle & Save" [ref=e404] [cursor=pointer]:
                 - /url: /compare
-        - generic [ref=e407]:
-          - heading "Company" [level=3] [ref=e408]
-          - list [ref=e409]:
-            - listitem [ref=e410]:
-              - link "About Us" [ref=e411] [cursor=pointer]:
+        - generic [ref=e405]:
+          - heading "Company" [level=3] [ref=e406]
+          - list [ref=e407]:
+            - listitem [ref=e408]:
+              - link "About Us" [ref=e409] [cursor=pointer]:
                 - /url: /about
-            - listitem [ref=e412]:
-              - link "How It Works" [ref=e413] [cursor=pointer]:
+            - listitem [ref=e410]:
+              - link "How It Works" [ref=e411] [cursor=pointer]:
                 - /url: /how-it-works
-            - listitem [ref=e414]:
-              - link "Our Carriers" [ref=e415] [cursor=pointer]:
+            - listitem [ref=e412]:
+              - link "Our Carriers" [ref=e413] [cursor=pointer]:
                 - /url: /carriers
-            - listitem [ref=e416]:
-              - link "Blog" [ref=e417] [cursor=pointer]:
+            - listitem [ref=e414]:
+              - link "Blog" [ref=e415] [cursor=pointer]:
                 - /url: /blog
-        - generic [ref=e418]:
-          - heading "Legal" [level=3] [ref=e419]
-          - list [ref=e420]:
-            - listitem [ref=e421]:
-              - link "Privacy Policy" [ref=e422] [cursor=pointer]:
+        - generic [ref=e416]:
+          - heading "Legal" [level=3] [ref=e417]
+          - list [ref=e418]:
+            - listitem [ref=e419]:
+              - link "Privacy Policy" [ref=e420] [cursor=pointer]:
                 - /url: /privacy
-            - listitem [ref=e423]:
-              - link "Terms of Service" [ref=e424] [cursor=pointer]:
+            - listitem [ref=e421]:
+              - link "Terms of Service" [ref=e422] [cursor=pointer]:
                 - /url: /terms
-            - listitem [ref=e425]:
-              - link "Licenses & Disclaimers" [ref=e426] [cursor=pointer]:
+            - listitem [ref=e423]:
+              - link "Licenses & Disclaimers" [ref=e424] [cursor=pointer]:
                 - /url: /licenses
-            - listitem [ref=e427]:
-              - link "Accessibility" [ref=e428] [cursor=pointer]:
+            - listitem [ref=e425]:
+              - link "Accessibility" [ref=e426] [cursor=pointer]:
                 - /url: /accessibility
-      - generic [ref=e429]:
-        - paragraph [ref=e431]:
-          - strong [ref=e432]: "Important Disclaimer:"
+      - generic [ref=e427]:
+        - paragraph [ref=e429]:
+          - strong [ref=e430]: "Important Disclaimer:"
           - text: Namaste Insurance is not an insurance company. We are a technology platform and marketplace that connects consumers with licensed insurance carriers. We do not underwrite, sell, or service insurance policies. All insurance products are offered by licensed carriers who are solely responsible for policy terms, pricing, and coverage decisions.
-        - paragraph [ref=e434]:
-          - strong [ref=e435]: "Commission Disclosure:"
+        - paragraph [ref=e432]:
+          - strong [ref=e433]: "Commission Disclosure:"
           - text: We earn referral commissions when you purchase insurance through our platform. Commission rates vary by carrier (typically 5-15% of annual premium) and are disclosed for each quote. These commissions help us provide free comparison tools and do not increase your premium. Our recommendations are based on coverage quality and price competitiveness, not commission amounts.
-        - paragraph [ref=e436]:
-          - strong [ref=e437]: "Licensing:"
+        - paragraph [ref=e434]:
+          - strong [ref=e435]: "Licensing:"
           - text: "Licensed in Massachusetts, New Hampshire, and Rhode Island. License numbers: MA #123456, NH #789012, RI #345678. Not all carriers are available in all states. Quotes are estimates based on information provided and are subject to carrier underwriting and approval. Your actual premium may differ."
-        - paragraph [ref=e438]:
-          - strong [ref=e439]: "AI Analysis Disclaimer:"
+        - paragraph [ref=e436]:
+          - strong [ref=e437]: "AI Analysis Disclaimer:"
           - text: Our AI-powered policy scanner uses machine learning to analyze insurance documents. While we strive for accuracy (typically 95%+), AI analysis is for informational purposes only and should not be relied upon as the sole basis for insurance decisions. Always verify information with your insurance carrier and consult a licensed agent for advice specific to your situation.
-        - paragraph [ref=e440]:
-          - strong [ref=e441]: "Data Privacy:"
+        - paragraph [ref=e438]:
+          - strong [ref=e439]: "Data Privacy:"
           - text: We are committed to protecting your privacy. Uploaded policy documents are encrypted, processed securely, and automatically deleted after 90 days. We do not sell your personal information. See our
-          - link "Privacy Policy" [ref=e442] [cursor=pointer]:
+          - link "Privacy Policy" [ref=e440] [cursor=pointer]:
             - /url: /privacy
           - text: for details.
-      - generic [ref=e443]:
-        - paragraph [ref=e444]: © 2025 Namaste Insurance. All rights reserved.
-        - paragraph [ref=e445]: Made with ❤️ in Boston | Committed to transparency and trust
-  - button "Open Next.js Dev Tools" [ref=e451] [cursor=pointer]:
-    - img [ref=e452] [cursor=pointer]
-  - alert [ref=e456]
+      - generic [ref=e441]:
+        - paragraph [ref=e442]: © 2026 Namaste Insurance. All rights reserved.
+        - paragraph [ref=e443]: Made with ❤️ in Boston | Committed to transparency and trust
+  - button "Open Next.js Dev Tools" [ref=e449] [cursor=pointer]:
+    - img [ref=e450] [cursor=pointer]
 ```

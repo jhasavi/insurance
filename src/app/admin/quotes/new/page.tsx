@@ -57,16 +57,33 @@ export default function AdminQuoteEntryPage() {
   const [affiliateLink, setAffiliateLink] = useState("")
   const [commissionAmount, setCommissionAmount] = useState("")
 
+  const fetchUserRole = async () => {
+    try {
+      const response = await fetch("/api/auth/me")
+      if (response.ok) {
+        const data = await response.json()
+        if (data.role !== "ADMIN") {
+          router.push("/")
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch user role:", error)
+      router.push("/")
+    }
+  }
+
   useEffect(() => {
-    // Check if user is admin
+    // Check if user is authenticated
     if (status === "unauthenticated") {
       router.push("/auth/signin?callbackUrl=/admin/quotes/new")
+      return
     }
-    // TODO: Add role check when user.role is available
-    // if (session?.user?.role !== "ADMIN") {
-    //   router.push("/")
-    // }
-  }, [status, router])
+    
+    // Check if user is admin
+    if (status === "authenticated" && session?.user) {
+      fetchUserRole()
+    }
+  }, [status, router, session, fetchUserRole])
 
   useEffect(() => {
     // Fetch carriers

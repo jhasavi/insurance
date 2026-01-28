@@ -5,17 +5,6 @@ import { Resend } from "resend"
 import { env } from "./env"
 import { prisma } from "./prisma"
 
-// Local copy of DefaultSession shape for module augmentation, since this
-// version of next-auth does not export DefaultSession as a named type.
-type DefaultSession = {
-  user?: {
-    name?: string | null
-    email?: string | null
-    image?: string | null
-  } | null
-  expires: string
-}
-
 const resend = new Resend(env.RESEND_API_KEY)
 
 declare module "@auth/core/adapters" {

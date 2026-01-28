@@ -275,6 +275,9 @@
             - /url: /privacy
           - text: for details.
       - generic [ref=e279]:
-        - paragraph [ref=e280]: © 2025 Namaste Insurance. All rights reserved.
+        - paragraph [ref=e280]: © 2026 Namaste Insurance. All rights reserved.
         - paragraph [ref=e281]: Made with ❤️ in Boston | Committed to transparency and trust
+  - button "Open Next.js Dev Tools" [ref=e287] [cursor=pointer]:
+    - img [ref=e288] [cursor=pointer]
+  - alert [ref=e292]
 ```

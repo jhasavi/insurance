@@ -59,7 +59,7 @@ interface FormData {
 }
 
 export default function CompareNewPage() {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
