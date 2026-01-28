@@ -102,6 +102,14 @@ export function LifeInsuranceTool() {
     try { localStorage.setItem("lifeInsuranceInput", JSON.stringify(payload)) } catch {}
     try { console.log("analytics:event", "life_insurance_submitted", payload) } catch {}
 
+    // Increment lightweight engagement score for internal KPI tracking
+    try {
+      const raw = localStorage.getItem('engagementScore')
+      const n = raw ? Number(raw) : 0
+      const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
+      localStorage.setItem('engagementScore', String(next))
+    } catch {}
+
     setSubmitted(true)
     if (liveRegionRef.current) {
       liveRegionRef.current.focus()
@@ -412,7 +420,13 @@ export function LifeInsuranceTool() {
                     const re = /^\S+@\S+\.\S+$/
                     if (!email || !re.test(email)) { alert('Please enter a valid email'); return }
                     setUnlocked(true)
-                    try { localStorage.setItem('lifeInsuranceInput', JSON.stringify({ age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email, unlocked: true })) } catch {} 
+                    try { localStorage.setItem('lifeInsuranceInput', JSON.stringify({ age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email, unlocked: true })) } catch {}
+                    try {
+                      const raw = localStorage.getItem('engagementScore')
+                      const n = raw ? Number(raw) : 0
+                      const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
+                      localStorage.setItem('engagementScore', String(next))
+                    } catch {}
                   }} className="inline-flex items-center px-3 py-2 bg-indigo-600 text-white rounded-md">Unlock Details</button>
                 </div>
               </div>
@@ -468,6 +482,12 @@ export function LifeInsuranceTool() {
                   alert('Save failed')
                 }
               } catch (e) { console.error(e); alert('Save failed') }
+              try {
+                const raw = localStorage.getItem('engagementScore')
+                const n = raw ? Number(raw) : 0
+                const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
+                localStorage.setItem('engagementScore', String(next))
+              } catch {}
             }} className="inline-flex items-center px-3 py-2 border border-indigo-600 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Save to CRM</button>
 
             <button type="button" onClick={() => printOnePager()} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Print</button>
@@ -475,6 +495,12 @@ export function LifeInsuranceTool() {
             <button type="button" onClick={() => {
               const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
               const calendlyUrl = 'https://calendly.com/your-organization/consult?data=' + encodeURIComponent(JSON.stringify(payload))
+              try {
+                const raw = localStorage.getItem('engagementScore')
+                const n = raw ? Number(raw) : 0
+                const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
+                localStorage.setItem('engagementScore', String(next))
+              } catch {}
               window.open(calendlyUrl, '_blank')
             }} className="inline-flex items-center px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700">Schedule Consultation</button>
           </div>

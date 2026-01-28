@@ -147,3 +147,9 @@ Update policy: any strategic change in product mapping, carrier prioritization, 
 - UX priority: keep the Life tool entrypoint lightweight (3-step flow) and emphasize transparency (DIME breakdown) above the fold to increase trust and reduce churn.
 
 - Rollout approach: start with agent-only beta, then public pilot; use agent feedback to tune messaging and product mappings before wider launch.
+
+## Recent Business Decisions
+
+- Add a Boston-focused landing section and author attribution to increase local SEO and trust for Boston homeowners (authored by Sanjeev Jha / Namaste Boston Homes).
+- Track a lightweight engagement KPI for the Life tool (tools run / unlocks / schedules) to evaluate adoption during the 90-day pilot.
+- Include the Life Insurance landing route in the sitemap and primary navigation to prioritize discoverability and funnel conversion.
