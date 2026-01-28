@@ -17,6 +17,9 @@ export function Header() {
           <Link href="/compare" className="text-gray-600 hover:text-gray-900">
             Compare Quotes
           </Link>
+          <Link href="/life-insurance" className="text-gray-600 hover:text-gray-900">
+            Life Insurance Tool
+          </Link>
           <Link href="/scan" className="text-gray-600 hover:text-gray-900">
             Scan Policy
           </Link>
