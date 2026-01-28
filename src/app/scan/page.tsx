@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shield, Upload, FileText, CheckCircle, AlertCircle, TrendingDown } from "lucide-react"
+import { AiTransparencyBadge } from '@/components/AiTransparencyBadge'
 import { LoadingSpinner, LoadingState } from "@/components/loading"
 
 export default function PolicyScannerPage() {
@@ -179,6 +180,40 @@ export default function PolicyScannerPage() {
                 </div>
               </CardContent>
             </Card>
+
+              {/* Confidence Scores Card */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>Confidence Scores</CardTitle>
+                    <AiTransparencyBadge />
+                  </div>
+                  <CardDescription>How confident the AI is about extracted fields</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm text-gray-600">Overall Confidence</div>
+                      <div className="text-sm font-medium text-gray-900">{Math.round(((analysis.aiInsights?.confidence?.overall || 0) * 100))}%</div>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                      <div style={{ width: `${Math.round(((analysis.aiInsights?.confidence?.overall || 0) * 100))}%` }} className="h-3 bg-green-500" />
+                    </div>
+
+                    <div className="mt-3">
+                      <div className="text-sm text-gray-600 mb-2">Field confidences</div>
+                      <div className="grid gap-2">
+                        {analysis.aiInsights?.confidence?.fields && Object.entries(analysis.aiInsights.confidence.fields).map(([k, v]: any) => (
+                          <div key={k} className="flex items-center justify-between">
+                            <div className="text-sm text-gray-700">{k}</div>
+                            <div className="text-sm font-medium text-gray-900">{Math.round(v * 100)}%</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
             {/* Recommendations */}
             {analysis.recommendations && analysis.recommendations.length > 0 && (

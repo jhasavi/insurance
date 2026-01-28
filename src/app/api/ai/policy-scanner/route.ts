@@ -37,6 +37,16 @@ export async function POST(request: NextRequest) {
         benchmarkComparison: {
           competitiveRating: 'Above Avg',
         },
+        confidence: {
+          overall: 0.93,
+          fields: {
+            bodilyInjury: 0.97,
+            propertyDamage: 0.95,
+            collision: 0.9,
+            comprehensive: 0.92,
+          },
+          sources: ['gpt-4-vision', 'ocr']
+        }
       },
       benchmarkData: {
         marketAvgPremium: 1600,
