@@ -251,6 +251,112 @@ export function LifeInsuranceTool() {
     setTimeout(() => { w.print(); }, 300)
   }
 
+  // Helper: robust copy to clipboard with fallback
+  const handleCopy = async (payload: any) => {
+    const text = JSON.stringify(payload, null, 2)
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text)
+        alert('Recommendation copied to clipboard')
+        return
+      }
+    } catch (e) {
+      // fallthrough to legacy method
+    }
+
+    try {
+      const ta = document.createElement('textarea')
+      ta.value = text
+      ta.style.position = 'fixed'
+      ta.style.left = '-9999px'
+      document.body.appendChild(ta)
+      ta.focus()
+      ta.select()
+      document.execCommand('copy')
+      ta.remove()
+      alert('Recommendation copied to clipboard')
+    } catch (e) {
+      alert('Copy failed — please copy manually')
+    }
+  }
+
+  const handleDownload = (payload: any) => {
+    try {
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'life-insurance-recommendation.json'
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      setTimeout(() => URL.revokeObjectURL(url), 500)
+    } catch (e) {
+      alert('Download failed')
+    }
+  }
+
+  const handleSave = async (payload: any) => {
+    try {
+      const res = await fetch('/api/recommendation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      const json = await res.json()
+      if (json?.ok) {
+        alert('Saved recommendation to demo storage')
+      } else {
+        alert('Save failed')
+      }
+    } catch (e) {
+      console.error(e)
+      alert('Save failed')
+    }
+    try {
+      const raw = localStorage.getItem('engagementScore')
+      const n = raw ? Number(raw) : 0
+      const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
+      localStorage.setItem('engagementScore', String(next))
+    } catch {}
+  }
+
+  const handlePrint = (payload: any) => {
+    try {
+      // try the existing print flow
+      printOnePager()
+    } catch (e) {
+      try {
+        const html = `<pre>${JSON.stringify(payload, null, 2)}</pre>`
+        const w = window.open()
+        if (!w) { throw new Error('Popup blocked') }
+        w.document.open()
+        w.document.write(html)
+        w.document.close()
+        w.focus()
+        setTimeout(() => w.print(), 300)
+      } catch (err) {
+        alert('Print failed — please use your browser print or copy the result.')
+      }
+    }
+  }
+
+  const handleSchedule = (payload: any) => {
+    const calendlyUrl = 'https://calendly.com/your-organization/consult?data=' + encodeURIComponent(JSON.stringify(payload))
+    try {
+      const w = window.open(calendlyUrl, '_blank')
+      if (!w) {
+        // fallback: show link to user
+        prompt('Open this link to schedule:', calendlyUrl)
+        return
+      }
+      try {
+        const raw = localStorage.getItem('engagementScore')
+        const n = raw ? Number(raw) : 0
+        const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
+        localStorage.setItem('engagementScore', String(next))
+      } catch {}
+    } catch (e) {
+      prompt('Open this link to schedule:', calendlyUrl)
+    }
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="bg-white shadow-sm rounded-lg p-6">
@@ -456,52 +562,26 @@ export function LifeInsuranceTool() {
           <div className="mt-4 flex items-center gap-3">
             <button type="button" onClick={() => {
               const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              try { navigator.clipboard.writeText(JSON.stringify(payload, null, 2)); alert('Recommendation copied to clipboard') } catch (e) { console.log(e) }
+              void handleCopy(payload)
             }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Copy Result</button>
 
             <button type="button" onClick={() => {
               const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
-              const url = URL.createObjectURL(blob)
-              const a = document.createElement('a')
-              a.href = url
-              a.download = 'life-insurance-recommendation.json'
-              document.body.appendChild(a)
-              a.click()
-              a.remove()
-              URL.revokeObjectURL(url)
+              handleDownload(payload)
             }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Download JSON</button>
             <button type="button" onClick={async () => {
               const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              try {
-                const res = await fetch('/api/recommendation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-                const json = await res.json()
-                if (json?.ok) {
-                  alert('Saved recommendation to demo storage')
-                } else {
-                  alert('Save failed')
-                }
-              } catch (e) { console.error(e); alert('Save failed') }
-              try {
-                const raw = localStorage.getItem('engagementScore')
-                const n = raw ? Number(raw) : 0
-                const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
-                localStorage.setItem('engagementScore', String(next))
-              } catch {}
+              await handleSave(payload)
             }} className="inline-flex items-center px-3 py-2 border border-indigo-600 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Save to CRM</button>
-
-            <button type="button" onClick={() => printOnePager()} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Print</button>
 
             <button type="button" onClick={() => {
               const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              const calendlyUrl = 'https://calendly.com/your-organization/consult?data=' + encodeURIComponent(JSON.stringify(payload))
-              try {
-                const raw = localStorage.getItem('engagementScore')
-                const n = raw ? Number(raw) : 0
-                const next = Math.min(100, (isNaN(n) ? 0 : n) + 1)
-                localStorage.setItem('engagementScore', String(next))
-              } catch {}
-              window.open(calendlyUrl, '_blank')
+              handlePrint(payload)
+            }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Print</button>
+
+            <button type="button" onClick={() => {
+              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
+              handleSchedule(payload)
             }} className="inline-flex items-center px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700">Schedule Consultation</button>
           </div>
         </div>
