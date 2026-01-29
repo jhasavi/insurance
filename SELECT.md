@@ -158,6 +158,16 @@ Update policy: any strategic change in product mapping, carrier prioritization, 
 
 No strategic changes to product scope were made — we continue to prioritize two clear recommendation paths (Level Term and Permanent/IUL) for the initial pilot. The above operational changes (Calendly, demo persistence, one-pagers, CI) are tactical readiness improvements supporting the pilot.
 
+## Consolidated Docs (master index)
+To keep docs easy to navigate, I consolidated detailed content into master documents in `docs/`:
+
+- Platform Reference: `docs/platform_master.md` (architecture, analytics, auth pointers)
+- Project Master: `docs/project_master.md` (vision, implementation plan, launch)
+- Operations Master: `docs/operations_master.md` (deployment, testing, data accuracy)
+- Demo Master: `docs/demo_master.md` (agent one-pager, demo script, one-pagers)
+
+The originals remain for archival reference but the `docs/*_master.md` files should be used as the single source of truth during the pilot.
+
 ## Recent Business Decisions
 
 - Add a Boston-focused landing section and author attribution to increase local SEO and trust for Boston homeowners (authored by Sanjeev Jha / Namaste Boston Homes).
