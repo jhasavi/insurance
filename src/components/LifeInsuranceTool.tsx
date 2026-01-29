@@ -14,6 +14,11 @@ export function LifeInsuranceTool() {
   const [inflationRate, setInflationRate] = useState<number>(3)
   const [tobaccoUse, setTobaccoUse] = useState<boolean>(false)
   const [healthRating, setHealthRating] = useState<string>('Standard')
+  const [windfall, setWindfall] = useState<number | "">("")
+  const [priority, setPriority] = useState<'Lowest Cost' | 'Comprehensive Living Benefits'>('Lowest Cost')
+  const [comparisonMode, setComparisonMode] = useState<boolean>(true)
+  const [wantLivingBenefitAccess, setWantLivingBenefitAccess] = useState<boolean>(false)
+  const [wantWaiverOfPremium, setWantWaiverOfPremium] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
   const [unlocked, setUnlocked] = useState<boolean>(false)
   const [submitted, setSubmitted] = useState(false)
@@ -46,6 +51,19 @@ export function LifeInsuranceTool() {
     if (goal === 'Wealth Accumulation' && a < 50) return { type: 'Indexed Universal Life (IUL)', perm: true, features: ['Cash Value Growth', 'Tax-Free Loans'] }
     if (a > 50 && goal === "Wealth Transfer") return { type: "Whole Life", perm: true }
     return { type: "Level Term", perm: false }
+  }
+
+  const carrierSuggested = () => {
+    const mapping = productMapping || {}
+    const defaults = {
+      transamerica: { name: 'Transamerica', notes: 'Good for budget/smaller face amounts' },
+      nationwide: { name: 'Nationwide', notes: 'Strong living benefits & service' }
+    }
+    const trans = mapping.transamerica || defaults.transamerica
+    const nw = mapping.nationwide || defaults.nationwide
+
+    if (priority === 'Lowest Cost') return { carrier: trans.name, notes: trans.notes }
+    return { carrier: nw.name, notes: nw.notes }
   }
 
   const recommendTermLength = () => {
@@ -137,8 +155,9 @@ export function LifeInsuranceTool() {
   const carrierMatches = () => {
     // Use static mapping when available to show carrier-specific product names
     const mapping = productMapping || {}
-    const trans = mapping.transamerica || {}
+    const trans = mapping.transamerica || { term: { name: 'Level Term' }, whole: { name: 'Whole Life' }, products: {} }
     const wfg = mapping.wfg || {}
+    const nationwide = mapping.nationwide || { term: { name: 'Term Select' }, products: { livingBenefits: { name: 'Living Benefits Rider' } } }
 
     if (rec.type?.toLowerCase().includes('term')) {
       return [
@@ -165,6 +184,10 @@ export function LifeInsuranceTool() {
     return [
       { carrier: 'Transamerica', product: (trans.term?.name || 'Level Term') + ' / ' + (trans.whole?.name || 'Whole Life'), notes: 'Contact carrier rep for best-fit product' }
     ]
+  }
+
+  const recommendCarrierByPriority = () => {
+    return carrierSuggested()
   }
 
   const underwritingSnapshot = () => {
@@ -239,6 +262,57 @@ export function LifeInsuranceTool() {
       </div>
 
       <div class="muted">Prepared by Safora — confirm carrier product names and offer details with underwriting/broker portal.</div>
+      <div class="muted" style="margin-top:8px; font-size:12px;">Prepared for local advisors by Sanjeev Jha, Namaste Boston Homes (Boston, MA)</div>
+    </body>
+    </html>`
+
+    const w = window.open('', '_blank', 'noopener,noreferrer')
+    if (!w) { alert('Unable to open print window. Please allow popups.'); return }
+    w.document.open()
+    w.document.write(html)
+    w.document.close()
+    w.focus()
+    setTimeout(() => { w.print(); }, 300)
+  }
+
+  const printStrategyGuide = () => {
+    const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority } }
+    const carriers = carrierMatches()
+    const suggested = recommendCarrierByPriority()
+    const html = `<!doctype html>
+    <html>
+    <head>
+      <meta charset="utf-8" />
+      <title>Strategy Guide</title>
+      <style>body{font-family:system-ui;padding:24px;color:#111827}h1{font-size:22px}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #eee}</style>
+    </head>
+    <body>
+      <h1>Comprehensive Financial Strategy Guide</h1>
+      <p><strong>Recommended:</strong> ${rec.type} ${termLength ? `— ${termLength} years` : '(Permanent)'}</p>
+      <p><strong>Suggested Carrier:</strong> ${suggested.carrier} — ${suggested.notes}</p>
+      <h2>Why this over Roth IRA / Annuity</h2>
+      <p>Summary: ${income && toNumber(income) > 160000 && goal === 'Retirement' ? 'Roth IRA Alternative: IUL provides tax-advantaged cash growth, no standard contribution caps, and policy loan flexibility.' : 'Policy chosen to match client goals.'}</p>
+      <h2>Strategy Comparison</h2>
+      <table>
+        <thead><tr><th>Product Type</th><th>Death Benefit</th><th>Cash Growth</th><th>Tax Advantage</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>Level Term</td><td>High</td><td>None</td><td>None</td><td>Lowest Cost Income Replacement</td></tr>
+          <tr><td>Whole Life</td><td>High</td><td>Steady</td><td>Tax-Deferred</td><td>Legacy / Guaranteed</td></tr>
+          <tr><td>Indexed Universal Life (IUL)</td><td>High</td><td>Upside (index-linked)</td><td>Tax-Advantaged loans/withdrawals</td><td>Wealth Accumulation & Retirement</td></tr>
+          <tr><td>Roth IRA</td><td>—</td><td>Market Exposure</td><td>Tax-Free Growth (contribution limits)</td><td>Tax-Free Retirement Income (low-to-mid earners)</td></tr>
+          <tr><td>Annuity</td><td>N/A</td><td>Guaranteed / Variable</td><td>Tax-Deferred</td><td>Guaranteed Income</td></tr>
+        </tbody>
+      </table>
+
+      ${coverage >= 1000000 ? `<h3>Legacy Option</h3><p>Your calculated need is ${fmt.format(coverage)} — consider a ${fmt.format(coverage*2)} legacy option to protect 20 years of income vs 10 years. Human Life Value suggests planning for longer horizons when you have dependents or estate goals.</p>` : ''}
+
+      ${toNumber(windfall) > 100000 ? `<h3>Single Premium Pathway</h3><p>With a cash windfall, a single premium IUL may be attractive. Be mindful of MEC limits — large single premiums can trigger Modified Endowment Contract taxation.</p>` : ''}
+
+      <h3>Riders</h3>
+      <p>${wantLivingBenefitAccess ? 'Recommend Chronic/Critical Illness Rider (Nationwide strong offering).' : 'Consider Chronic/Critical Illness Rider if you want access to death benefit while alive.'}</p>
+      <p>${wantWaiverOfPremium ? 'Waiver of Premium recommended for disability protection.' : 'Consider Waiver of Premium to maintain coverage if disabled.'}</p>
+
+      <div style="margin-top:16px;font-size:12px;color:#6b7280">Prepared for local advisors by Sanjeev Jha, Namaste Boston Homes — Boston, MA</div>
     </body>
     </html>`
 
@@ -317,6 +391,50 @@ export function LifeInsuranceTool() {
     } catch {}
   }
 
+  // Save and return entry (demo API)
+  const saveRecommendation = async (payload: any) => {
+    try {
+      const res = await fetch('/api/recommendation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      const json = await res.json()
+      if (json?.ok) return json.entry
+    } catch (e) {
+      console.error('saveRecommendation', e)
+    }
+    return null
+  }
+
+  const handleSaveAndStartApplication = async (payload: any) => {
+    const entry = await saveRecommendation(payload)
+    if (!entry) { alert('Save failed'); return }
+    try { window.open(`/recommendation/${entry.id}`, '_blank') } catch { alert('Unable to open application view') }
+  }
+
+  const handleEmailRecommendation = async (payload: any) => {
+    const entry = await saveRecommendation(payload)
+    const link = entry ? `${location.origin}/recommendation/${entry.id}` : ''
+    const subject = encodeURIComponent('Life Insurance Recommendation')
+    const body = encodeURIComponent(`Hi,%0D%0A%0D%0AHere is a recommended life insurance plan I prepared for you.%0D%0A%0D%0ACoverage: ${fmt.format(coverage)}%0D%0AType: ${rec.type}%0D%0ATerm: ${termLength ? `${termLength} years` : 'Permanent'}%0D%0A%0D%0AView full recommendation: ${link}%0D%0A%0D%0ABest,%0D%0A${'Namaste Insurance'}`)
+    try {
+      if (link) {
+        window.location.href = `mailto:?subject=${subject}&body=${body}`
+      } else {
+        // fallback: open mail client with brief body
+        window.location.href = `mailto:?subject=${subject}&body=${body}`
+      }
+    } catch (e) {
+      prompt('Copy this link to share:', link || JSON.stringify(payload, null, 2))
+    }
+  }
+
+  const handleAddToClientProfile = async (payload: any) => {
+    const entry = await saveRecommendation(payload)
+    if (entry) {
+      alert('Added to client profile (demo)')
+    } else {
+      alert('Add to profile failed')
+    }
+  }
+
   const handlePrint = (payload: any) => {
     try {
       // try the existing print flow
@@ -338,7 +456,8 @@ export function LifeInsuranceTool() {
   }
 
   const handleSchedule = (payload: any) => {
-    const calendlyUrl = 'https://calendly.com/your-organization/consult?data=' + encodeURIComponent(JSON.stringify(payload))
+    // User-provided Calendly link
+    const calendlyUrl = 'https://calendly.com/namaste1?data=' + encodeURIComponent(JSON.stringify(payload))
     try {
       const w = window.open(calendlyUrl, '_blank')
       if (!w) {
@@ -370,6 +489,20 @@ export function LifeInsuranceTool() {
 
         {step === 1 && (
           <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2">
+                <input data-testid="comparison-mode" type="checkbox" checked={comparisonMode} onChange={(e) => setComparisonMode(e.target.checked)} className="h-4 w-4" />
+                <span className="text-sm">Comparison Mode</span>
+              </label>
+
+              <label className="flex items-center gap-2">
+                <span className="text-sm">Priority</span>
+                <select value={priority} onChange={(e) => setPriority(e.target.value as any)} className="ml-2 rounded border-gray-200">
+                  <option>Lowest Cost</option>
+                  <option>Comprehensive Living Benefits</option>
+                </select>
+              </label>
+            </div>
             <label className="block">
               <span className="text-sm font-medium text-gray-700">Age</span>
               <input aria-invalid={!!errors.age} aria-describedby={errors.age ? "age-error" : undefined} type="number" min={0} value={age === "" ? "" : age} onChange={(e) => setAge(e.target.value === "" ? "" : Number(e.target.value))} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required />
@@ -396,6 +529,15 @@ export function LifeInsuranceTool() {
                 <input type="number" min={0} step={0.1} value={inflationRate} onChange={(e) => setInflationRate(Number(e.target.value))} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
               </label>
             </div>
+          </div>
+        )}
+
+        {step === 1 && (
+          <div className="mt-4">
+            <label className="block">
+              <span className="text-sm font-medium text-gray-700">Cash Windfall (one-time, USD)</span>
+              <input type="number" min={0} value={windfall === "" ? "" : windfall} onChange={(e) => setWindfall(e.target.value === "" ? "" : Number(e.target.value))} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm" />
+            </label>
           </div>
         )}
 
@@ -496,6 +638,27 @@ export function LifeInsuranceTool() {
             <strong>Notes:</strong> Coverage calculated with the DIME formula: Debt + Mortgage + (Income × Replacement Years × inflation adjustment over 20 years) + (Children × $100,000). Adjust with agent advice as needed.
           </div>
 
+          {/* Strategy Comparison & Educational UI */}
+          {comparisonMode && (
+            <div className="mt-4 bg-white p-4 rounded border">
+              <h3 className="font-semibold mb-2">Strategy Comparison</h3>
+              <div className="overflow-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-left text-xs text-gray-500"><th>Product Type</th><th>Death Benefit</th><th>Cash Growth</th><th>Tax Advantage</th><th>Best For</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-t"><td>Level Term</td><td>High</td><td>None</td><td>None</td><td>Lowest Cost Income Replacement</td></tr>
+                    <tr className="border-t"><td>Whole Life</td><td>High</td><td>Steady</td><td>Tax-Deferred</td><td>Legacy / Guaranteed</td></tr>
+                    <tr className="border-t"><td>IUL</td><td>High</td><td>Indexed Upside</td><td>Tax-Advantaged loans</td><td>Wealth Accumulation</td></tr>
+                    <tr className="border-t"><td>Roth IRA</td><td>—</td><td>Market</td><td>Tax-Free (caps)</td><td>Tax-Free Retirement</td></tr>
+                    <tr className="border-t"><td>Annuity</td><td>N/A</td><td>Guaranteed/Variable</td><td>Tax-Deferred</td><td>Guaranteed Income</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
           {/* Suggested Strategy */}
           <div className="mt-4 bg-gray-50 p-4 rounded-md">
             <div className="text-sm font-medium text-gray-700">Suggested Strategy</div>
@@ -559,30 +722,75 @@ export function LifeInsuranceTool() {
             )}
           </div>
 
-          <div className="mt-4 flex items-center gap-3">
-            <button type="button" onClick={() => {
-              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              void handleCopy(payload)
-            }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Copy Result</button>
+          <div className="mt-4">
+            {/* Rider selection module */}
+            <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={wantLivingBenefitAccess} onChange={(e) => setWantLivingBenefitAccess(e.target.checked)} className="h-4 w-4" />
+                <span className="text-sm">Would you like to access your death benefit while alive if you get sick? (Chronic/Critical illness)</span>
+              </label>
 
-            <button type="button" onClick={() => {
-              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              handleDownload(payload)
-            }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Download JSON</button>
-            <button type="button" onClick={async () => {
-              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              await handleSave(payload)
-            }} className="inline-flex items-center px-3 py-2 border border-indigo-600 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Save to CRM</button>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={wantWaiverOfPremium} onChange={(e) => setWantWaiverOfPremium(e.target.checked)} className="h-4 w-4" />
+                <span className="text-sm">If you become disabled, keep coverage active? (Waiver of Premium)</span>
+              </label>
+            </div>
 
-            <button type="button" onClick={() => {
-              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              handlePrint(payload)
-            }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Print</button>
+            {/* Educational callouts */}
+            {income && toNumber(income) > 160000 && goal === 'Retirement' && (
+              <div className="mb-3 p-3 rounded border bg-yellow-50 text-sm text-yellow-800">
+                <strong>Roth IRA Alternative:</strong> For higher earners, an IUL can act as a Roth alternative — no standard contribution caps, tax-advantaged cash growth, and policy loans. It can be superior for flexible retirement liquidity.
+              </div>
+            )}
 
-            <button type="button" onClick={() => {
-              const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, email } }
-              handleSchedule(payload)
-            }} className="inline-flex items-center px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700">Schedule Consultation</button>
+            {toNumber(windfall) > 100000 && (
+              <div className="mb-3 p-3 rounded border bg-blue-50 text-sm text-blue-800">
+                <strong>Single Premium Pathway:</strong> With a cash windfall, consider a single-premium IUL. Note: large single premiums can create MEC tax treatment — consult underwriting.
+              </div>
+            )}
+
+            {coverage >= 1000000 && (
+              <div className="mb-3 p-3 rounded border bg-gray-50 text-sm text-gray-800">
+                <strong>Legacy Option:</strong> Your need is {fmt.format(coverage)}. Consider a {fmt.format(coverage * 2)} legacy option to protect a longer horizon (HLV — 20 years vs 10 years rationale).
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={() => {
+                const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
+                void handleCopy(payload)
+              }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Copy Result</button>
+
+              <button type="button" onClick={() => {
+                const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
+                handleDownload(payload)
+              }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Download JSON</button>
+
+              <button type="button" onClick={async () => {
+                const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
+                await handleSaveAndStartApplication(payload)
+              }} className="inline-flex items-center px-3 py-2 border border-indigo-600 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Start Application</button>
+
+              <button type="button" onClick={() => {
+                const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
+                printStrategyGuide()
+              }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Download Strategy Guide (PDF)</button>
+
+              <button type="button" onClick={async () => {
+                const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
+                await handleEmailRecommendation(payload)
+              }} className="inline-flex items-center px-3 py-2 border border-blue-600 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">Email Recommendation</button>
+
+              <button type="button" onClick={async () => {
+                const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
+                await handleAddToClientProfile(payload)
+              }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Add to Client Profile</button>
+
+              <button type="button" onClick={() => {
+                const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
+                handleSchedule(payload)
+              }} className="inline-flex items-center px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700">Schedule Consultation</button>
+            </div>
           </div>
         </div>
       )}
