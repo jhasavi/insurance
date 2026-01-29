@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from "react"
+import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 
 export function LifeInsuranceTool() {
   const [step, setStep] = useState(1)
@@ -20,6 +22,9 @@ export function LifeInsuranceTool() {
   const [wantLivingBenefitAccess, setWantLivingBenefitAccess] = useState<boolean>(false)
   const [wantWaiverOfPremium, setWantWaiverOfPremium] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
+  const [emailModalOpen, setEmailModalOpen] = useState(false)
+  const [recipientEmail, setRecipientEmail] = useState<string>('')
+  const [recipientNameModal, setRecipientNameModal] = useState<string>('')
   const [unlocked, setUnlocked] = useState<boolean>(false)
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -409,45 +414,29 @@ export function LifeInsuranceTool() {
     try { window.open(`/recommendation/${entry.id}`, '_blank') } catch { alert('Unable to open application view') }
   }
 
-  const handleEmailRecommendation = async (payload: any) => {
+  const handleEmailRecommendation = async (payload: any, opts?: { recipientName?: string; recipientEmail?: string }) => {
     const entry = await saveRecommendation(payload)
     const link = entry ? `${location.origin}/recommendation/${entry.id}` : ''
     const subject = encodeURIComponent('Life Insurance Recommendation')
 
-    // Optional recipient name for personalization
-    let recipientName = ''
-    try {
-      const r = window.prompt('Enter recipient name (optional)')
-      if (r && typeof r === 'string') recipientName = r.trim()
-    } catch {}
-
+    const recipientName = opts?.recipientName || ''
     const greeting = recipientName ? `Hi ${recipientName},` : 'Hi,'
     const bodyText = `${greeting}\r\n\r\nHere is a recommended life insurance plan I prepared for you.\r\n\r\nCoverage: ${fmt.format(coverage)}\r\nType: ${rec.type}\r\nTerm: ${termLength ? `${termLength} years` : 'Permanent'}\r\n\r\nView full recommendation: ${link}\r\n\r\nBest,\r\nNamaste Insurance\r\n\r\nSanjeev`
     const body = encodeURIComponent(bodyText)
 
     try {
-      // Open mail client
-      window.location.href = `mailto:?subject=${subject}&body=${body}`
+      // open mail client with optional recipient email
+      const to = opts?.recipientEmail ? `${opts.recipientEmail}` : ''
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
 
-      // Try to copy link to clipboard as a fallback/share aid
-      try {
-        if (link && navigator?.clipboard?.writeText) {
-          navigator.clipboard.writeText(link).catch(() => {})
-        }
-      } catch {}
+      // copy link to clipboard if possible
+      try { if (link && navigator?.clipboard?.writeText) { navigator.clipboard.writeText(link).catch(() => {}) } } catch {}
 
-      // Notify user
-      setTimeout(() => {
-        try {
-          alert('Recommendation saved. Mail client opened. If your mail client did not open, the recommendation link has been copied to your clipboard.')
-        } catch {}
-      }, 200)
+      // show toast confirmation
+      try { toast.success('Recommendation saved — mail client opened. Link copied to clipboard.') } catch {}
     } catch (e) {
-      try {
-        prompt('Copy this link to share:', link || JSON.stringify(payload, null, 2))
-      } catch {
-        // final fallback: do nothing
-      }
+      try { toast.error('Unable to open mail client. Recommendation link copied to clipboard.') } catch {}
+      try { if (link && navigator?.clipboard?.writeText) await navigator.clipboard.writeText(link) } catch {}
     }
   }
 
@@ -503,6 +492,36 @@ export function LifeInsuranceTool() {
 
   return (
     <div>
+      {emailModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setEmailModalOpen(false)} />
+          <div className="relative bg-white rounded shadow-lg w-full max-w-md p-6">
+            <h3 className="text-lg font-medium mb-2">Email Recommendation</h3>
+            <div className="space-y-3">
+              <label className="block">
+                <span className="text-sm font-medium">Recipient Email</span>
+                <input value={recipientEmail} onChange={(e) => setRecipientEmail(e.target.value)} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-2" placeholder="recipient@example.com" />
+              </label>
+
+              <label className="block">
+                <span className="text-sm font-medium">Recipient Name (optional)</span>
+                <input value={recipientNameModal} onChange={(e) => setRecipientNameModal(e.target.value)} className="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-2" placeholder="" />
+              </label>
+            </div>
+
+            <div className="mt-4 flex justify-end gap-2">
+              <button onClick={() => setEmailModalOpen(false)} className="px-3 py-2 bg-white border rounded">Cancel</button>
+              <button onClick={async () => {
+                const payload = (window as any).__lastRecommendationPayload
+                setEmailModalOpen(false)
+                if (!payload) { toast.error('No recommendation to send'); return }
+                await handleEmailRecommendation(payload, { recipientName: recipientNameModal || undefined, recipientEmail: recipientEmail || undefined })
+              }} className="px-3 py-2 bg-blue-600 text-white rounded">Send</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <Toaster />
       <form onSubmit={handleSubmit} className="bg-white shadow-sm rounded-lg p-6">
         <div className="flex items-center gap-2 mb-6">
           {[1, 2, 3].map((s) => (
@@ -801,9 +820,13 @@ export function LifeInsuranceTool() {
                 printStrategyGuide()
               }} className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Download Strategy Guide (PDF)</button>
 
-              <button type="button" onClick={async () => {
+              <button type="button" onClick={() => {
                 const payload = { recommendedType: rec.type, coverage, termLength, inputs: { age, income, debt, mortgage, children, goal, replacementYears, inflationRate, tobaccoUse, healthRating, windfall, priority, wantLivingBenefitAccess, wantWaiverOfPremium, email } }
-                await handleEmailRecommendation(payload)
+                setRecipientEmail(email || '')
+                setRecipientNameModal('')
+                // store payload on the window for modal send action (lightweight approach)
+                ;(window as any).__lastRecommendationPayload = payload
+                setEmailModalOpen(true)
               }} className="inline-flex items-center px-3 py-2 border border-blue-600 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">Email Recommendation</button>
 
               <button type="button" onClick={async () => {
