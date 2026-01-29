@@ -413,12 +413,41 @@ export function LifeInsuranceTool() {
     const entry = await saveRecommendation(payload)
     const link = entry ? `${location.origin}/recommendation/${entry.id}` : ''
     const subject = encodeURIComponent('Life Insurance Recommendation')
-    const bodyText = `Hi,\r\n\r\nHere is a recommended life insurance plan I prepared for you.\r\n\r\nCoverage: ${fmt.format(coverage)}\r\nType: ${rec.type}\r\nTerm: ${termLength ? `${termLength} years` : 'Permanent'}\r\n\r\nView full recommendation: ${link}\r\n\r\nBest,\r\nNamaste Insurance\r\n\r\nSanjeev`
-    const body = encodeURIComponent(bodyText)
+
+    // Optional recipient name for personalization
+    let recipientName = ''
     try {
+      const r = window.prompt('Enter recipient name (optional)')
+      if (r && typeof r === 'string') recipientName = r.trim()
+    } catch {}
+
+    const greeting = recipientName ? `Hi ${recipientName},` : 'Hi,'
+    const bodyText = `${greeting}\r\n\r\nHere is a recommended life insurance plan I prepared for you.\r\n\r\nCoverage: ${fmt.format(coverage)}\r\nType: ${rec.type}\r\nTerm: ${termLength ? `${termLength} years` : 'Permanent'}\r\n\r\nView full recommendation: ${link}\r\n\r\nBest,\r\nNamaste Insurance\r\n\r\nSanjeev`
+    const body = encodeURIComponent(bodyText)
+
+    try {
+      // Open mail client
       window.location.href = `mailto:?subject=${subject}&body=${body}`
+
+      // Try to copy link to clipboard as a fallback/share aid
+      try {
+        if (link && navigator?.clipboard?.writeText) {
+          navigator.clipboard.writeText(link).catch(() => {})
+        }
+      } catch {}
+
+      // Notify user
+      setTimeout(() => {
+        try {
+          alert('Recommendation saved. Mail client opened. If your mail client did not open, the recommendation link has been copied to your clipboard.')
+        } catch {}
+      }, 200)
     } catch (e) {
-      prompt('Copy this link to share:', link || JSON.stringify(payload, null, 2))
+      try {
+        prompt('Copy this link to share:', link || JSON.stringify(payload, null, 2))
+      } catch {
+        // final fallback: do nothing
+      }
     }
   }
 
