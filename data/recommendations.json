@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1700000000001,
+    "createdAt": "2026-01-28T00:00:00.000Z",
+    "recommendedType": "Level Term",
+    "coverage": 750000,
+    "termLength": 20,
+    "inputs": {
+      "age": 34,
+      "income": 90000,
+      "debt": 20000,
+      "mortgage": 300000,
+      "children": 2,
+      "goal": "Income Replacement",
+      "replacementYears": 10,
+      "inflationRate": 3,
+      "tobaccoUse": false,
+      "healthRating": "Standard",
+      "email": "demo1@namaste.com"
+    }
+  },
+  {
+    "id": 1700000000002,
+    "createdAt": "2026-01-28T00:01:00.000Z",
+    "recommendedType": "Indexed Universal Life (IUL)",
+    "coverage": 350000,
+    "termLength": null,
+    "inputs": {
+      "age": 42,
+      "income": 150000,
+      "debt": 5000,
+      "mortgage": 0,
+      "children": 0,
+      "goal": "Wealth Accumulation",
+      "replacementYears": 10,
+      "inflationRate": 3,
+      "tobaccoUse": false,
+      "healthRating": "Preferred",
+      "email": "demo2@namaste.com"
+    }
+  }
+]

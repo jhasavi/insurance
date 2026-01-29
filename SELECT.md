@@ -148,6 +148,16 @@ Update policy: any strategic change in product mapping, carrier prioritization, 
 
 - Rollout approach: start with agent-only beta, then public pilot; use agent feedback to tune messaging and product mappings before wider launch.
 
+## Demo Readiness Updates (Jan 28, 2026)
+
+- Calendly integration: the Schedule CTA now opens calendly.com/namaste1 with the recommendation payload prefilled for faster booking.
+- Save-to-CRM (demo): `/api/recommendation` writes to `data/recommendations.json` for demo persistence; two sample entries were created for the pilot.
+- One-pagers: generated HTML one-pagers for demo scenarios are available in `out/` (files named `onepager-*.html`). These can be printed to PDF for handouts during demos. Automated PDF generation via Playwright is set up in CI but local Playwright browser issues prevented a local PDF run — fallback HTML outputs are used.
+- CI: Added GitHub Actions workflow to build the site and run Playwright tests (`.github/workflows/playwright-ci.yml`). This starts a server on port 3001 then runs E2E tests.
+- Engagement KPI: lightweight `engagementScore` is tracked in `localStorage` for quick adoption metrics (incremented on key actions).
+
+No strategic changes to product scope were made — we continue to prioritize two clear recommendation paths (Level Term and Permanent/IUL) for the initial pilot. The above operational changes (Calendly, demo persistence, one-pagers, CI) are tactical readiness improvements supporting the pilot.
+
 ## Recent Business Decisions
 
 - Add a Boston-focused landing section and author attribution to increase local SEO and trust for Boston homeowners (authored by Sanjeev Jha / Namaste Boston Homes).
