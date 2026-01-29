@@ -13,13 +13,13 @@ export default function HomePage() {
         <div className="container mx-auto px-4 text-center max-w-5xl">
           <Badge className="mb-4 bg-blue-600">🚀 15+ Insurance Carriers</Badge>
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Compare Insurance in Minutes,<br />Not Days
+            The Honest Way to Compare Insurance — Fast, Clear, Local
           </h1>
           <p className="text-xl text-gray-600 mb-4">
-            Real quotes. No spam. AI-powered insights.
+            Real carrier quotes, explainable recommendations, and local guidance tailored for Boston homeowners.
           </p>
           <p className="text-3xl font-bold text-green-600 mb-8">
-            Save an average of $847/year
+            Built by Sanjeev Jha • Save an average of $847/year
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Button size="lg" asChild className="bg-blue-600 hover:bg-blue-700">
@@ -34,12 +34,26 @@ export default function HomePage() {
                 Scan Your Policy
               </Link>
             </Button>
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white" asChild>
-              <Link href="/life-insurance">
-                <CheckCircle className="mr-2 h-5 w-5" />
-                Life Insurance Tool
-              </Link>
-            </Button>
+            <div className="relative">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white" asChild>
+                <Link href="/life-insurance">
+                  <CheckCircle className="mr-2 h-5 w-5" />
+                  Life Insurance Tool
+                </Link>
+              </Button>
+              <div className="text-xs text-gray-100 mt-2 text-center">Tailored for Boston homeowners</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Local Trust Bar */}
+      <section className="py-4 bg-white border-b">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-gray-700">Authored by <strong>Sanjeev Jha</strong> • Namaste Boston Homes — Local expertise for Massachusetts homeowners</div>
+          <div className="flex items-center gap-3">
+            <Link href="/life-insurance" className="text-sm text-blue-600 hover:underline">Try Life Insurance Tool</Link>
+            <Link href="/agent-one-pager" className="text-sm text-gray-600 hover:underline">Agent One-Pager</Link>
           </div>
         </div>
       </section>

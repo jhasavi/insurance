@@ -15,15 +15,15 @@ export function Header() {
         </Link>
         
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/compare" className="text-gray-600 hover:text-gray-900">
-            Compare Quotes
-          </Link>
-          <Link href="/life-insurance" className="text-gray-600 hover:text-gray-900">
-            Life Insurance Tool
-          </Link>
-          <Link href="/scan" className="text-gray-600 hover:text-gray-900">
-            Scan Policy
-          </Link>
+          <details className="relative">
+            <summary className="list-none cursor-pointer text-gray-600 hover:text-gray-900">Tools</summary>
+            <div className="absolute mt-2 w-48 bg-white border rounded-md shadow-lg p-2">
+              <Link href="/compare" className="block px-2 py-1 text-sm text-gray-700 hover:bg-gray-50">Compare Quotes</Link>
+              <Link href="/life-insurance" className="block px-2 py-1 text-sm text-gray-700 hover:bg-gray-50">Life Insurance</Link>
+              <Link href="/scan" className="block px-2 py-1 text-sm text-gray-700 hover:bg-gray-50">Scan Policy</Link>
+            </div>
+          </details>
+
           <Link href="/how-it-works" className="text-gray-600 hover:text-gray-900">
             How It Works
           </Link>
