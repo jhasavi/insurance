@@ -413,14 +413,10 @@ export function LifeInsuranceTool() {
     const entry = await saveRecommendation(payload)
     const link = entry ? `${location.origin}/recommendation/${entry.id}` : ''
     const subject = encodeURIComponent('Life Insurance Recommendation')
-    const body = encodeURIComponent(`Hi,%0D%0A%0D%0AHere is a recommended life insurance plan I prepared for you.%0D%0A%0D%0ACoverage: ${fmt.format(coverage)}%0D%0AType: ${rec.type}%0D%0ATerm: ${termLength ? `${termLength} years` : 'Permanent'}%0D%0A%0D%0AView full recommendation: ${link}%0D%0A%0D%0ABest,%0D%0A${'Namaste Insurance'}`)
+    const bodyText = `Hi,\r\n\r\nHere is a recommended life insurance plan I prepared for you.\r\n\r\nCoverage: ${fmt.format(coverage)}\r\nType: ${rec.type}\r\nTerm: ${termLength ? `${termLength} years` : 'Permanent'}\r\n\r\nView full recommendation: ${link}\r\n\r\nBest,\r\nNamaste Insurance\r\n\r\nSanjeev`
+    const body = encodeURIComponent(bodyText)
     try {
-      if (link) {
-        window.location.href = `mailto:?subject=${subject}&body=${body}`
-      } else {
-        // fallback: open mail client with brief body
-        window.location.href = `mailto:?subject=${subject}&body=${body}`
-      }
+      window.location.href = `mailto:?subject=${subject}&body=${body}`
     } catch (e) {
       prompt('Copy this link to share:', link || JSON.stringify(payload, null, 2))
     }
