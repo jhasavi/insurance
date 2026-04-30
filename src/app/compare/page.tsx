@@ -7,8 +7,30 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 import { Shield, CheckCircle, Star, TrendingDown, ExternalLink, Filter } from "lucide-react"
 
+type Quote = {
+  id: string
+  carrier: {
+    name: string
+    slug: string
+    rating: number
+    financialStrength: string
+  }
+  premium: number
+  monthlyPremium: number
+  coverage: Record<string, string>
+  deductibles: Record<string, number>
+  discounts: string[]
+  pros: string[]
+  cons: string[]
+  affiliateLink: string
+  referralFee: number
+}
+
+// Hidden for now. Flip to true when you want to expose Auto/Home tabs in UI.
+const SHOW_AUTO_HOME_TABS = false
+
 // Mock data for demonstration - in production, this comes from API
-const mockQuotes = [
+const autoQuotes: Quote[] = [
   {
     id: "1",
     carrier: {
@@ -145,13 +167,96 @@ const mockQuotes = [
   },
 ]
 
+const homeQuotes: Quote[] = [
+  {
+    id: "h1",
+    carrier: {
+      name: "Lemonade",
+      slug: "lemonade",
+      rating: 4.2,
+      financialStrength: "A",
+    },
+    premium: 1180,
+    monthlyPremium: 98,
+    coverage: {
+      dwelling: "$500,000",
+      personalProperty: "$250,000",
+      liability: "$300,000",
+      lossOfUse: "$100,000",
+    },
+    deductibles: {
+      allPerils: 1000,
+      windHail: 1500,
+    },
+    discounts: ["Smart Home", "Claims-Free", "Paperless"],
+    pros: ["Strong digital experience", "Fast onboarding", "Competitive pricing"],
+    cons: ["Limited local agent support"],
+    affiliateLink: "https://www.lemonade.com",
+    referralFee: 118,
+  },
+  {
+    id: "h2",
+    carrier: {
+      name: "Amica",
+      slug: "amica",
+      rating: 4.7,
+      financialStrength: "A+",
+    },
+    premium: 1295,
+    monthlyPremium: 108,
+    coverage: {
+      dwelling: "$500,000",
+      personalProperty: "$300,000",
+      liability: "$500,000",
+      lossOfUse: "$120,000",
+    },
+    deductibles: {
+      allPerils: 1000,
+      windHail: 1000,
+    },
+    discounts: ["Loyalty", "Bundling", "Claims-Free"],
+    pros: ["Excellent claims support", "Strong customer satisfaction"],
+    cons: ["Higher premium than digital-first carriers"],
+    affiliateLink: "https://www.amica.com",
+    referralFee: 130,
+  },
+  {
+    id: "h3",
+    carrier: {
+      name: "Liberty Mutual",
+      slug: "liberty-mutual",
+      rating: 4.0,
+      financialStrength: "A",
+    },
+    premium: 1410,
+    monthlyPremium: 118,
+    coverage: {
+      dwelling: "$500,000",
+      personalProperty: "$250,000",
+      liability: "$300,000",
+      lossOfUse: "$100,000",
+    },
+    deductibles: {
+      allPerils: 1000,
+      windHail: 2000,
+    },
+    discounts: ["Multi-Policy", "Protective Devices"],
+    pros: ["Local agent network", "Flexible add-ons"],
+    cons: ["Premium pricing in some zip codes"],
+    affiliateLink: "https://www.libertymutual.com",
+    referralFee: 141,
+  },
+]
+
 export default function ComparePage() {
+  const [lineOfBusiness, setLineOfBusiness] = useState<"auto" | "home">("auto")
   const [sortBy, setSortBy] = useState<"price" | "rating">("price")
   const [showDisclosures, setShowDisclosures] = useState(false)
-  const [quotes, setQuotes] = useState(mockQuotes)
+  const [quotes, setQuotes] = useState<Quote[]>(autoQuotes)
 
   useEffect(() => {
-    const sorted = [...mockQuotes].sort((a, b) => {
+    const sourceQuotes = lineOfBusiness === "home" ? homeQuotes : autoQuotes
+    const sorted = [...sourceQuotes].sort((a, b) => {
       if (sortBy === "price") {
         return a.premium - b.premium
       } else {
@@ -159,10 +264,11 @@ export default function ComparePage() {
       }
     })
     setQuotes(sorted)
-  }, [sortBy])
+  }, [sortBy, lineOfBusiness])
 
   const lowestPremium = Math.min(...quotes.map((q) => q.premium))
   const averagePremium = quotes.reduce((sum, q) => sum + q.premium, 0) / quotes.length
+  const highestPremium = Math.max(...quotes.map((q) => q.premium))
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -172,7 +278,9 @@ export default function ComparePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Shield className="h-8 w-8 text-blue-600 mr-2" />
-              <span className="text-2xl font-bold text-gray-900">Compare Quotes</span>
+              <span className="text-2xl font-bold text-gray-900">
+                Compare {lineOfBusiness === "home" ? "Home" : "Auto"} Insurance Quotes
+              </span>
             </div>
             <Button variant="outline" asChild>
               <Link href="/">← Back to Home</Link>
@@ -183,6 +291,25 @@ export default function ComparePage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {SHOW_AUTO_HOME_TABS && (
+          <div className="mb-6 flex items-center gap-2">
+            <Button
+              variant={lineOfBusiness === "auto" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setLineOfBusiness("auto")}
+            >
+              Auto
+            </Button>
+            <Button
+              variant={lineOfBusiness === "home" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setLineOfBusiness("home")}
+            >
+              Home
+            </Button>
+          </div>
+        )}
+
         {/* Summary Banner */}
         <Card className="mb-8 bg-gradient-to-r from-green-50 to-blue-50">
           <CardContent className="py-6">
@@ -201,7 +328,7 @@ export default function ComparePage() {
                 <p className="text-sm text-gray-600 mb-1">Potential Savings</p>
                 <p className="text-3xl font-bold text-orange-600 flex items-center justify-center gap-1">
                   <TrendingDown className="h-6 w-6" />
-                  ${(mockQuotes[4].premium - lowestPremium).toFixed(0)}
+                  ${(highestPremium - lowestPremium).toFixed(0)}
                 </p>
                 <p className="text-xs text-gray-500">vs highest quote</p>
               </div>
@@ -373,7 +500,7 @@ export default function ComparePage() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-gray-600">
               <p>
-                <strong>1. Compare:</strong> Review real quotes from multiple carriers side-by-side.
+                <strong>1. Compare:</strong> Review real {lineOfBusiness} quotes from multiple carriers side-by-side.
               </p>
               <p>
                 <strong>2. Choose:</strong> Select the carrier that offers the best value for your needs.

@@ -21,14 +21,26 @@ Build a **transparent insurance marketplace** - not a lead funnel, but a real in
 - Filter and sort by price or rating
 - Anonymous browsing - no spam guarantee
 
-### 2. AI Policy Scanner (`/scan`)
+### 2. Life Insurance Growth Toolkit (`/life-insurance`)
+- Guided Life Insurance recommendation builder for advisors and clients
+- Personalized premium estimate, coverage calculator, and rider guidance
+- Client-ready one-pager output for term, IUL, and whole life scenarios
+- Lead pipeline tracking with stage updates and bulk actions
+- Built-in engagement tools: WhatsApp/SMS script sharing and Calendly scheduling
+
+### 3. Advisor Resources
+- Localized MA/Boston market context and advisor knowledge base
+- Follow-up script library for new leads, term clients, IUL prospects, and referrals
+- Objection-handling templates and coverage gap messaging
+
+### 4. AI Policy Scanner (`/scan`)
 - Upload existing insurance policy documents
 - AI-powered analysis using GPT-4 Vision
 - Identifies coverage gaps and savings opportunities
 - Personalized recommendations
 - Market benchmark comparison
 
-### 3. Transparent Pricing
+### 5. Transparent Pricing
 - All referral fees disclosed upfront
 - No hidden commissions
 - User consent required for data sharing
@@ -127,35 +139,61 @@ src/
 - `pnpm start` - Start production server
 - `pnpm lint` - Run ESLint
 
-## 🎯 Roadmap
+## 📦 Key Pages & Features
 
-See `IMPLEMENTATION_PLAN.md` for detailed roadmap.
+| Route | Description |
+|---|---|
+| `/` | Life-first homepage with hero, scenarios, and conversion CTAs |
+| `/life-insurance` | Main Life Insurance recommendation tool (4-step guided form) |
+| `/life-insurance/learn` | Knowledge base: Term vs IUL vs Whole Life, underwriting, MA context |
+| `/life-insurance/scripts` | Follow-up script library (WhatsApp, SMS, by scenario) |
+| `/leads` | Leads dashboard — stage filters, search, bulk stage actions |
+| `/recommendation/[id]` | View saved recommendation by ID |
+| `/compare` | Multi-carrier quote comparison (Auto/Home, internal beta) |
+| `/scan` | AI policy scanner |
+| `/agent-one-pager` | Printable advisor one-pager |
 
-### Phase 1: MVP (Current)
-- ✅ Database schema with marketplace models
-- ✅ AI Policy Scanner UI and API
-- ✅ Multi-carrier comparison page
-- ✅ 15 carriers seeded
-- 🚧 Homepage cleanup
-- 🚧 File upload integration
+## 🚩 Feature Flags
 
-### Phase 2: Business Integration
-- Real estate partner integration
-- Mortgage broker partnerships
-- Referral tracking system
-- Analytics dashboard
+| Flag | Location | Default | Description |
+|---|---|---|---|
+| `SHOW_AUTO_HOME_TABS` | `src/app/compare/page.tsx:30` | `false` | Set to `true` to expose Auto/Home tab in the compare page UI |
 
-### Phase 3: Carrier APIs
-- Progressive API integration
-- Lemonade API integration
-- Additional carrier partnerships
-- Real-time quote generation
+## 🔑 Environment Variables
 
-### Phase 4: Advanced Features
-- Bundle optimizer
-- $20 advisory service
-- Agent assignment system
-- Payment processing
+```env
+DATABASE_URL="postgresql://..."          # PostgreSQL (Prisma)
+NEXTAUTH_URL="https://your-domain.com"   # NextAuth callback URL
+NEXTAUTH_SECRET="..."                    # Random secret for NextAuth
+OPENAI_API_KEY="sk-..."                  # GPT-4o for policy scanner / AI features
+NEXT_PUBLIC_CALENDLY_URL="https://calendly.com/namaste1"  # Booking link in Schedule CTA
+SENTRY_DSN="..."                         # Optional: error tracking
+NEXT_PUBLIC_GA_MEASUREMENT_ID="..."      # Optional: Google Analytics
+```
+
+## 🎯 Current Status
+
+### Life Insurance Business Features (Active)
+- ✅ Life-first homepage positioning
+- ✅ 4-step Life Insurance recommendation tool with premium estimation
+- ✅ Advisor knowledge assist (talking points, objections, compliance notes)
+- ✅ Lead stage tracking (New / Follow-up / Closed) with localStorage persistence
+- ✅ WhatsApp & SMS follow-up script sharing from recommendation output
+- ✅ Schedule consultation CTA (Calendly: `calendly.com/namaste1`)
+- ✅ Leads dashboard with stage filters, search, and bulk stage updates
+- ✅ Knowledge base at `/life-insurance/learn` (Term, IUL, Whole Life, MA context)
+- ✅ Script library at `/life-insurance/scripts` (7 scenarios, filterable)
+
+### Auto/Home (Internal Beta)
+- ✅ Quote comparison data for Auto and Home
+- ✅ Hidden from public nav (flip `SHOW_AUTO_HOME_TABS=true` to enable)
+- 🔜 Real carrier API integration
+
+### Phase 2 Roadmap
+- Real carrier API quotes (Progressive, Lemonade, etc.)
+- Referral tracking with partner commission reporting
+- Email drip campaign integration (new lead → follow-up sequences)
+- Mobile-optimized lead capture form for field use
 
 ## 🔐 Privacy & Compliance
 
