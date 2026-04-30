@@ -13,19 +13,19 @@ export default function HomePage() {
         <div className="container mx-auto px-4 text-center max-w-5xl">
           <Badge className="mb-4 bg-blue-600">🚀 15+ Insurance Carriers</Badge>
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            The Honest Way to Compare Insurance — Fast, Clear, Local
+            Life Insurance Guidance Built For Your Family And Clients
           </h1>
           <p className="text-xl text-gray-600 mb-4">
-            Real carrier quotes, explainable recommendations, and local guidance tailored for Boston homeowners.
+            Build clear life insurance recommendations in minutes with strategy support, carrier matching, and client-ready one-pagers.
           </p>
           <p className="text-3xl font-bold text-green-600 mb-8">
-            Built by Sanjeev Jha • Save an average of $847/year
+            Built by Sanjeev Jha • Trusted local guidance for Massachusetts families
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" asChild className="bg-blue-600 hover:bg-blue-700">
-              <Link href="/compare">
-                <BarChart3 className="mr-2 h-5 w-5" />
-                Compare Quotes
+            <Button size="lg" asChild className="bg-green-600 hover:bg-green-700 text-white">
+              <Link href="/life-insurance">
+                <CheckCircle className="mr-2 h-5 w-5" />
+                Start Life Insurance Recommendation
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
@@ -34,15 +34,12 @@ export default function HomePage() {
                 Scan Your Policy
               </Link>
             </Button>
-            <div className="relative">
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white" asChild>
-                <Link href="/life-insurance">
-                  <CheckCircle className="mr-2 h-5 w-5" />
-                  Life Insurance Tool
-                </Link>
-              </Button>
-              <div className="text-xs text-gray-100 mt-2 text-center">Tailored for Boston homeowners</div>
-            </div>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/compare">
+                <BarChart3 className="mr-2 h-5 w-5" />
+                Compare Auto or Home (Internal Beta)
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -63,20 +60,20 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">15+</div>
-              <div className="text-sm text-gray-600">Insurance Carriers</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">3</div>
+              <div className="text-sm text-gray-600">Step Life Recommendation Flow</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-green-600 mb-2">$847</div>
-              <div className="text-sm text-gray-600">Average Savings/Year</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">10+1</div>
+              <div className="text-sm text-gray-600">DIME Inputs + Goal Strategy</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-purple-600 mb-2">95%+</div>
-              <div className="text-sm text-gray-600">AI Accuracy Rate</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">Advisor</div>
+              <div className="text-sm text-gray-600">Knowledge Assist Included</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-orange-600 mb-2">4.8★</div>
-              <div className="text-sm text-gray-600">User Rating</div>
+              <div className="text-4xl font-bold text-orange-600 mb-2">PDF</div>
+              <div className="text-sm text-gray-600">Client-Ready Strategy Guide</div>
             </div>
           </div>
         </div>
@@ -86,9 +83,9 @@ export default function HomePage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Real People, Real Savings</h2>
+            <h2 className="text-4xl font-bold mb-4">Real Life Planning Scenarios</h2>
             <p className="text-xl text-gray-600">
-              See how much our users saved by comparing quotes
+              Use these examples to turn uncertainty into clear life insurance recommendations
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -96,30 +93,30 @@ export default function HomePage() {
             <Card className="border-2 hover:border-blue-400 transition-all">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <Badge variant="secondary">Auto Insurance</Badge>
+                  <Badge variant="secondary">Young Family Protection</Badge>
                   <TrendingDown className="h-5 w-5 text-green-600" />
                 </div>
-                <CardTitle className="text-lg">Sarah M., Age 32</CardTitle>
-                <CardDescription>Boston, MA • 2019 Honda Civic</CardDescription>
+                <CardTitle className="text-lg">Arjun & Priya, Age 34</CardTitle>
+                <CardDescription>Boston, MA • 1 child • New mortgage</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Before:</span>
-                    <span className="text-lg font-semibold line-through text-gray-400">$2,400/year</span>
+                    <span className="text-sm text-gray-600">Coverage Gap:</span>
+                    <span className="text-lg font-semibold text-red-500">$0 in-force life</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">After:</span>
-                    <span className="text-lg font-semibold text-green-600">$1,450/year</span>
+                    <span className="text-sm text-gray-600">Recommended:</span>
+                    <span className="text-lg font-semibold text-green-600">$1,250,000 Term</span>
                   </div>
                   <div className="pt-3 border-t">
-                    <div className="text-2xl font-bold text-green-600 mb-2">$950 saved</div>
-                    <Badge className="bg-green-100 text-green-700">39% savings</Badge>
+                    <div className="text-2xl font-bold text-green-600 mb-2">20-year strategy</div>
+                    <Badge className="bg-green-100 text-green-700">Income + Mortgage protected</Badge>
                   </div>
                   <div className="text-xs text-gray-600 pt-2">
-                    ✓ Switched to Clearcover (digital-first carrier)
-                    <br />✓ Increased deductible to $500
-                    <br />✓ Removed unnecessary rental coverage
+                    ✓ DIME method created transparent target coverage
+                    <br />✓ Carrier shortlist generated automatically
+                    <br />✓ Client-ready one-pager prepared in minutes
                   </div>
                 </div>
               </CardContent>
@@ -129,30 +126,30 @@ export default function HomePage() {
             <Card className="border-2 hover:border-blue-400 transition-all">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <Badge variant="secondary">Bundle</Badge>
+                  <Badge variant="secondary">Business Owner Case</Badge>
                   <TrendingDown className="h-5 w-5 text-green-600" />
                 </div>
-                <CardTitle className="text-lg">Martinez Family</CardTitle>
-                <CardDescription>Worcester, MA • Home + 2 Cars</CardDescription>
+                <CardTitle className="text-lg">Neha, Age 42</CardTitle>
+                <CardDescription>Lexington, MA • 2 children • High income</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Before:</span>
-                    <span className="text-lg font-semibold line-through text-gray-400">$3,000/year</span>
+                    <span className="text-sm text-gray-600">Primary Goal:</span>
+                    <span className="text-lg font-semibold text-gray-900">Wealth Accumulation</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">After:</span>
-                    <span className="text-lg font-semibold text-green-600">$2,400/year</span>
+                    <span className="text-sm text-gray-600">Recommended:</span>
+                    <span className="text-lg font-semibold text-green-600">IUL Strategy</span>
                   </div>
                   <div className="pt-3 border-t">
-                    <div className="text-2xl font-bold text-green-600 mb-2">$600 saved</div>
-                    <Badge className="bg-green-100 text-green-700">20% savings</Badge>
+                    <div className="text-2xl font-bold text-green-600 mb-2">Tax-aware design</div>
+                    <Badge className="bg-green-100 text-green-700">Living benefits enabled</Badge>
                   </div>
                   <div className="text-xs text-gray-600 pt-2">
-                    ✓ Bundled auto + home with Progressive
-                    <br />✓ Multi-policy discount applied
-                    <br />✓ Same great coverage, lower price
+                    ✓ Advisor talking points included automatically
+                    <br />✓ Objection handling prompts included
+                    <br />✓ Strategy guide exported for client review
                   </div>
                 </div>
               </CardContent>
@@ -162,30 +159,30 @@ export default function HomePage() {
             <Card className="border-2 hover:border-blue-400 transition-all">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <Badge variant="secondary">Coverage Gap</Badge>
+                  <Badge variant="secondary">Legacy Planning</Badge>
                   <Shield className="h-5 w-5 text-blue-600" />
                 </div>
-                <CardTitle className="text-lg">Mike T., Age 45</CardTitle>
-                <CardDescription>Cambridge, MA • $800K Home</CardDescription>
+                <CardTitle className="text-lg">S. Family Trust, Age 55</CardTitle>
+                <CardDescription>Cambridge, MA • Estate transfer goals</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Liability Limit:</span>
-                    <span className="text-lg font-semibold text-red-600">$100K only</span>
+                    <span className="text-sm text-gray-600">Estate Goal:</span>
+                    <span className="text-lg font-semibold">Liquidity + Legacy</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Home Equity:</span>
-                    <span className="text-lg font-semibold">$800K</span>
+                    <span className="text-sm text-gray-600">Recommended:</span>
+                    <span className="text-lg font-semibold text-blue-600">Whole Life + Rider Review</span>
                   </div>
                   <div className="pt-3 border-t">
-                    <div className="text-2xl font-bold text-blue-600 mb-2">$1M protected</div>
-                    <Badge className="bg-blue-100 text-blue-700">For $200/year</Badge>
+                    <div className="text-2xl font-bold text-blue-600 mb-2">Structured succession</div>
+                    <Badge className="bg-blue-100 text-blue-700">Long-term certainty</Badge>
                   </div>
                   <div className="text-xs text-gray-600 pt-2">
-                    ✓ AI detected massive coverage gap
-                    <br />✓ Added $1M umbrella policy
-                    <br />✓ Protected net worth from lawsuits
+                    ✓ Permanent policy comparison surfaced
+                    <br />✓ Underwriting snapshot shared up front
+                    <br />✓ Compliance-safe summary included
                   </div>
                 </div>
               </CardContent>
@@ -309,20 +306,20 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className="py-20 bg-gradient-to-b from-blue-600 to-blue-700 text-white">
         <div className="container mx-auto px-4 text-center max-w-3xl">
-          <h2 className="text-4xl font-bold mb-4">Ready to Save on Insurance?</h2>
+          <h2 className="text-4xl font-bold mb-4">Ready To Grow Your Life Insurance Business?</h2>
           <p className="text-xl mb-2 text-blue-100">
-            Join thousands who've saved an average of $847/year
+            Get recommendation logic, advisor prompts, and client-ready outputs in one workflow
           </p>
           <p className="text-sm mb-8 text-blue-200">
-            ✓ Real quotes in minutes ✓ No spam calls ✓ 100% free to compare
+            ✓ DIME-based coverage logic ✓ Carrier mapping ✓ Strategy guide export
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              <Link href="/compare">
-                Get Started - Compare Quotes
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100" asChild>
+              <Link href="/life-insurance">
+                Start Life Recommendation
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-600">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-600" asChild>
               <Link href="/scan">
                 Scan My Current Policy
               </Link>

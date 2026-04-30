@@ -41,13 +41,8 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Products</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/compare" className="text-gray-600 hover:text-blue-600">
-                  Auto Insurance
-                </Link>
-              </li>
-              <li>
-                <Link href="/compare" className="text-gray-600 hover:text-blue-600">
-                  Home Insurance
+                <Link href="/life-insurance" className="text-gray-600 hover:text-blue-600">
+                  Life Insurance Recommendation
                 </Link>
               </li>
               <li>
@@ -56,13 +51,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/life-insurance" className="text-gray-600 hover:text-blue-600">
-                  Life Insurance Tool
+                <Link href="/agent-one-pager" className="text-gray-600 hover:text-blue-600">
+                  Advisor One-Pager
                 </Link>
               </li>
               <li>
                 <Link href="/compare" className="text-gray-600 hover:text-blue-600">
-                  Bundle & Save
+                  Compare Quotes (Internal Beta)
                 </Link>
               </li>
             </ul>

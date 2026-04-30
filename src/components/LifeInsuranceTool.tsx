@@ -52,6 +52,7 @@ export function LifeInsuranceTool() {
   const [comparisonModalOpen, setComparisonModalOpen] = useState(false)
   const [recipientEmail, setRecipientEmail] = useState<string>('')
   const [recipientNameModal, setRecipientNameModal] = useState<string>('')
+  const [leadStage, setLeadStage] = useState<'New' | 'Follow-up' | 'Closed'>('New')
   const [unlocked, setUnlocked] = useState<boolean>(false)
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -312,6 +313,7 @@ export function LifeInsuranceTool() {
         if (obj.socialSecurityMonthly !== undefined) setSocialSecurityMonthly(obj.socialSecurityMonthly)
         if (obj.considerJointPolicy !== undefined) setConsiderJointPolicy(obj.considerJointPolicy)
         if (obj.email !== undefined) setEmail(obj.email)
+        if (obj.leadStage !== undefined) setLeadStage(obj.leadStage)
         if (obj.unlocked !== undefined) setUnlocked(obj.unlocked)
       }
     } catch {}
@@ -382,7 +384,8 @@ export function LifeInsuranceTool() {
       agentLicense,
       clientState,
       socialSecurityMonthly,
-      email
+        email,
+        leadStage
     }
     try { localStorage.setItem("lifeInsuranceInput", JSON.stringify(payload)) } catch {}
     try { console.log("analytics:event", "life_insurance_submitted", payload) } catch {}
@@ -451,6 +454,7 @@ export function LifeInsuranceTool() {
     recommendedType: rec.type,
     coverage,
     termLength,
+    leadStage,
     inputs: {
       age,
       income,
@@ -492,7 +496,8 @@ export function LifeInsuranceTool() {
       clientState,
       socialSecurityMonthly,
       considerJointPolicy,
-      email
+      email,
+      leadStage
     }
   })
 
@@ -550,6 +555,83 @@ export function LifeInsuranceTool() {
       medicalExam: 'Likely for larger face amounts (> $500k) or certain risk classes',
       smokerImpact: 'Smoker rates materially higher; verify tobacco questions',
       notes: 'Confirm state availability and product-specific limits with carrier/WFG broker portal.'
+    }
+  }
+
+  const advisorKnowledgeAssist = () => {
+    const points = [
+      `Lead with need: estimated coverage target is ${fmt.format(coverage)} based on debt, mortgage, income replacement, and dependents.`,
+      `Frame recommendation simply: ${rec.type}${termLength ? ` for ${termLength} years` : ' as a permanent design'}.`,
+      `Use two-step close: confirm budget comfort, then confirm protection priority before discussing product detail.`
+    ]
+
+    if (goal === 'Wealth Accumulation' || rec.type.toLowerCase().includes('iul')) {
+      points.push('Discuss tax-aware accumulation and policy loan flexibility only after confirming long-term funding commitment.')
+    }
+
+    if (toNumber(children) > 0 || toNumber(mortgage) > 0) {
+      points.push('Reinforce family continuity: explain how coverage protects housing stability and education plans.')
+    }
+
+    const objections = [
+      {
+        objection: 'It feels expensive right now.',
+        response: 'Start with core protection first, then layer optional riders as budget allows. Protecting the downside is the priority.'
+      },
+      {
+        objection: 'I will decide later.',
+        response: 'Waiting increases age-based pricing risk. Locking insurability now keeps options open even if coverage is adjusted later.'
+      },
+      {
+        objection: 'I already have coverage through work.',
+        response: 'Employer coverage usually ends when employment changes and may be insufficient for mortgage and family obligations.'
+      }
+    ]
+
+    const complianceNotes = [
+      'Use educational language only; avoid promising returns or underwriting outcomes.',
+      'Confirm final product availability, riders, and premiums with carrier illustrations.',
+      'Document that this output is a planning aid and not legal or tax advice.'
+    ]
+
+    return { points, objections, complianceNotes }
+  }
+
+  const buildFollowUpScript = () => {
+    const assist = advisorKnowledgeAssist()
+    const focusPoint = assist.points[0] || 'Coverage was calculated using debt, mortgage, income replacement, and dependent needs.'
+    return [
+      'Hi, sharing your life insurance recommendation summary.',
+      `Coverage target: ${fmt.format(coverage)}`,
+      `Recommended type: ${rec.type}${termLength ? ` (${termLength} years)` : ' (Permanent)'}`,
+      `Current lead stage: ${leadStage}`,
+      `Advisor note: ${focusPoint}`,
+      '',
+      'Reply with a good time this week and we can review options together.'
+    ].join('\n')
+  }
+
+  const handleShareWhatsApp = async () => {
+    const text = buildFollowUpScript()
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer')
+      toast.success('WhatsApp follow-up opened.')
+    } catch {
+      await handleCopy({ followUpScript: text })
+      toast.error('Could not open WhatsApp. Script copied instead.')
+    }
+  }
+
+  const handleShareSms = async () => {
+    const text = buildFollowUpScript()
+    const url = `sms:?&body=${encodeURIComponent(text)}`
+    try {
+      window.location.href = url
+      toast.success('SMS composer opened.')
+    } catch {
+      await handleCopy({ followUpScript: text })
+      toast.error('Could not open SMS app. Script copied instead.')
     }
   }
 
@@ -688,6 +770,7 @@ export function LifeInsuranceTool() {
     const payload = buildPayload()
     const carriers = carrierMatches()
     const suggested = recommendCarrierByPriority()
+    const assist = advisorKnowledgeAssist()
     const html = `<!doctype html>
     <html>
     <head>
@@ -699,6 +782,7 @@ export function LifeInsuranceTool() {
       <h1>Comprehensive Financial Strategy Guide</h1>
       <p><strong>Recommended:</strong> ${rec.type} ${termLength ? `— ${termLength} years` : '(Permanent)'}</p>
       <p><strong>Suggested Carrier:</strong> ${suggested.carrier} — ${suggested.notes}</p>
+      <p><strong>Lead Stage:</strong> ${leadStage}</p>
       <h2>Why this over Roth IRA / Annuity</h2>
       <p>Summary: ${income && toNumber(income) > 160000 && goal === 'Retirement Income' ? 'Roth IRA Alternative: IUL provides tax-advantaged cash growth, no standard contribution caps, and policy loan flexibility.' : 'Policy chosen to match client goals.'}</p>
       <h2>Strategy Comparison</h2>
@@ -720,6 +804,16 @@ export function LifeInsuranceTool() {
       <h3>Riders</h3>
       <p>${wantLivingBenefitAccess ? 'Recommend Chronic/Critical Illness Rider (Nationwide strong offering).' : 'Consider Chronic/Critical Illness Rider if you want access to death benefit while alive.'}</p>
       <p>${wantWaiverOfPremium ? 'Waiver of Premium recommended for disability protection.' : 'Consider Waiver of Premium to maintain coverage if disabled.'}</p>
+
+      <h3>Advisor Knowledge Assist</h3>
+      <p><strong>Talking Points</strong></p>
+      <ul>${assist.points.map((p) => `<li>${p}</li>`).join('')}</ul>
+
+      <p><strong>Objection Handling</strong></p>
+      <ul>${assist.objections.map((o) => `<li><strong>${o.objection}</strong> ${o.response}</li>`).join('')}</ul>
+
+      <p><strong>Compliance Notes</strong></p>
+      <ul>${assist.complianceNotes.map((n) => `<li>${n}</li>`).join('')}</ul>
 
       <div style="margin-top:16px;font-size:12px;color:#6b7280">Prepared for local advisors by Sanjeev Jha, Namaste Boston Homes — Boston, MA</div>
     </body>
@@ -875,7 +969,7 @@ export function LifeInsuranceTool() {
 
   const handleSchedule = (payload: any) => {
     // Use configured Calendly URL from environment
-    const baseCalendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendly.com/contact'
+    const baseCalendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendly.com/namaste1'
     const calendlyUrl = baseCalendlyUrl + '?data=' + encodeURIComponent(JSON.stringify(payload))
     try {
       const w = window.open(calendlyUrl, '_blank')
@@ -1368,6 +1462,69 @@ export function LifeInsuranceTool() {
       {submitted && (
         <div className="mt-6 bg-white shadow-lg rounded-lg p-8" aria-live="polite" tabIndex={-1} ref={liveRegionRef}>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Life Insurance Plan</h2>
+
+          {(() => {
+            const assist = advisorKnowledgeAssist()
+            return (
+              <div className="mb-4 rounded-md border border-blue-200 bg-blue-50 p-4">
+                <h3 className="text-sm font-semibold text-blue-900">Advisor Knowledge Assist</h3>
+                <p className="mt-1 text-xs text-blue-800">Use this script to guide your client conversation with consistent, compliance-aware language.</p>
+
+                <div className="mt-3">
+                  <div className="text-xs font-semibold text-blue-900">Talking Points</div>
+                  <ul className="mt-1 list-disc pl-5 text-xs text-blue-900">
+                    {assist.points.map((point, index) => (
+                      <li key={`point-${index}`}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-3">
+                  <div className="text-xs font-semibold text-blue-900">Objection Handling</div>
+                  <ul className="mt-1 list-disc pl-5 text-xs text-blue-900">
+                    {assist.objections.map((item, index) => (
+                      <li key={`obj-${index}`}><strong>{item.objection}</strong> {item.response}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-3">
+                  <div className="text-xs font-semibold text-blue-900">Compliance Notes</div>
+                  <ul className="mt-1 list-disc pl-5 text-xs text-blue-900">
+                    {assist.complianceNotes.map((note, index) => (
+                      <li key={`compliance-${index}`}>{note}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )
+          })()}
+
+          <div className="mt-3 mb-6 rounded-md border border-gray-200 bg-gray-50 p-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <div className="text-xs text-gray-500">Lead Stage</div>
+                <div className="text-sm text-gray-700">Track follow-up status for this recommendation.</div>
+              </div>
+              <select
+                value={leadStage}
+                onChange={(e) => {
+                  const next = e.target.value as 'New' | 'Follow-up' | 'Closed'
+                  setLeadStage(next)
+                  try {
+                    const raw = localStorage.getItem('lifeInsuranceInput')
+                    const parsed = raw ? JSON.parse(raw) : {}
+                    localStorage.setItem('lifeInsuranceInput', JSON.stringify({ ...parsed, leadStage: next }))
+                  } catch {}
+                }}
+                className="rounded-md border-gray-300 text-sm"
+              >
+                <option value="New">New</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </div>
           
           {/* Main Recommendation Card */}
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-indigo-200 rounded-lg p-6 mb-6">
@@ -1746,6 +1903,10 @@ export function LifeInsuranceTool() {
                 const payload = buildPayload()
                 handleSchedule(payload)
               }} className="inline-flex items-center px-3 py-2 border border-green-600 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700">Schedule Consultation</button>
+
+              <button type="button" onClick={() => void handleShareWhatsApp()} className="inline-flex items-center px-3 py-2 border border-emerald-600 rounded-md text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700">Share Script via WhatsApp</button>
+
+              <button type="button" onClick={() => void handleShareSms()} className="inline-flex items-center px-3 py-2 border border-sky-600 rounded-md text-sm font-medium text-white bg-sky-600 hover:bg-sky-700">Share Script via SMS</button>
             </div>
           </div>
         </div>
