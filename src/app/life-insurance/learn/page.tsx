@@ -23,7 +23,7 @@ const topics = [
       'Massachusetts note: All term policies sold in MA must include a free look period of at least 10 days.',
     ],
     advisorTip:
-      'Lead with term when the client has a tight budget. A $500,000/20-year term for a 35-year-old non-smoker runs $25–$35/month. That's hard to refuse.',
+      "Lead with term when the client has a tight budget. A $500,000/20-year term for a 35-year-old non-smoker runs $25–$35/month. That's hard to refuse.",
   },
   {
     id: 'iul',
@@ -34,7 +34,7 @@ const topics = [
     Premiums are flexible and cash value can be accessed via policy loans tax-free in retirement.`,
     bullets: [
       'Best for: Clients who have maxed out 401(k)/Roth IRA and want tax-advantaged growth, business owners, high-earners aged 30–50.',
-      'Participation rate: Typically 100% up to cap. A 0% floor means you don't lose cash value when the market drops.',
+      "Participation rate: Typically 100% up to cap. A 0% floor means you don't lose cash value when the market drops.",
       'Loan provisions: Policy loans are not taxable events. Withdraw basis (premiums paid) tax-free, then borrow against growth.',
       'Illustration caution: Regulators require illustrations at a "disciplined current rate" (Actuarial Guideline 49A). Beware of over-illustrated max rate scenarios.',
       'MA-specific: Massachusetts does not have a state income tax on life insurance policy loans — a real advantage for retirement income planning.',
@@ -53,7 +53,7 @@ const topics = [
       'Best for: Clients who want certainty, estate planning (ILIT), legacy/wealth transfer, business buy-sell agreements.',
       'Paid-up additions rider: Using dividends to buy PUA is one of the most powerful wealth-building mechanisms in the product.',
       'Guaranteed issue whole life: Available up to $25,000 without medical underwriting — useful for final expenses, age 50–85.',
-      'Participating vs. non-participating: Mutual companies (e.g., MassMutual, Guardian, Northwestern) pay dividends; stock companies generally don't.',
+      "Participating vs. non-participating: Mutual companies (e.g., MassMutual, Guardian, Northwestern) pay dividends; stock companies generally don't.",
       'Boston/MA advantage: Massachusetts Mutual Life (MassMutual) is headquartered in Springfield, MA — strong local relationship and competitive dividend history.',
     ],
     advisorTip:
@@ -69,7 +69,7 @@ const topics = [
       'DIME formula: Total all debts + 10× annual income + outstanding mortgage balance + estimated college costs per child.',
       'Human Life Value (HLV): PV of all future earnings, discounted at 4–5%. More accurate but harder to explain to clients.',
       'Existing coverage offset: Always subtract existing group life (typically 1–2× salary from employer) from the gap calculation.',
-      'Social Security survivor benefit: Dependent children receive ~75% of parent's PIA; surviving spouse with child in care receives ~75% of PIA. Factor this in to avoid over-insurance.',
+      "Social Security survivor benefit: Dependent children receive ~75% of parent's PIA; surviving spouse with child in care receives ~75% of PIA. Factor this in to avoid over-insurance.",
       'Underinsurance gap (US): The average American household is underinsured by ~$200,000 according to LIMRA research.',
     ],
     advisorTip:
@@ -86,7 +86,7 @@ const topics = [
       'Preferred: Minor deviation from perfect — slightly elevated BP managed with one medication, BMI up to ~30.',
       'Standard Plus / Standard: Moderate health issues. BP or cholesterol on multiple medications, BMI 30–35.',
       'Table Rating (Substandard): Rated up due to chronic conditions, DUI history, hazardous occupation. Typically Table B–H at +25%–+200% premium.',
-      'Simplified / Guaranteed Issue: No exam products for smaller face amounts. Useful for clients who can't pass full underwriting.',
+      "Simplified / Guaranteed Issue: No exam products for smaller face amounts. Useful for clients who can't pass full underwriting.",
     ],
     advisorTip:
       'Use informal inquiry (trial application) with 2–3 carriers before formal submission. This prevents multiple MIB (Medical Information Bureau) hits and lets you shop the best rate.',

@@ -2,9 +2,10 @@ import fs from 'fs/promises'
 import path from 'path'
 import Link from 'next/link'
 
-interface Props { params: { id: string } }
+interface Props { params: Promise<{ id: string }> }
 
 export default async function RecommendationView({ params }: Props) {
+  const { id } = await params
   const file = path.join(process.cwd(), 'data', 'recommendations.json')
   let arr = [] as any[]
   try {
@@ -13,7 +14,7 @@ export default async function RecommendationView({ params }: Props) {
   } catch {
     arr = []
   }
-  const idNum = Number(params.id)
+  const idNum = Number(id)
   const entry = arr.find((e) => Number(e.id) === idNum)
   if (!entry) {
     return (

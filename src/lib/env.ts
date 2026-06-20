@@ -26,6 +26,12 @@ const envSchema = z.object({
     
   // Analytics
   NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
+
+  // JanaGana CRM integration
+  NEXT_PUBLIC_JANAGANA_PORTAL_BASE_URL: z.string().url().optional(),
+  NEXT_PUBLIC_JANAGANA_API_URL: z.string().url().optional(),
+  NEXT_PUBLIC_JANAGANA_TENANT_SLUG: z.string().optional(),
+  NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
   
   // Optional but recommended
   SENTRY_DSN: z.string().optional(),

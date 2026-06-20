@@ -19,37 +19,36 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Namaste Insurance - Compare Auto & Home Insurance Quotes",
-    template: "%s | Namaste Insurance"
+    default: "Safora — Financial Planning Classes & Tools",
+    template: "%s | Safora",
   },
-  description: "Compare real insurance quotes from 15+ carriers. AI-powered policy analysis by Sanjeev Jha and Namaste Boston Homes. Save an average of $847/year.",
-  keywords: ["auto insurance", "home insurance", "insurance comparison", "cheap insurance", "insurance quotes", "Sanjeev Jha", "Namaste Boston Homes"],
-  authors: [{ name: "Sanjeev Jha" }, { name: "Namaste Boston Homes" }],
+  description:
+    "Educational financial planning classes and free tools for Massachusetts families. Sign up for workshops on retirement, insurance, and portfolio balance.",
+  keywords: [
+    "financial planning classes",
+    "retirement planning",
+    "life insurance education",
+    "portfolio balance",
+    "Massachusetts",
+    "Sanjeev Jha",
+  ],
+  authors: [{ name: "Sanjeev Jha" }],
   openGraph: {
-    title: "Namaste Insurance - Transparent Insurance Marketplace",
-    description: "Compare real insurance quotes from 15+ carriers. AI-powered policy analysis by Sanjeev Jha and Namaste Boston Homes.",
+    title: "Safora — Financial Planning Classes & Tools",
+    description:
+      "Sign up for financial planning classes and use free educational tools for retirement, insurance, and portfolio balance.",
     type: "website",
     locale: "en_US",
-    siteName: "Namaste Insurance",
+    siteName: "Safora",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Namaste Insurance - Compare Insurance Quotes",
-    description: "Compare quotes from 15+ carriers. Save an average of $847/year.",
+    title: "Safora — Financial Planning Classes & Tools",
+    description: "Classes, tools, and educational resources for financial planning.",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
 };
 

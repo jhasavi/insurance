@@ -9,6 +9,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "test": "playwright test",
+    "test:unit": "tsx scripts/test-balance.ts",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "generate:pdfs": "node ./scripts/generate_pdfs.mjs",
