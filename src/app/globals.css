@@ -120,3 +120,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media print {
+  header,
+  footer,
+  #balance-inputs {
+    display: none !important;
+  }
+  #balance-results {
+    position: static !important;
+    width: 100% !important;
+  }
+}

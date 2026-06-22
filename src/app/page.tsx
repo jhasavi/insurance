@@ -76,8 +76,8 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Free Planning Tools</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Educational calculators to help you understand gaps in your financial plan. All tools
-              run in your browser — your data is not stored.
+              Educational calculators to explore gaps in your financial picture. The balance planner
+              saves locally in your browser; other tools may not store your entries.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
@@ -86,8 +86,8 @@ export default function HomePage() {
                 <PieChart className="h-8 w-8 text-emerald-600 mb-2" />
                 <CardTitle>Portfolio Balance Planner</CardTitle>
                 <CardDescription>
-                  Enter Roth, 401(k), brokerage, insurance, and real estate details to see where to
-                  focus for a more balanced plan.
+                  Enter Roth, 401(k), brokerage, insurance, and real estate details to see topics
+                  that may be worth reviewing with a qualified professional.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -129,8 +129,8 @@ export default function HomePage() {
                 <CardTitle className="text-lg">Retirement Accounts</CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-gray-600">
-                Roth vs. traditional, 401(k) optimization, contribution limits, and tax diversification
-                strategies for Massachusetts residents.
+                Roth vs. traditional, 401(k) basics, and tax-bucket planning — including angles like
+                IRMAA lookback years and survivor-spouse tax filing that generic articles often skip.
               </CardContent>
             </Card>
             <Card>

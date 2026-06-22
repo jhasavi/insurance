@@ -11,11 +11,34 @@ Educational financial planning website with class registration (JanaGana CRM), p
 
 ## Quick start
 
+**Recommended** — from the project root:
+
+```bash
+chmod +x start.sh    # first time only
+./start.sh
+```
+
+Do **not** symlink `start.sh` to `scripts/start-dev.sh` — that breaks path detection. Use the committed `start.sh` in the repo root.
+
+Or: `pnpm start:dev`
+
+Manual steps:
+
 ```bash
 pnpm install
 cp .env.example .env.local   # configure DATABASE_URL, NEXTAUTH_SECRET, JanaGana URLs
 pnpm dev                     # http://localhost:3001
 ```
+
+Use `pnpm` if possible (this repo's lockfile is `pnpm-lock.yaml`). `npm run dev` also works if dependencies are already installed.
+
+### Dev server messages (safe to ignore)
+
+| Message | Meaning |
+|---------|---------|
+| `baseline-browser-mapping` … over two months old | Harmless dev-tool metadata warning; does not affect your site |
+| `middleware` file convention is deprecated … use `proxy` | Next.js 16 naming change; your app still runs normally |
+| `Ready in Xs` on port **3001** | Success — open http://localhost:3001 |
 
 ## JanaGana CRM integration
 

@@ -31,9 +31,9 @@ export function ComplianceDisclaimer({ variant = "inline" }: { variant?: Variant
 
   return (
     <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-      <strong className="font-semibold">Educational use only.</strong> Calculators and recommendations
-      on this site are for learning purposes. They do not constitute insurance, tax, legal, or investment
-      advice. Past performance and estimates do not guarantee future results.
+      <strong className="font-semibold">Educational use only.</strong> Calculators and illustrative
+      outputs on this site are for learning purposes. They do not constitute insurance, tax, legal,
+      or investment advice. Past performance and estimates do not guarantee future results.
     </div>
   )
 }

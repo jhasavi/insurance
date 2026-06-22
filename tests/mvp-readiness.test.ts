@@ -28,7 +28,8 @@ test.describe('Homepage & primary goals', () => {
     await page.goto('/tools/balance')
     await expect(page.getByRole('heading', { level: 1, name: /Portfolio Balance Planner/i })).toBeVisible()
     await expect(page.locator('text=Educational use only')).toBeVisible()
-    await expect(page.locator('button:has-text("Analyze my balance")')).toBeVisible()
+    await expect(page.getByRole('button', { name: /Analyze my balance/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Planning Questions & Advisor Insights/i })).toBeVisible()
   })
 
   test('Balance tool produces recommendations', async ({ page }) => {
@@ -36,9 +37,22 @@ test.describe('Homepage & primary goals', () => {
     await page.fill('#age', '35')
     await page.fill('#income', '100000')
     await page.fill('#expenses', '5000')
-    await page.click('button:has-text("Analyze my balance")')
-    await expect(page.locator('text=Portfolio overview')).toBeVisible()
-    await expect(page.locator('text=Where to focus next')).toBeVisible()
+    await page.getByRole('button', { name: /Analyze my balance/i }).click()
+    await expect(page.getByText('Your results')).toBeVisible()
+    await expect(page.getByText('Topics that may be worth reviewing')).toBeVisible()
+  })
+
+  test('Advisor Explanation Mode shows educational panel', async ({ page }) => {
+    await page.goto('/tools/balance')
+    await page.getByLabel(/Advisor Explanation Mode/i).check()
+    await page.fill('#age', '58')
+    await page.fill('#income', '140000')
+    await page.fill('#expenses', '7000')
+    await page.getByRole('button', { name: /Analyze my balance/i }).click()
+    await expect(page.getByRole('region', { name: /Advisor Explanation Mode/i })).toBeVisible()
+    await expect(page.getByText('A. Snapshot')).toBeVisible()
+    await expect(page.getByText('B. Planning observations')).toBeVisible()
+    await expect(page.getByText('G. Disclaimer')).toBeVisible()
   })
 })
 
