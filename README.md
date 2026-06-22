@@ -87,8 +87,13 @@ CI sets `DATABASE_URL` automatically; locally use `.env.local` or export it for 
 
 All tools are educational only. See `/licenses` for full regulatory disclosures.
 
-## Documentation
+## Data persistence (portfolio tool)
 
-- **README.md** (this file) — setup and daily dev workflow
-- **QUICK_START.md** — shorter checklist (auth/env focus)
-- **docs/** — historical planning notes; prefer README for current commands
+The balance planner **does not require a database**. Drafts auto-save in the browser; users can **Export** or **Import** JSON files. Sign-in sync across devices is a future phase (small Postgres table when Supabase is restored). Details: [docs/DATA_PERSISTENCE.md](docs/DATA_PERSISTENCE.md).
+
+| Need | Solution now | Later (optional) |
+|------|----------------|------------------|
+| Analyze portfolio | Browser + JSON file | — |
+| Classes / CRM | JanaGana portal | — |
+| Sign-in, admin, compare quotes | Requires `DATABASE_URL` | New Supabase when needed |
+

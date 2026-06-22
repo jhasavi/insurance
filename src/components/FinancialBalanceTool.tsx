@@ -9,6 +9,7 @@ import {
   RotateCcw,
   Sparkles,
   ExternalLink,
+  Upload,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -41,6 +42,10 @@ import {
   type AdvisorExplanation,
 } from "@/lib/planning-rules"
 import { BALANCE_RESULTS_DISCLAIMER, CONTEXTUAL_DISCLAIMERS } from "@/lib/balance-disclaimers"
+import {
+  buildBalanceExportPayload,
+  parseBalanceImportFile,
+} from "@/lib/balance-persistence"
 
 const DEFAULT_ACCOUNTS: AccountInput[] = [
   { category: "emergency", label: "Emergency fund", balance: 0, monthlyContribution: 0 },
@@ -188,7 +193,9 @@ function RefLink({ href, label }: { href: string; label: string }) {
 export function FinancialBalanceTool() {
   const [draft, setDraft] = useState<DraftState>(defaultDraft)
   const [savedHint, setSavedHint] = useState<string | null>(null)
+  const [importError, setImportError] = useState<string | null>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
+  const importInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     try {
@@ -266,26 +273,17 @@ export function FinancialBalanceTool() {
   }
 
   const handleExport = () => {
-    const payload: Record<string, unknown> = {
-      exportedAt: new Date().toISOString(),
-      inputs: {
-        age: draft.age,
-        annualIncome: draft.annualIncome,
-        monthlyExpenses: draft.monthlyExpenses,
-        accounts: draft.accounts,
-        lifeContext: buildLifeContext(),
-        hasDependents: draft.hasDependents,
-        advisorMode: draft.advisorMode,
-        advisorFields: draft.advisorFields,
-      },
-      result: draft.result,
+    const payload = {
+      ...buildBalanceExportPayload(draft, buildLifeContext()),
       disclaimer: "Educational output only — not financial, tax, or insurance advice.",
     }
     if (draft.advisorMode && draft.advisorExplanation) {
-      payload.advisorExplanation = buildLlmContextPayload(
-        scenarioFromDraft(buildAdvisorDraftFields(draft)),
-        draft.advisorExplanation
-      )
+      Object.assign(payload, {
+        advisorExplanation: buildLlmContextPayload(
+          scenarioFromDraft(buildAdvisorDraftFields(draft)),
+          draft.advisorExplanation
+        ),
+      })
     }
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" })
     const url = URL.createObjectURL(blob)
@@ -294,6 +292,46 @@ export function FinancialBalanceTool() {
     a.download = `safora-balance-${new Date().toISOString().slice(0, 10)}.json`
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  const handleImportClick = () => {
+    setImportError(null)
+    importInputRef.current?.click()
+  }
+
+  const handleImportFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ""
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      const parsed = parseBalanceImportFile(String(reader.result ?? ""))
+      if (!parsed.ok) {
+        setImportError(parsed.error)
+        return
+      }
+      const p = parsed.partial
+      setDraft((d) => ({
+        ...d,
+        ...p,
+        accounts: p.accounts ?? d.accounts,
+        advisorFields: parsed.advisorFieldsPartial
+          ? { ...defaultAdvisorFields(), ...parsed.advisorFieldsPartial }
+          : p.advisorFields ?? d.advisorFields,
+        advisorExplanation: null,
+        showHousehold: Boolean(
+          p.maritalStatus || p.spouseIncome || p.dependentCount !== undefined
+        ),
+        showDetails: Boolean(
+          p.active401k || p.old401k || p.primaryHome || p.rentalEquity
+        ),
+      }))
+      setImportError(null)
+      setSavedHint("Imported portfolio data from file. Click Analyze to refresh results.")
+    }
+    reader.onerror = () => setImportError("Could not read the selected file.")
+    reader.readAsText(file)
   }
 
   const handlePrint = () => {
@@ -327,6 +365,27 @@ export function FinancialBalanceTool() {
           {savedHint}
         </p>
       )}
+
+      {importError && (
+        <p className="text-sm text-red-800 bg-red-50 border border-red-200 rounded-lg px-4 py-2">
+          {importError}
+        </p>
+      )}
+
+      <p className="text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-4 py-3">
+        <strong>Your data stays on this device.</strong> Entries auto-save in this browser. Use{" "}
+        <strong>Export</strong> to keep a JSON backup or <strong>Import</strong> to restore on another
+        computer. Sign-in to sync across devices is planned when account login is re-enabled.
+      </p>
+
+      <input
+        ref={importInputRef}
+        type="file"
+        accept="application/json,.json"
+        className="hidden"
+        onChange={handleImportFile}
+        aria-hidden
+      />
 
       <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
         {/* ─── INPUTS ─── */}
@@ -623,6 +682,10 @@ export function FinancialBalanceTool() {
               </CollapsibleSection>
 
               <div className="flex flex-wrap gap-3">
+                <Button type="button" variant="outline" onClick={handleImportClick}>
+                  <Upload className="mr-2 h-4 w-4" />
+                  Import JSON
+                </Button>
                 <Button onClick={handleAnalyze} size="lg" className="bg-emerald-600 hover:bg-emerald-700">
                   <Sparkles className="mr-2 h-4 w-4" />
                   Analyze my balance
@@ -656,6 +719,10 @@ export function FinancialBalanceTool() {
                 </div>
                 {result && (
                   <div className="flex gap-2 print:hidden">
+                    <Button type="button" variant="outline" size="sm" onClick={handleImportClick}>
+                      <Upload className="h-4 w-4 mr-1" />
+                      Import
+                    </Button>
                     <Button type="button" variant="outline" size="sm" onClick={handleExport}>
                       <Download className="h-4 w-4 mr-1" />
                       Export

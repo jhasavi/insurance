@@ -10,7 +10,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "test": "playwright test",
-    "test:unit": "tsx scripts/test-balance.ts && tsx scripts/test-planning-rules.ts",
+    "test:unit": "tsx scripts/test-balance.ts && tsx scripts/test-planning-rules.ts && tsx scripts/test-balance-persistence.ts",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "generate:pdfs": "node ./scripts/generate_pdfs.mjs",

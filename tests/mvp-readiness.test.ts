@@ -34,6 +34,7 @@ test.describe('Homepage & primary goals', () => {
 
   test('Balance tool produces recommendations', async ({ page }) => {
     await page.goto('/tools/balance')
+    await expect(page.getByRole('button', { name: /Import JSON/i })).toBeVisible()
     await page.fill('#age', '35')
     await page.fill('#income', '100000')
     await page.fill('#expenses', '5000')
