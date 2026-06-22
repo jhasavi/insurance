@@ -5,40 +5,49 @@ Educational financial planning website with class registration (JanaGana CRM), p
 ## Features
 
 - **Classes & events** — Upcoming workshops with Zoom/in-person registration via JanaGana portal
-- **Portfolio Balance Planner** — Educational tool for Roth, 401(k), brokerage, insurance, and real estate allocation
-- **Life Insurance Recommendation** — DIME-based coverage analysis (existing tool)
+- **Portfolio Balance Planner** — Educational tool for Roth, 401(k), brokerage, insurance, and real estate allocation (includes optional Advisor Explanation Mode)
+- **Life Insurance Recommendation** — DIME-based coverage analysis (educational / advisory use)
 - **Compliance-first** — Regulatory disclaimers for insurance and financial advisory content
 
 ## Quick start
 
-**Recommended** — from the project root:
+From the **project root**:
 
 ```bash
-chmod +x start.sh    # first time only
+chmod +x start.sh   # first time only
 ./start.sh
 ```
 
-Do **not** symlink `start.sh` to `scripts/start-dev.sh` — that breaks path detection. Use the committed `start.sh` in the repo root.
+Equivalent: `pnpm start:dev` (calls the same `start.sh`).
 
-Or: `pnpm start:dev`
+The dev server runs at **http://localhost:3001**.
 
-Manual steps:
+### Manual setup
 
 ```bash
 pnpm install
-cp .env.example .env.local   # configure DATABASE_URL, NEXTAUTH_SECRET, JanaGana URLs
-pnpm dev                     # http://localhost:3001
+cp .env.example .env.local   # DATABASE_URL, NEXTAUTH_SECRET, JanaGana URLs
+pnpm dev                     # same as ./start.sh
 ```
 
-Use `pnpm` if possible (this repo's lockfile is `pnpm-lock.yaml`). `npm run dev` also works if dependencies are already installed.
+Use **pnpm** (lockfile: `pnpm-lock.yaml`).
+
+### Startup script notes
+
+| Do | Don't |
+|----|--------|
+| Run `./start.sh` from the repo root | Symlink `start.sh` → `scripts/start-dev.sh` (breaks path detection) |
+| Use `pnpm start:dev` | Edit `scripts/start-dev.sh` to call itself (causes infinite loop) |
+
+`start.sh` walks up to `package.json`, installs dependencies if `node_modules` is missing, then runs `pnpm dev`.
 
 ### Dev server messages (safe to ignore)
 
 | Message | Meaning |
 |---------|---------|
-| `baseline-browser-mapping` … over two months old | Harmless dev-tool metadata warning; does not affect your site |
-| `middleware` file convention is deprecated … use `proxy` | Next.js 16 naming change; your app still runs normally |
-| `Ready in Xs` on port **3001** | Success — open http://localhost:3001 |
+| `baseline-browser-mapping` … over two months old | Harmless dev-tool metadata warning |
+| `middleware` file convention is deprecated … use `proxy` | Next.js 16 naming notice; app still runs |
+| `Ready` on port **3001** | Success |
 
 ## JanaGana CRM integration
 
@@ -56,10 +65,30 @@ Events are embedded via `GET /api/embed/events?tenantSlug=...`. Registration lin
 ## Testing
 
 ```bash
-pnpm build
-pnpm test
+pnpm run type-check
+pnpm run test:unit
+DATABASE_URL=postgresql://ci:ci@localhost:5432/ci pnpm build
+DATABASE_URL=postgresql://ci:ci@localhost:5432/ci pnpm test
 ```
+
+CI sets `DATABASE_URL` automatically; locally use `.env.local` or export it for production builds.
+
+## Key URLs (local)
+
+| Path | Purpose |
+|------|---------|
+| `/` | Homepage (classes-first) |
+| `/classes` | Class registration |
+| `/tools/balance` | Portfolio Balance Planner |
+| `/life-insurance` | Life insurance tool |
+| `/licenses` | Regulatory disclosures |
 
 ## Compliance
 
 All tools are educational only. See `/licenses` for full regulatory disclosures.
+
+## Documentation
+
+- **README.md** (this file) — setup and daily dev workflow
+- **QUICK_START.md** — shorter checklist (auth/env focus)
+- **docs/** — historical planning notes; prefer README for current commands
