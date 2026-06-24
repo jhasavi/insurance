@@ -1,30 +1,32 @@
 import Link from "next/link"
-import { Shield, Mail, MapPin } from "lucide-react"
+import { Mail, MapPin } from "lucide-react"
 import { ComplianceDisclaimer } from "@/components/ComplianceDisclaimer"
 import { portalContactUrl, portalEventsUrl } from "@/lib/janagana"
 
 export function Footer() {
   return (
-    <footer className="border-t bg-gray-50">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Shield className="h-6 w-6 text-blue-600" />
-              <span className="font-bold text-lg">Safora</span>
+    <footer className="border-t border-slate-800 bg-slate-950 text-slate-300">
+      <div className="container mx-auto px-4 py-14">
+        <div className="grid gap-10 md:grid-cols-4">
+          <div className="md:col-span-1">
+            <div className="mb-4 flex items-center gap-2.5">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-teal-700 text-sm font-bold text-white">
+                S
+              </span>
+              <span className="text-lg font-semibold text-white">Safora</span>
             </div>
-            <p className="text-sm text-gray-600 mb-4">
-              Educational financial planning and insurance guidance for Massachusetts families.
-              Classes, tools, and resources — not personalized investment advice.
+            <p className="mb-4 text-sm leading-relaxed text-slate-400">
+              Educational financial planning for Massachusetts families. Classes, tools, and
+              resources — not personalized investment advice.
             </p>
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-2 text-sm text-slate-400">
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 shrink-0 text-teal-500" />
                 <span>Needham &amp; Greater Boston, MA</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                <a href="mailto:hello@safora.com" className="hover:text-blue-600">
+                <Mail className="h-4 w-4 shrink-0 text-teal-500" />
+                <a href="mailto:hello@safora.com" className="hover:text-white transition-colors">
                   hello@safora.com
                 </a>
               </div>
@@ -32,10 +34,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Classes</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
+              Classes
+            </h3>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/classes" className="text-gray-600 hover:text-blue-600">
+                <Link href="/classes" className="hover:text-white transition-colors">
                   Upcoming classes
                 </Link>
               </li>
@@ -44,7 +48,7 @@ export function Footer() {
                   href={portalEventsUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-blue-600"
+                  className="hover:text-white transition-colors"
                 >
                   Full event calendar
                 </a>
@@ -54,7 +58,7 @@ export function Footer() {
                   href={portalContactUrl("class-interest")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-blue-600"
+                  className="hover:text-white transition-colors"
                 >
                   Request a class topic
                 </a>
@@ -63,20 +67,22 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Tools</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
+              Tools
+            </h3>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/tools/balance" className="text-gray-600 hover:text-blue-600">
+                <Link href="/tools/balance" className="hover:text-white transition-colors">
                   Portfolio Balance Planner
                 </Link>
               </li>
               <li>
-                <Link href="/life-insurance" className="text-gray-600 hover:text-blue-600">
-                  Life Insurance Recommendation
+                <Link href="/life-insurance" className="hover:text-white transition-colors">
+                  Life Insurance Tool
                 </Link>
               </li>
               <li>
-                <Link href="/learn" className="text-gray-600 hover:text-blue-600">
+                <Link href="/learn" className="hover:text-white transition-colors">
                   Learning center
                 </Link>
               </li>
@@ -84,25 +90,27 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
+              Legal
+            </h3>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/privacy" className="text-gray-600 hover:text-blue-600">
+                <Link href="/privacy" className="hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-600 hover:text-blue-600">
+                <Link href="/terms" className="hover:text-white transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/licenses" className="text-gray-600 hover:text-blue-600">
+                <Link href="/licenses" className="hover:text-white transition-colors">
                   Licenses &amp; Disclaimers
                 </Link>
               </li>
               <li>
-                <Link href="/accessibility" className="text-gray-600 hover:text-blue-600">
+                <Link href="/accessibility" className="hover:text-white transition-colors">
                   Accessibility
                 </Link>
               </li>
@@ -110,36 +118,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-200 space-y-4">
-          <ComplianceDisclaimer variant="footer" />
-
-          <p className="text-xs text-gray-600 leading-relaxed">
-            <strong>Insurance disclosure:</strong> Safora is not an insurance company. Insurance
-            products are offered by licensed carriers. Tools provide educational estimates only.
-            Consult a licensed insurance professional before purchasing coverage.
-          </p>
-
-          <p className="text-xs text-gray-600 leading-relaxed">
-            <strong>Investment disclosure:</strong> Safora is not a registered investment adviser or
-            broker-dealer. Portfolio tools use general guidelines and do not recommend specific
-            securities. Consult a qualified financial professional for personalized advice.
-          </p>
-
-          <p className="text-xs text-gray-600 leading-relaxed">
-            <strong>Class registration:</strong> Event sign-ups are processed through JanaGana CRM.
-            Your registration data is handled per our{" "}
-            <Link href="/privacy" className="text-blue-600 hover:underline">
-              Privacy Policy
-            </Link>
-            .
-          </p>
+        <div className="mt-10 border-t border-slate-800 pt-8 text-xs leading-relaxed text-slate-500">
+          <ComplianceDisclaimer variant="footer-dark" />
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-200 text-center">
-          <p className="text-sm text-gray-600">
-            © {new Date().getFullYear()} Safora — Sanjeev Jha. All rights reserved.
-          </p>
-        </div>
+        <p className="mt-6 text-center text-xs text-slate-600">
+          © {new Date().getFullYear()} Safora — Sanjeev Jha. All rights reserved.
+        </p>
       </div>
     </footer>
   )

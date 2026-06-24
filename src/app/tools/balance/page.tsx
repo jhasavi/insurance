@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { FinancialBalanceTool } from "@/components/FinancialBalanceTool"
 import { ComplianceDisclaimer } from "@/components/ComplianceDisclaimer"
+import { PageHero } from "@/components/fintech/PageHero"
 
 export const metadata: Metadata = {
   title: "Portfolio Balance Planner | Educational Planning Tool",
@@ -10,21 +11,16 @@ export const metadata: Metadata = {
 
 export default function BalanceToolPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      <section className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white py-14">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <p className="text-emerald-200 text-sm font-medium uppercase tracking-wide mb-2">
-            Free planning tool
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Portfolio Balance Planner</h1>
-          <p className="text-lg text-emerald-100 max-w-2xl">
-            Enter your accounts on the left, see illustrative discussion topics on the right. Data
-            stays in this browser unless you export it.
-          </p>
-        </div>
-      </section>
+    <main className="min-h-screen bg-slate-50/50">
+      <PageHero
+        variant="emerald"
+        align="left"
+        eyebrow="Free planning tool"
+        title="Portfolio Balance Planner"
+        description="Enter your accounts on the left, see illustrative discussion topics on the right. Data stays in this browser unless you export it."
+      />
 
-      <section className="container mx-auto px-4 py-10 max-w-6xl">
+      <section className="container mx-auto max-w-6xl px-4 py-10">
         <FinancialBalanceTool />
         <div className="mt-10">
           <ComplianceDisclaimer variant="footer" />

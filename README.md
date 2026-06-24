@@ -91,6 +91,13 @@ All tools are educational only. See `/licenses` for full regulatory disclosures.
 
 The balance planner **does not require a database**. Drafts auto-save in the browser; users can **Export** or **Import** JSON files. Sign-in sync across devices is a future phase (small Postgres table when Supabase is restored). Details: [docs/DATA_PERSISTENCE.md](docs/DATA_PERSISTENCE.md).
 
+## Roadmap & JanaGana guides
+
+| Doc | Who it's for |
+|-----|----------------|
+| [docs/NEXT_STEPS.md](docs/NEXT_STEPS.md) | Your prioritized task list (start here) |
+| [docs/JANAGANA_SETUP_GUIDE.md](docs/JANAGANA_SETUP_GUIDE.md) | Connect Safora + non-tech client script for selling JanaGana |
+
 | Need | Solution now | Later (optional) |
 |------|----------------|------------------|
 | Analyze portfolio | Browser + JSON file | — |
