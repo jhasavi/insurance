@@ -1,59 +1,71 @@
+import Link from "next/link"
+import { ComplianceDisclaimer } from "@/components/ComplianceDisclaimer"
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-20">
-        <h1 className="text-4xl font-bold mb-8">About Namaste Insurance</h1>
-        
+        <h1 className="text-4xl font-bold mb-8">About Safora</h1>
+
         <div className="max-w-4xl space-y-8">
+          <ComplianceDisclaimer />
+
           <section>
             <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
             <p className="text-gray-600 leading-relaxed">
-              We believe insurance shopping should be transparent, fast, and spam-free. 
-              Namaste Insurance was founded in Boston to bring honesty back to the insurance marketplace.
+              Safora helps Massachusetts families build financial confidence through education.
+              We offer free classes, planning tools, and licensed insurance guidance — always with
+              clear regulatory disclosures.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">What We Do</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              We're a technology platform that connects consumers with licensed insurance carriers. 
-              We compare quotes from 15+ carriers and use AI to identify savings opportunities.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              <strong>Important:</strong> We are not an insurance company. We do not underwrite, 
-              sell, or service insurance policies. All insurance products are offered by licensed 
-              carriers who are solely responsible for policy terms and coverage.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-4">Our Values</h2>
-            <ul className="space-y-3 text-gray-700">
-              <li>🙏 <strong>Transparency:</strong> We disclose our commissions on every quote</li>
-              <li>🔒 <strong>Privacy:</strong> We never sell your personal information</li>
-              <li>🤖 <strong>Innovation:</strong> We use AI to find savings humans might miss</li>
-              <li>💙 <strong>Customer First:</strong> Your savings matter more than our commissions</li>
+            <h2 className="text-2xl font-semibold mb-4">What We Offer</h2>
+            <ul className="list-disc ml-6 space-y-2 text-gray-600">
+              <li>
+                <Link href="/classes" className="text-blue-600 hover:underline">
+                  Financial planning classes
+                </Link>{" "}
+                — virtual and in-person workshops on retirement, insurance, and portfolio balance
+              </li>
+              <li>
+                <Link href="/tools/balance" className="text-blue-600 hover:underline">
+                  Portfolio balance planner
+                </Link>{" "}
+                — educational tool for Roth, 401(k), brokerage, and real estate allocation
+              </li>
+              <li>
+                <Link href="/life-insurance" className="text-blue-600 hover:underline">
+                  Life insurance recommendation tool
+                </Link>{" "}
+                — DIME-based coverage analysis for advisors and families
+              </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Serving Massachusetts</h2>
+            <h2 className="text-2xl font-semibold mb-4">About Sanjeev Jha</h2>
             <p className="text-gray-600 leading-relaxed">
-              We're licensed to serve Massachusetts, New Hampshire, and Rhode Island. 
-              Our team is based in Boston and committed to helping New England families save money.
+              Sanjeev Jha is a licensed insurance professional and financial planning educator
+              serving the Greater Boston area. Classes and tools on this site are designed to make
+              complex topics accessible — not to replace personalized advice from qualified
+              professionals.
             </p>
           </section>
 
-          <section className="bg-gray-50 p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-            <div className="space-y-2 text-gray-700">
-              <p>📧 Email: hello@namasteinsurance.com</p>
-              <p>📞 Phone: (617) 555-0100</p>
-              <p>📍 Location: Boston, MA</p>
-            </div>
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">CRM &amp; Class Registration</h2>
+            <p className="text-gray-600 leading-relaxed">
+              Class sign-ups and contact inquiries are managed through JanaGana CRM, keeping
+              registration data secure and organized. See our{" "}
+              <Link href="/licenses" className="text-blue-600 hover:underline">
+                Licenses &amp; Disclaimers
+              </Link>{" "}
+              for full regulatory information.
+            </p>
           </section>
         </div>
       </div>
     </div>
-  );
+  )
 }

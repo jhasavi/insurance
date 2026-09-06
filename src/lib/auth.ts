@@ -5,7 +5,18 @@ import { Resend } from "resend"
 import { env } from "./env"
 import { prisma } from "./prisma"
 
-const resend = new Resend(env.RESEND_API_KEY)
+let resendClient: Resend | null = null
+
+function getResend(): Resend {
+  if (!resendClient) {
+    const key = env.RESEND_API_KEY
+    if (!key) {
+      throw new Error("RESEND_API_KEY is not configured")
+    }
+    resendClient = new Resend(key)
+  }
+  return resendClient
+}
 
 declare module "@auth/core/adapters" {
   interface AdapterUser {
@@ -28,7 +39,7 @@ export const authOptions = {
       from: env.EMAIL_FROM,
       async sendVerificationRequest({ identifier: email, url }) {
         try {
-          await resend.emails.send({
+          await getResend().emails.send({
             from: process.env.EMAIL_FROM || "Safora Insurance <noreply@safora.namastebostonhomes.com>",
             to: email,
             subject: "Sign in to Safora Insurance",

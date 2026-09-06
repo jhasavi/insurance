@@ -8,7 +8,18 @@ import { Resend } from "resend"
 import { logAuditEvent } from "./audit"
 import { prisma } from "./prisma"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+let resendClient: Resend | null = null
+
+function getResend(): Resend {
+  if (!resendClient) {
+    const key = process.env.RESEND_API_KEY
+    if (!key) {
+      throw new Error("RESEND_API_KEY is not configured")
+    }
+    resendClient = new Resend(key)
+  }
+  return resendClient
+}
 
 interface SendEmailParams {
   to: string
@@ -23,7 +34,7 @@ interface SendEmailParams {
  */
 export async function sendEmail(params: SendEmailParams) {
   try {
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResend().emails.send({
       from: process.env.EMAIL_FROM || "Safora Insurance <noreply@safora.namastebostonhomes.com>",
       to: params.to,
       subject: params.subject,

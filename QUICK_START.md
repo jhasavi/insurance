@@ -13,7 +13,7 @@ openssl rand -base64 32
 
 # Edit .env and add:
 # NEXTAUTH_SECRET="[paste secret from above]"
-# NEXTAUTH_URL="http://localhost:3000"
+# NEXTAUTH_URL="http://localhost:3001"
 # RESEND_API_KEY="re_[get from resend.com]"
 # EMAIL_FROM="Safora <noreply@safora.namastebostonhomes.com>"
 ```
@@ -34,12 +34,15 @@ pnpm install
 ### Step 4: Start Server (30 secs)
 
 ```bash
-pnpm dev
+./start.sh
+# or: pnpm start:dev
 ```
+
+Open **http://localhost:3001** (not 3000).
 
 ### Step 5: Test! (1 min)
 
-1. Go to http://localhost:3000
+1. Go to http://localhost:3001
 2. Click "Sign In"
 3. Enter your email
 4. Check inbox for magic link
