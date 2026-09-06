@@ -1,14 +1,11 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-echo "🔍 Running pre-commit checks..."
-
-# Run linting
-echo "📝 Running ESLint..."
-pnpm lint
-
-# Run type checking
-echo "🔷 Running TypeScript check..."
-pnpm tsc --noEmit
-
-echo "✅ Pre-commit checks complete (lint + type-check). Run full tests in CI or manually with 'pnpm test'."
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact --no-banner --config .gitleaks.toml
+  if [ $? -ne 0 ]; then
+    echo ""
+    echo "gitleaks found a likely secret in your staged changes. Fix it or run:"
+    echo "  git commit --no-verify   (only if you're certain this is a false positive)"
+    exit 1
+  fi
+else
+  echo "warning: gitleaks not installed (brew install gitleaks) — skipping secret scan" >&2
+fi

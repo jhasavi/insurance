@@ -1,0 +1,16 @@
+title = "gitleaks config"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "db-connection-string-password"
+description = "Database connection string with embedded password"
+regex = '''(postgres|postgresql|mysql|mongodb(\+srv)?):\/\/[^:\/\s"']+:[^@\/\s"']{6,}@'''
+tags = ["database", "connection-string"]
+
+[[rules]]
+id = "clerk-secret-key"
+description = "Clerk secret key"
+regex = '''sk_(test|live)_[A-Za-z0-9]{20,}'''
+tags = ["clerk"]
