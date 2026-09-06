@@ -1,3 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
 if command -v gitleaks >/dev/null 2>&1; then
   gitleaks protect --staged --redact --no-banner --config .gitleaks.toml
   if [ $? -ne 0 ]; then
@@ -9,3 +12,15 @@ if command -v gitleaks >/dev/null 2>&1; then
 else
   echo "warning: gitleaks not installed (brew install gitleaks) — skipping secret scan" >&2
 fi
+
+echo "🔍 Running pre-commit checks..."
+
+# Run linting
+echo "📝 Running ESLint..."
+pnpm lint
+
+# Run type checking
+echo "🔷 Running TypeScript check..."
+pnpm tsc --noEmit
+
+echo "✅ Pre-commit checks complete (lint + type-check). Run full tests in CI or manually with 'pnpm test'."
