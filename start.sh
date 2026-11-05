@@ -38,6 +38,6 @@ if [[ ! -f .env.local ]] && [[ -f .env.example ]]; then
   echo "→ Tip: cp .env.example .env.local and set DATABASE_URL for auth/database features."
 fi
 
-echo "→ Dev server: http://localhost:3001"
+echo "→ Dev server: http://localhost:3030"
 echo "→ Press Ctrl+C to stop."
 exec pnpm dev

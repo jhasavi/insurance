@@ -20,7 +20,7 @@ chmod +x start.sh   # first time only
 
 Equivalent: `pnpm start:dev` (calls the same `start.sh`).
 
-The dev server runs at **http://localhost:3001**.
+The dev server runs at **http://localhost:3030**.
 
 ### Manual setup
 
@@ -47,7 +47,7 @@ Use **pnpm** (lockfile: `pnpm-lock.yaml`).
 |---------|---------|
 | `baseline-browser-mapping` … over two months old | Harmless dev-tool metadata warning |
 | `middleware` file convention is deprecated … use `proxy` | Next.js 16 naming notice; app still runs |
-| `Ready` on port **3001** | Success |
+| `Ready` on port **3030** | Success |
 
 ## JanaGana CRM integration
 
@@ -57,7 +57,7 @@ Class registration and lead capture use the [JanaGana](https://janagana.namasten
 NEXT_PUBLIC_JANAGANA_PORTAL_BASE_URL=https://janagana.namasteneedham.com
 NEXT_PUBLIC_JANAGANA_API_URL=https://janagana.namasteneedham.com
 NEXT_PUBLIC_JANAGANA_TENANT_SLUG=namaste-boston
-NEXT_PUBLIC_SITE_URL=http://localhost:3001
+NEXT_PUBLIC_SITE_URL=http://localhost:3030
 ```
 
 Events are embedded via `GET /api/embed/events?tenantSlug=...`. Registration links open the JanaGana portal.

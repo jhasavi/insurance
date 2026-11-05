@@ -15,7 +15,7 @@ See the original `PLATFORM_REFERENCE.md` for a full technical reference. Key poi
 
 Useful commands:
 - Install: `pnpm install`
-- Dev: `./start.sh` or `pnpm start:dev` → http://localhost:3001
+- Dev: `./start.sh` or `pnpm start:dev` → http://localhost:3030
 - Build: `pnpm build`
 - Start (production): `pnpm start`
 - Tests: `pnpm test` (Playwright)
