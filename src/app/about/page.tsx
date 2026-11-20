@@ -1,5 +1,13 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { ComplianceDisclaimer } from "@/components/ComplianceDisclaimer"
+
+export const metadata: Metadata = {
+  title: "About Safora",
+  description:
+    "Safora provides educational financial planning classes and free tools for Massachusetts families, built by licensed advisor Sanjeev Jha.",
+  alternates: { canonical: "/about" },
+}
 
 export default function AboutPage() {
   return (

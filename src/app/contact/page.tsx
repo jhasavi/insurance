@@ -1,4 +1,12 @@
+import type { Metadata } from "next"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description:
+    "Reach Safora for questions about insurance, financial planning classes, or to talk to a licensed agent in Newton, MA.",
+  alternates: { canonical: "/contact" },
+}
 
 export default function ContactPage() {
   return (

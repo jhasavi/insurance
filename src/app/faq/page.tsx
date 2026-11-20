@@ -1,5 +1,12 @@
-// ...existing code...
+import type { Metadata } from "next"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "FAQ — Insurance & Financial Planning Questions",
+  description:
+    "Answers to common questions about comparing insurance quotes, our AI policy scanner, data privacy, and how Safora's tools work.",
+  alternates: { canonical: "/faq" },
+}
 
 export default function FAQPage() {
   return (

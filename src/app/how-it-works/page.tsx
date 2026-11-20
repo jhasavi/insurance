@@ -1,3 +1,12 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "How It Works",
+  description:
+    "See how Safora's free tools help you compare insurance quotes, estimate coverage needs, and plan your finances step by step.",
+  alternates: { canonical: "/how-it-works" },
+}
+
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen bg-white">

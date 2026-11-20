@@ -1,12 +1,20 @@
 User-agent: *
 Allow: /
 
-# Disallow admin areas (if any in future)
+# Internal / account / lead-capture areas — not for search results
 Disallow: /api/
 Disallow: /admin/
+Disallow: /auth/
+Disallow: /settings
+Disallow: /leads
+Disallow: /recommendation/
+Disallow: /compare/new
+Disallow: /compare/results/
+Disallow: /agent-one-pager
+Disallow: /life-insurance/scripts
 
 # Sitemap
-Sitemap: https://namasteinsurance.com/sitemap.xml
+Sitemap: https://safora.namastebostonhomes.com/sitemap.xml
 
 # Crawl-delay (optional, for polite crawling)
 Crawl-delay: 1

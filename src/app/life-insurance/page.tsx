@@ -1,7 +1,18 @@
-"use client"
-
-import React from "react"
+import type { Metadata } from "next"
 import { LifeInsuranceTool } from "@/components/LifeInsuranceTool"
+
+export const metadata: Metadata = {
+  title: "Life Insurance Calculator — Free Coverage Estimate",
+  description:
+    "Free DIME-based life insurance needs calculator for Massachusetts families. Estimate the right coverage amount for mortgage protection, income replacement, and wealth transfer in minutes.",
+  alternates: { canonical: "/life-insurance" },
+  openGraph: {
+    title: "Life Insurance Calculator — Free Coverage Estimate",
+    description:
+      "Estimate how much life insurance you need based on your mortgage, income, debt, and family goals.",
+    type: "website",
+  },
+}
 
 export default function LifeInsurancePage() {
   return (

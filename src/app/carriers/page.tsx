@@ -1,3 +1,12 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Insurance Carriers We Work With",
+  description:
+    "Explore the insurance carriers available through Safora, with ratings and coverage highlights to help you compare options.",
+  alternates: { canonical: "/carriers" },
+}
+
 export default function CarriersPage() {
   return (
     <div className="min-h-screen bg-white">

@@ -1,5 +1,12 @@
-// ...existing code...
+import type { Metadata } from "next"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Insurance Glossary — Key Terms Explained",
+  description:
+    "Plain-English definitions of common insurance terms: premium, deductible, carrier, underwriting, and more.",
+  alternates: { canonical: "/glossary" },
+}
 
 export default function GlossaryPage() {
   return (

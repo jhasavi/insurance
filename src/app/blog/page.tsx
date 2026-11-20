@@ -1,3 +1,12 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Insurance & Financial Planning Blog",
+  description:
+    "Articles and guides on life insurance, retirement planning, and financial strategies for Massachusetts families.",
+  alternates: { canonical: "/blog" },
+}
+
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-white">
