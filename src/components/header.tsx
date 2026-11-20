@@ -64,6 +64,13 @@ export function Header() {
                 <span className="font-medium">Life Insurance</span>
                 <span className="mt-0.5 block text-xs text-slate-500">DIME-based analysis</span>
               </Link>
+              <Link
+                href="/tools/stress-test"
+                className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
+              >
+                <span className="font-medium">Market Crash Stress Test</span>
+                <span className="mt-0.5 block text-xs text-slate-500">Sequence-of-returns risk calculator</span>
+              </Link>
             </div>
           </details>
 

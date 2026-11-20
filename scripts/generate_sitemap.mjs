@@ -8,6 +8,7 @@ const pages = [
   { path: '/life-insurance', priority: '0.9', changefreq: 'weekly' },
   { path: '/research', priority: '0.8', changefreq: 'weekly' },
   { path: '/tools/balance', priority: '0.9', changefreq: 'weekly' },
+  { path: '/tools/stress-test', priority: '0.9', changefreq: 'weekly' },
   { path: '/compare', priority: '0.8', changefreq: 'daily' },
   { path: '/scan', priority: '0.8', changefreq: 'weekly' },
   { path: '/classes', priority: '0.8', changefreq: 'weekly' },
