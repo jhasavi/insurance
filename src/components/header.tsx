@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { UserNav } from "./user-nav"
-import { Calendar, PieChart, GraduationCap, ChevronDown } from "lucide-react"
+import { Calendar, PieChart, GraduationCap, ChevronDown, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navLink =
@@ -73,6 +73,14 @@ export function Header() {
           >
             <GraduationCap className="h-4 w-4 text-teal-600" />
             Learn
+          </Link>
+
+          <Link
+            href="/research"
+            className={cn("rounded-lg px-3 py-2", navLink, pathname === "/research" && "bg-slate-100 text-slate-900")}
+          >
+            <BookOpen className="h-4 w-4 text-teal-600" />
+            Research
           </Link>
 
           <Link

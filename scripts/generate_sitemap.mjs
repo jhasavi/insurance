@@ -6,6 +6,7 @@ const today = new Date().toISOString().slice(0, 10)
 const pages = [
   { path: '/', priority: '1.0', changefreq: 'weekly' },
   { path: '/life-insurance', priority: '0.9', changefreq: 'weekly' },
+  { path: '/research', priority: '0.8', changefreq: 'weekly' },
   { path: '/tools/balance', priority: '0.9', changefreq: 'weekly' },
   { path: '/compare', priority: '0.8', changefreq: 'daily' },
   { path: '/scan', priority: '0.8', changefreq: 'weekly' },

@@ -229,9 +229,93 @@ enum LeadStatus {
   LOST 
 }
 
-enum LineOfBusiness { 
-  AUTO 
-  HOME 
+enum LineOfBusiness {
+  AUTO
+  HOME
+}
+
+enum KnowledgeCategory {
+  ROTH_VS_PERM
+  TERM_PLUS_INVEST_VS_PERM
+  ANNUITY_TRENDS
+  TAX_SAVINGS
+  COLLEGE_PLANNING
+}
+
+// ============================================
+// RESEARCH / KNOWLEDGE BASE
+// Public-data reference library used in client
+// conversations: Roth vs. permanent insurance,
+// term+invest vs. permanent, annuity trends,
+// tax planning, and college planning.
+// ============================================
+
+model DataSource {
+  id          String   @id @default(cuid())
+  name        String   // e.g. "Fidelity Learning Center"
+  publisher   String?  // e.g. "Fidelity", "LIMRA", "IRS"
+  url         String
+  retrievedAt DateTime @default(now())
+  notes       String?
+
+  dataPoints  MarketDataPoint[]
+  topics      KnowledgeTopicSource[]
+
+  @@map("data_sources")
+}
+
+// A single sourced data point: a historical return, a dividend rate,
+// a sales figure, a contribution limit, etc. Always carries a source
+// and an as-of date so it can be checked and refreshed later.
+model MarketDataPoint {
+  id          String   @id @default(cuid())
+  assetClass  String   // "SP500", "WHOLE_LIFE_DIVIDEND", "IUL_CREDITING", "FIA_SALES", "ANNUITY_SALES_TOTAL"
+  label       String   // human-readable, e.g. "S&P 500 trailing 10-year annualized return"
+  carrier     String?  // e.g. "MassMutual", "Guardian", "Northwestern Mutual" (nullable for market-wide figures)
+  periodYears Int?     // 5, 10, 20, 30 — null for point-in-time figures
+  startYear   Int?
+  endYear     Int?
+  value       Float    // the headline number
+  unit        String   // "% annualized", "% dividend interest rate", "$ billions", "%"
+  asOfDate    DateTime
+  sourceId    String
+  source      DataSource @relation(fields: [sourceId], references: [id])
+  notes       String?  // caveats, methodology, "not guaranteed", etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([assetClass])
+  @@index([periodYears])
+  @@map("market_data_points")
+}
+
+// A conversation-ready topic (Roth vs. Perm, tax saving ideas, etc.)
+// with a short summary and a longer body, backed by cited sources.
+model KnowledgeTopic {
+  id        String            @id @default(cuid())
+  slug      String            @unique
+  category  KnowledgeCategory
+  title     String
+  summary   String            // 1-3 sentence conversation-opener
+  body      String            // longer markdown/plain-text explanation
+  updatedAt DateTime          @updatedAt
+  createdAt DateTime          @default(now())
+
+  sources   KnowledgeTopicSource[]
+
+  @@index([category])
+  @@map("knowledge_topics")
+}
+
+model KnowledgeTopicSource {
+  id        String         @id @default(cuid())
+  topicId   String
+  topic     KnowledgeTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  sourceId  String
+  source    DataSource     @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@unique([topicId, sourceId])
+  @@map("knowledge_topic_sources")
 }
 
 // ============================================

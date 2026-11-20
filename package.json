@@ -15,6 +15,7 @@
     "test:ui": "playwright test --ui",
     "generate:pdfs": "node ./scripts/generate_pdfs.mjs",
     "sitemap:generate": "node ./scripts/generate_sitemap.mjs",
+    "seed:knowledge": "tsx prisma/seed-knowledge.ts",
     "type-check": "tsc --noEmit",
     "postinstall": "prisma generate && husky install",
     "prepare": "husky"
